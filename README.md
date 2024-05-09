@@ -22,8 +22,9 @@ Projeto final da cadeira Testes e Qualidade de Software
 https://cinem4x.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog
 
 
-### Project specification report
+### Sonar Cloud
 
+https://sonarcloud.io/project/overview?id=DiogoSilva1904_CineMax
 
 
 
