@@ -10,7 +10,7 @@ Projeto final da cadeira Testes e Qualidade de Software
 | ---- | ----- | ---- | ---- |
 | Diogo Silva | diogo.manuel@ua.pt | 107647 | QA Engineer |
 | Miguel Cruzeiro | miguelcruzeiro@ua.pt | 107660 | Product Owner |
-| Rafael Vilaça | rafael. | 107476 | Team Leader |
+| Rafael Vilaça | rafael.vilaca@ua.pt | 107476 | Team Leader |
 | Rafael Kauati | rafaelkauati@ua.pt | 105925 | DevOps Master |
 
 
