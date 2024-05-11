@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -47,7 +48,7 @@ class SessionServiceTest {
 
         // Then
         Assertions.assertNotNull(retrievedSession);
-        Assertions.assertEquals(sessionId, retrievedSession.getId());
+        assertEquals(sessionId, retrievedSession.getId());
     }
 
     @Test
@@ -75,7 +76,7 @@ class SessionServiceTest {
 
         // Then
         Assertions.assertNotNull(savedSession);
-        Assertions.assertEquals(session.getId(), savedSession.getId());
+        assertEquals(session.getId(), savedSession.getId());
     }
 
     @Test
@@ -99,9 +100,6 @@ class SessionServiceTest {
         verify(sessionRepository, times(1)).save(updatedSession);
     }
 
-    private void assertEquals(session updatedSession, session session) {
-
-    }
 
 
     @Test
