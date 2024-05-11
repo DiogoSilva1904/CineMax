@@ -3,6 +3,7 @@ package deti.tqs.cinemax.service;
 import deti.tqs.cinemax.models.session;
 import deti.tqs.cinemax.repositories.sessionRepository;
 import deti.tqs.cinemax.services.sessionService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,10 +17,11 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+
+@Slf4j
 class SessionServiceTest {
     @Mock
     private sessionRepository sessionRepository;
@@ -32,67 +34,64 @@ class SessionServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    private static final Logger log = LoggerFactory.getLogger(SessionServiceTest.class);
-
 
     @Test
-    void testGetSessionById() {
-        // Given
+    void testGetSessionById_Found() {
         long sessionId = 1L;
-        session session = new session();
-        session.setId(sessionId);
-        when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(session));
+        session expectedSession = new session();
+        expectedSession.setId(sessionId);
 
-        // When
+        log.info("Mocking sessionRepository.findById({}) to return a session", sessionId);
+        Mockito.when(sessionRepository.findById(sessionId)).thenReturn(Optional.of(expectedSession));
+
         session retrievedSession = sessionService.getSessionById(sessionId);
 
-        // Then
-        Assertions.assertNotNull(retrievedSession);
+        assertNotNull(retrievedSession);
         assertEquals(sessionId, retrievedSession.getId());
+        log.info("Retrieved session with id {}", sessionId);
     }
 
     @Test
-    void testGetSessionByIdNotFound() {
-        // Given
+    void testGetSessionById_NotFound() {
         long sessionId = 1L;
-        when(sessionRepository.findById(sessionId)).thenReturn(Optional.empty());
 
-        // When
+        log.info("Mocking sessionRepository.findById({}) to return empty", sessionId);
+        Mockito.when(sessionRepository.findById(sessionId)).thenReturn(Optional.empty());
+
         session retrievedSession = sessionService.getSessionById(sessionId);
 
-        // Then
-        Assertions.assertNull(retrievedSession);
+        assertNull(retrievedSession);
+        log.info("Session with id {} not found", sessionId);
     }
 
     @Test
     void testSaveSession() {
-        // Given
-        session session = new session();
-        session.setId(1L);
-        when(sessionRepository.save(session)).thenReturn(session);
+        session newSession = new session();
+        newSession.setId(1L);
 
-        // When
-        session savedSession = sessionService.saveSession(session);
+        log.info("Calling sessionService.saveSession(session={})", newSession);
+        Mockito.when(sessionRepository.save(newSession)).thenReturn(newSession);
 
-        // Then
-        Assertions.assertNotNull(savedSession);
-        assertEquals(session.getId(), savedSession.getId());
+        session savedSession = sessionService.saveSession(newSession);
+
+        assertNotNull(savedSession);
+        assertEquals(newSession.getId(), savedSession.getId());
+        log.info("Saved session: {}", savedSession);
     }
 
     @Test
-    void testUpdateSession() {
-        // Arrange
+    void testUpdateSession_Found() {
         Long id = 1L;
         session existingSession = new session(id, "2024-05-11", "20:00", null, null, null, new ArrayList<>());
         session updatedSession = new session(id, "2024-05-11", "21:00", null, null, null, new ArrayList<>());
 
-        when(sessionRepository.findById(id)).thenReturn(Optional.of(existingSession));
-        when(sessionRepository.save(updatedSession)).thenReturn(updatedSession);
+        log.info("Mocking sessionRepository.findById({}) to return existing session", id);
+        Mockito.when(sessionRepository.findById(id)).thenReturn(Optional.of(existingSession));
+        log.info("Mocking sessionRepository.save(session={}) to return updated session", updatedSession);
+        Mockito.when(sessionRepository.save(updatedSession)).thenReturn(updatedSession);
 
-        // Act
         Optional<session> result = sessionService.updateSession(id, updatedSession);
 
-        // Assert
         assertTrue(result.isPresent());
         assertEquals(updatedSession, result.get());
 
@@ -100,33 +99,30 @@ class SessionServiceTest {
         verify(sessionRepository, times(1)).save(updatedSession);
     }
 
-
-
     @Test
-    void testUpdateSessionNotFound() {
-        // Given
+    void testUpdateSession_NotFound() {
         long sessionId = 1L;
-        when(sessionRepository.findById(sessionId)).thenReturn(Optional.empty());
+
+        log.info("Mocking sessionRepository.findById({}) to return empty", sessionId);
+        Mockito.when(sessionRepository.findById(sessionId)).thenReturn(Optional.empty());
 
         session updatedSession = new session();
         updatedSession.setId(sessionId);
 
-        // When
         Optional<session> updatedOptionalSession = sessionService.updateSession(sessionId, updatedSession);
 
-        // Then
         assertTrue(updatedOptionalSession.isEmpty());
+        log.info("Session with id {} not found for update", sessionId);
     }
 
     @Test
     void testDeleteSession() {
-        // Given
         long sessionId = 1L;
 
-        // When
+        log.info("Calling sessionService.deleteSession(id={})", sessionId);
+
         sessionService.deleteSession(sessionId);
 
-        // Then
         verify(sessionRepository, times(1)).deleteById(sessionId);
     }
 }
