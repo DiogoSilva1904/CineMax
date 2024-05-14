@@ -1,0 +1,49 @@
+.card {
+    display: inline-block;
+    width: 220px;
+    padding: 12px;
+    border: solid 1px #ccc;
+    margin: 15px;
+    border-radius: 3px;
+    overflow: hidden; /* Ensure content stays within the card */
+}
+
+.card img {
+    width: 100%; /* Limit the width of the image to 100% of its container */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.card:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.genre {
+    font-size: 1em;
+    padding: 4px;
+    margin-top: -15px;
+}
+
+header {
+    height: 65px;
+    padding-top: 15px;
+    font-size: 1.15em;
+    font-weight: bold;
+}
+
+.btn_btn-danger {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 80px;
+    height: 28px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+.btn_btn-danger:hover {
+    background-color: rgb(193, 0, 0);
+}

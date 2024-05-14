@@ -1,0 +1,40 @@
+.tp-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+    width: 8%;
+    background-color: rgb(56, 56, 57);
+    color: white;
+    font-size: 1.5em;
+    justify-content: center;
+ }
+ .tp-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+    width:100px;
+    margin-left: 20px;
+ }
+
+.tp-section:hover {
+    background-color: #333;
+    cursor: pointer;
+}
+.idk {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background-color: #333;
+    color: white;
+    font-size: 1.4em;
+}
+.sections {
+    margin-top: 100px;
+    color: white;
+    font-size: 1em;
+}
