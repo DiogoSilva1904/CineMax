@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "Seats")
-public class seat {
+public class Seat {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,6 @@ public class seat {
 
     @ManyToOne
     @JoinColumn(name = "room_id")
-    private room room;
+    private Room room;
 
 }

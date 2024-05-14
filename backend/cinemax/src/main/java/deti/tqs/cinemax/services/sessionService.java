@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.slf4j.LoggerFactory;
 
-import deti.tqs.cinemax.models.session;
+import deti.tqs.cinemax.models.Session;
 import deti.tqs.cinemax.repositories.sessionRepository;
 
 @Service
@@ -26,8 +26,8 @@ public class sessionService {
         sessionRepository.deleteById(id);
     }
 
-    public Optional<session> updateSession(Long id, session session) {
-        Optional<session> sessionOptional = sessionRepository.findById(id);
+    public Optional<Session> updateSession(Long id, Session session) {
+        Optional<Session> sessionOptional = sessionRepository.findById(id);
         if (sessionOptional.isPresent()) {
             log.info("Updating session with id {}", id);
             session.setId(id);
@@ -40,17 +40,17 @@ public class sessionService {
         return sessionOptional;
     }
 
-    public session saveSession(session session) {
+    public Session saveSession(Session session) {
         log.info("Saving session with id {}", session.getId());
         return sessionRepository.save(session);
     }
 
-    public session getSessionById(Long id) {
+    public Session getSessionById(Long id) {
         log.info("Retrieving session with id {}", id);
         return sessionRepository.findById(id).orElse(null);
     }
 
-    public List<session> getAllSessions() {
+    public List<Session> getAllSessions() {
         log.info("Retrieving all sessions");
         return sessionRepository.findAll();
     }

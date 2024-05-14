@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import deti.tqs.cinemax.models.movie;
+import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.repositories.movieRepository;
 
 @Service
@@ -20,17 +20,17 @@ public class movieService {
         this.movieRepository = movieRepository;
     }
 
-    public List<movie> getAllMovies() {
+    public List<Movie> getAllMovies() {
         log.info("Retrieving all movies");
         return movieRepository.findAll();
     }
 
-    public movie getMovieById(Long id) {
+    public Movie getMovieById(Long id) {
         log.info("Retrieving movie with id {}", id);
         return movieRepository.findById(id).orElse(null);
     }
 
-    public movie saveMovie(movie movie) {
+    public Movie saveMovie(Movie movie) {
         log.info("Saving movie with id {}", movie.getId());
         return movieRepository.save(movie);
     }
@@ -42,9 +42,9 @@ public class movieService {
     }
 
 
-    public Optional<movie> updateMovie(Long id, movie movie) {
+    public Optional<Movie> updateMovie(Long id, Movie movie) {
         
-        Optional<movie> movieOptional = movieRepository.findById(id);
+        Optional<Movie> movieOptional = movieRepository.findById(id);
 
         if (movieOptional.isPresent()) {
             log.info("Updating movie with id {}", id);
