@@ -25,7 +25,8 @@ public class room {
 
     private int capacity;
 
-    private int rows; //pd ser util no frontend
+    @Column(nullable = false,name = "`rows`") // Wrapping "rows" in backticks to avoid SQL syntax error
+    private int numberOfRows; // Renamed to avoid conflict with reserved keyword
 
     private int columns; //same
 
