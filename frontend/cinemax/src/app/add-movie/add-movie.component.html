@@ -1,0 +1,31 @@
+<!-- add-movie.component.html -->
+<h2>Add Movie</h2>
+<form (ngSubmit)="submitForm()" #movieForm="ngForm">
+  <div>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" [(ngModel)]="movie.title" required>
+  </div>
+  <div>
+    <label for="duration">Duration (minutes):</label>
+    <input type="number" id="duration" name="duration" [(ngModel)]="movie.duration" required>
+  </div>
+  <div>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" [(ngModel)]="movie.description" required></textarea>
+  </div>
+  <div>
+    <label for="genre">Genre:</label>
+    <select id="genre" name="genre" [(ngModel)]="movie.genre" required>
+      <option value="">Select Genre</option>
+      <option value="action">Action</option>
+      <option value="comedy">Comedy</option>
+      <option value="drama">Drama</option>
+      <!-- Add more genres as needed -->
+    </select>
+  </div>
+  <div>
+    <label for="poster">Poster:</label>
+    <input type="file" id="poster" name="poster" accept="image/*" (change)="onFileSelected($event)" required>
+  </div>
+  <button type="submit" [disabled]="movieForm.invalid">Add Movie</button>
+</form>

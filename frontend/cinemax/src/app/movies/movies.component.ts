@@ -23,7 +23,7 @@ export class MoviesComponent {
   ];
 
   addNewMovie() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/addmovie']);
   }
 
 }
