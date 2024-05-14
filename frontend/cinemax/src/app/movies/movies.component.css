@@ -1,40 +1,53 @@
-.container {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100vh; /* Adjust as needed */
-  }
-  
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Center the columns horizontally */
-  }
-  
-  .col-md-4 {
-    margin: 10px; /* Add some margin between the columns */
-  }
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px; /* Adjust width as needed */
+  height: 100vh;
+  background-color: #333;
+  color: white;
+}
 
-  .new-movie-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 85%;
-    border: 1px dashed #ccc;
-    padding: 20px 20px;
-    margin-top: 15px;
+.main-content {
+  margin-left: 250px; /* Same as sidebar width */
+  padding-top: 60px; /* Adjust to match navbar height */
+}
+
+.container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center horizontally */
+  height: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the columns horizontally */
+}
+
+.col-md-4 {
+  margin: 10px; /* Add some margin between the columns */
+}
+
+.new-movie-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85%;
+  border: 1px dashed #ccc;
+  padding: 20px 20px;
+  margin-top: 15px;
 }
 
 .new-movie-card button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
 }
 
 .new-movie-card button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
-
-  

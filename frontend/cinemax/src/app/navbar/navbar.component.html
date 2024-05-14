@@ -1,11 +1,17 @@
-<mat-sidenav-container class = "tp-container">
-    <mat-sidenav mode = "side" opened class="sections">
-       <section class = "tp-section">
-          <span>Movies</span>
-       </section>
-       <section class = "tp-section">
-          <span>Edit</span>
-       </section>
-    </mat-sidenav>
-    <mat-sidenav-content class="idk">Main content</mat-sidenav-content>
- </mat-sidenav-container>
+<div class="tp-container">
+   <div class="tp-sidebar">
+       <div class="tp-sidebar-header">
+           <h2>Sidebar Title</h2>
+       </div>
+       <mat-nav-list class="tp-nav-list">
+           <mat-list-item class="tp-section">
+               <mat-icon>movie</mat-icon>
+               <span mat-line>Movies</span>
+           </mat-list-item>
+           <mat-list-item class="tp-section">
+               <mat-icon>edit</mat-icon>
+               <span mat-line>Edit</span>
+           </mat-list-item>
+       </mat-nav-list>
+   </div>
+</div>

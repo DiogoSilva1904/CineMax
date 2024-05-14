@@ -2,7 +2,7 @@
     <div class="row">
       <div *ngFor="let movie of movies" class="moviegrid-item col-md-{{ 12 / columns }}">
         <a href="javascript:void(0)" class="moviegrid-play-trailer" (click)="openModal(preview, getEmbedUrl(movie.trailer))"></a>
-        <a routerLink="/movie/{{ movie.id }}">
+        <a>
           <img src="{{ movie.poster }}" alt="{{ movie.title }}" class="moviegrid-poster img-fluid" />
           <span class="moviegrid-title">{{ movie.title }}</span>
         </a>
