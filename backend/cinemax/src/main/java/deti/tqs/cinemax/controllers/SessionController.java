@@ -1,6 +1,5 @@
 package deti.tqs.cinemax.controllers;
 
-import deti.tqs.cinemax.models.Seat;
 import deti.tqs.cinemax.models.Session;
 import deti.tqs.cinemax.services.SessionService;
 import io.swagger.v3.oas.annotations.Operation;

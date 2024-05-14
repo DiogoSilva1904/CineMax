@@ -1,6 +1,5 @@
 package deti.tqs.cinemax.controllers;
 
-import deti.tqs.cinemax.models.Reservation;
 import deti.tqs.cinemax.models.Room;
 import deti.tqs.cinemax.services.RoomService;
 import io.swagger.v3.oas.annotations.Operation;

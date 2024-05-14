@@ -1,15 +1,12 @@
 package deti.tqs.cinemax.controllers;
 
-import java.util.List;
-
 import deti.tqs.cinemax.models.Reservation;
 import deti.tqs.cinemax.services.ReservationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import deti.tqs.cinemax.models.Movie;
-import deti.tqs.cinemax.services.MovieService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 

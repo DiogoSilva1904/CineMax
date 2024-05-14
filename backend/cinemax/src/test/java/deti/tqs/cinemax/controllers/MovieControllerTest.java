@@ -1,11 +1,7 @@
 package deti.tqs.cinemax.controllers;
 
 import deti.tqs.cinemax.models.Movie;
-import deti.tqs.cinemax.models.Session;
 import deti.tqs.cinemax.services.MovieService;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.mockito.Mockito;
