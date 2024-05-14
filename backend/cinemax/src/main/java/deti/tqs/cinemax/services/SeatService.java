@@ -8,16 +8,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import deti.tqs.cinemax.models.Seat;
-import deti.tqs.cinemax.repositories.seatRepository;
+import deti.tqs.cinemax.repositories.SeatRepository;
 
 @Service
-public class seatService {
+public class SeatService {
 
-    private final seatRepository seatRepository;
+    private final SeatRepository seatRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(seatService.class);
+    private static final Logger log = LoggerFactory.getLogger(SeatService.class);
 
-    public seatService(seatRepository seatRepository) {
+    public SeatService(SeatRepository seatRepository) {
         this.seatRepository = seatRepository;
     }
 

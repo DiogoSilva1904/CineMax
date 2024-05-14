@@ -8,16 +8,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import deti.tqs.cinemax.models.Room;
-import deti.tqs.cinemax.repositories.roomRepository;
+import deti.tqs.cinemax.repositories.RoomRepository;
 
 @Service
-public class roomService {
+public class RoomService {
 
-    private final roomRepository roomRepository;
+    private final RoomRepository roomRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(roomService.class);
+    private final Logger logger = LoggerFactory.getLogger(RoomService.class);
 
-    public roomService(roomRepository roomRepository) {
+    public RoomService(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
     }
 

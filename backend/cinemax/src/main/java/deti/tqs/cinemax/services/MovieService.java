@@ -8,15 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import deti.tqs.cinemax.models.Movie;
-import deti.tqs.cinemax.repositories.movieRepository;
+import deti.tqs.cinemax.repositories.MovieRepository;
 
 @Service
-public class movieService {
+public class MovieService {
     
-    private final movieRepository movieRepository;
-    private static final Logger log = LoggerFactory.getLogger(movieService.class);
+    private final MovieRepository movieRepository;
+    private static final Logger log = LoggerFactory.getLogger(MovieService.class);
 
-    public movieService(movieRepository movieRepository) {
+    public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 

@@ -1,17 +1,15 @@
-package deti.tqs.cinemax.service;
+package deti.tqs.cinemax.services;
 
 import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.repositories.*;
-import deti.tqs.cinemax.services.*;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +17,15 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 @Slf4j
 class MovieServiceTest {
 
-    @Autowired
-    private movieService movieService;
+    @Mock
+    private MovieRepository movieRepository;
 
-    @MockBean
-    private movieRepository movieRepository;
-
+    @InjectMocks
+    private MovieService movieService;
 
 
     @Test

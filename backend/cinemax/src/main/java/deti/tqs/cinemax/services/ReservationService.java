@@ -9,19 +9,19 @@ import org.springframework.stereotype.Service;
 import deti.tqs.cinemax.models.Session;
 
 import deti.tqs.cinemax.models.Reservation;
-import deti.tqs.cinemax.repositories.reservationRepository;
+import deti.tqs.cinemax.repositories.ReservationRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class reservationService {
+public class ReservationService {
 
-    private final reservationRepository reservationRepository;
+    private final ReservationRepository reservationRepository;
 
-    private final sessionService sessionService;
+    private final SessionService sessionService;
 
-    private static final Logger log = LoggerFactory.getLogger(reservationService.class);
+    private static final Logger log = LoggerFactory.getLogger(ReservationService.class);
 
-    public reservationService(reservationRepository reservationRepository, sessionService sessionService) {
+    public ReservationService(ReservationRepository reservationRepository, SessionService sessionService) {
         this.reservationRepository = reservationRepository;
         this.sessionService = sessionService;
     }

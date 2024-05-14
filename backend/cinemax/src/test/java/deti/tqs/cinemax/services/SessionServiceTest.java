@@ -1,18 +1,14 @@
-package deti.tqs.cinemax.service;
+package deti.tqs.cinemax.services;
 
 import deti.tqs.cinemax.models.Session;
-import deti.tqs.cinemax.repositories.sessionRepository;
-import deti.tqs.cinemax.services.sessionService;
+import deti.tqs.cinemax.repositories.SessionRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -20,19 +16,14 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
+@ExtendWith(MockitoExtension.class)
 @Slf4j
 class SessionServiceTest {
     @Mock
-    private sessionRepository sessionRepository;
+    private SessionRepository sessionRepository;
 
     @InjectMocks
-    private sessionService sessionService;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+    private SessionService sessionService;
 
 
     @Test
@@ -125,4 +116,5 @@ class SessionServiceTest {
 
         verify(sessionRepository, times(1)).deleteById(sessionId);
     }
+
 }

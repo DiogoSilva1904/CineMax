@@ -2,10 +2,14 @@ package deti.tqs.cinemax.controllers;
 
 import java.util.List;
 
+import deti.tqs.cinemax.models.Reservation;
+import deti.tqs.cinemax.services.ReservationService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import deti.tqs.cinemax.models.Movie;
-import deti.tqs.cinemax.services.movieService;
+import deti.tqs.cinemax.services.MovieService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -14,26 +18,27 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "reservations", description = "Endpoints to manage reservations")
 public class ReservationController {
 
-        private final movieService movieService;
+        private final ReservationService reservationService;
 
-        public ReservationController(movieService movieService) {
-            this.movieService = movieService;
-        }
-
-        @Operation(summary = "Get all reservations")
-        @GetMapping
-        public List<Movie> getAllReservations() {
-            return movieService.getAllMovies();
+        public ReservationController(ReservationService reservationService){
+            this.reservationService = reservationService;
         }
 
         @Operation(summary = "Get reservation by id")
         @GetMapping("{id}")
-        public Movie getReservationById(@PathVariable Long id) {
-            return movieService.getMovieById(id);
+        public ResponseEntity<Reservation> getReservationById(@PathVariable Long id) {
+            Reservation reservation = reservationService.getReservationById(id);
+            if(reservation == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(reservation, HttpStatus.OK);
+
         }
 
         @PostMapping
-        public Movie saveReservation(Movie movie) {
-            return movieService.saveMovie(movie);
+        public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation) {
+            Reservation updatedReservation = reservationService.saveReservation(reservation);
+            return new ResponseEntity<>(updatedReservation, HttpStatus.CREATED);
+
         }
 }

@@ -7,6 +7,6 @@ import deti.tqs.cinemax.models.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface sessionRepository extends JpaRepository<Session, Long>{
+public interface SessionRepository extends JpaRepository<Session, Long>{
     
 }

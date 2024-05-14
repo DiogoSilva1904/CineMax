@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 import org.slf4j.LoggerFactory;
 
 import deti.tqs.cinemax.models.Session;
-import deti.tqs.cinemax.repositories.sessionRepository;
+import deti.tqs.cinemax.repositories.SessionRepository;
 
 @Service
-public class sessionService {
+public class SessionService {
 
-    private final sessionRepository sessionRepository;
+    private final SessionRepository sessionRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(sessionService.class);
+    private static final Logger log = LoggerFactory.getLogger(SessionService.class);
 
-    public sessionService(sessionRepository sessionRepository) {
+    public SessionService(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
 

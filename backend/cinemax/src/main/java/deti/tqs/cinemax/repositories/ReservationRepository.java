@@ -2,10 +2,10 @@ package deti.tqs.cinemax.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import deti.tqs.cinemax.models.Room;
+import deti.tqs.cinemax.models.Reservation;
 
 @Repository
-public interface roomRepository extends JpaRepository<Room, Long>{
+public interface ReservationRepository extends JpaRepository<Reservation, Long>{
+
     
 }

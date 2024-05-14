@@ -1,15 +1,14 @@
-package deti.tqs.cinemax.service;
+package deti.tqs.cinemax.services;
 import deti.tqs.cinemax.repositories.*;
-import deti.tqs.cinemax.services.*;
 import deti.tqs.cinemax.models.Reservation;
 import deti.tqs.cinemax.models.Session;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,20 +16,18 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
+@Slf4j
 class ReservationServiceTest {
 
-    @Autowired
-    private reservationService reservationService;
+    @Mock
+    private ReservationRepository reservationRepository;
 
-    @Autowired
-    private sessionService sessionService;
+    @Mock
+    private SessionService sessionService;
 
-    @MockBean
-    private reservationRepository reservationRepository;
-
-    @MockBean
-    private sessionRepository sessionRepository;
+    @InjectMocks
+    private ReservationService reservationService;
 
     @Test
     void testSaveReservationSuccess() {
@@ -135,6 +132,48 @@ class ReservationServiceTest {
         assertEquals(updatedReservation.getSession(), returnedReservation.getSession());
         assertEquals(1, returnedReservation.getSeatNumbers().size());
         assertTrue(returnedReservation.getSeatNumbers().contains("A2"));
+    }
+
+    @Test
+    void testSaveReservationWithSeatAlreadyBooked() {
+        Session session = new Session();
+        session.setId(1L);
+        List<String> bookedSeats = new ArrayList<>();
+        bookedSeats.add("A1");
+        session.setBookedSeats(bookedSeats);
+        sessionService.saveSession(session);
+
+        Reservation reservation = new Reservation();
+        reservation.setUsername("testUser");
+        reservation.setSession(session);
+        List<String> seatNumbers = new ArrayList<>();
+        seatNumbers.add("A1");
+        reservation.setSeatNumbers(seatNumbers);
+
+        Reservation savedReservation = reservationService.saveReservation(reservation);
+
+        assertNull(savedReservation);
+    }
+
+    @Test
+    void testSaveReservationWithSeatAvailable() {
+        Session session = new Session();
+        session.setId(1L);
+        List<String> bookedSeats = new ArrayList<>();
+        bookedSeats.add("A1");
+        session.setBookedSeats(bookedSeats);
+        sessionService.saveSession(session);
+
+        Reservation reservation = new Reservation();
+        reservation.setUsername("testUser");
+        reservation.setSession(session);
+        List<String> seatNumbers = new ArrayList<>();
+        seatNumbers.add("A2");
+        reservation.setSeatNumbers(seatNumbers);
+
+        Reservation savedReservation = reservationService.saveReservation(reservation);
+
+        assertNull(savedReservation);
     }
 
 
