@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class MoviesComponent {
 
+  constructor(private router: Router) { }
+
   movies = [
     { title: 'The Shawshank Redemption', year: 1994 },
     { title: 'The Godfather', year: 1972 },
@@ -20,15 +22,8 @@ export class MoviesComponent {
     { title: 'The Dark Knight', year: 2008 }
   ];
 
-  constructor(private router: Router) {
-  }
-
-  goToAddMovie() {
-    console.log('goToAddMovie');
-    this.router.navigate(['/addmovie'])
-    .then(() => {
-      window.location.reload();
-    });
+  addNewMovie() {
+    this.router.navigate(['/add-movie']);
   }
 
 }
