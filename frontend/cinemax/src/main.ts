@@ -15,5 +15,17 @@ const routes: Routes = [
   { path: '**', redirectTo: '/login' } 
 ];
 
-bootstrapApplication(AppComponent, appConfig)
+
+const config = {
+  imports: [
+    BrowserModule,
+    FormsModule,
+  ],
+  declarations: [AppComponent, LoginComponent, ClientMainPage], // Include other components here
+  providers: [routes],
+  routes: routes
+};
+
+// Pass the configuration object to bootstrapApplication
+bootstrapApplication(AppComponent, config)
   .catch((err) => console.error(err));
