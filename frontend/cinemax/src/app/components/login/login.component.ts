@@ -16,7 +16,8 @@ export class LoginComponent {
     constructor(private router: Router) {}
   
     redirectToOtherPage(): void {
-      // Navigate to another page
-      //this.router.navigate(['/client']);
+      console.log('Redirecting to other page...');
+      this.router.navigate(['/client']);
     }
+    
   }

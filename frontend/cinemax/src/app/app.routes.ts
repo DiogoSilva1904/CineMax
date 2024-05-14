@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { ClientMainPage } from './client/clientMainPage.component';
+import { ClientMainPage } from './client/mainPage/clientMainPage.component';
 import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 

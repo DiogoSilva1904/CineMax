@@ -6,8 +6,6 @@ import { LoginComponent } from './app/components/login/login.component';
 import { ClientMainPage } from './app/client/clientMainPage.component';
 import { Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-// Define your routes
-
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'client', component: ClientMainPage },
@@ -16,16 +14,5 @@ const routes: Routes = [
 ];
 
 
-const config = {
-  imports: [
-    BrowserModule,
-    FormsModule,
-  ],
-  declarations: [AppComponent, LoginComponent, ClientMainPage], // Include other components here
-  providers: [routes],
-  routes: routes
-};
-
-// Pass the configuration object to bootstrapApplication
-bootstrapApplication(AppComponent, config)
+bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
