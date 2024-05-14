@@ -26,7 +26,7 @@ public class room {
     private int capacity;
 
     @Column(nullable = false,name = "`rows`") // Wrapping "rows" in backticks to avoid SQL syntax error
-    private int numberOfRows; // Renamed to avoid conflict with reserved keyword
+    private int rows; // Renamed to avoid conflict with reserved keyword
 
     private int columns; //same
 
