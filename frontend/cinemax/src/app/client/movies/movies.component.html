@@ -1,0 +1,8 @@
+<div class="container py-5">
+  <ul class="movielist-filters">
+    <li *ngFor="let filter of filters" [class.selected]="filter.date === selectedDate">
+      <a href="javascript:void(0)" (click)="changeFilter(filter.date)">{{filter.day}}</a>
+    </li>
+  </ul>
+  <app-movies-list [filterDate]="selectedDate"></app-movies-list>
+</div>
