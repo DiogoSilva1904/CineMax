@@ -7,17 +7,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import deti.tqs.cinemax.models.room;
-import deti.tqs.cinemax.repositories.roomRepository;
+import deti.tqs.cinemax.models.Room;
+import deti.tqs.cinemax.repositories.RoomRepository;
 
 @Service
-public class roomService {
+public class RoomService {
 
-    private final roomRepository roomRepository;
+    private final RoomRepository roomRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(roomService.class);
+    private final Logger logger = LoggerFactory.getLogger(RoomService.class);
 
-    public roomService(roomRepository roomRepository) {
+    public RoomService(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
     }
 
@@ -26,8 +26,8 @@ public class roomService {
         roomRepository.deleteById(id);
     }
 
-    public Optional<room> updateRoom(Long id, room room) {
-        Optional<room> roomOptional = roomRepository.findById(id);
+    public Optional<Room> updateRoom(Long id, Room room) {
+        Optional<Room> roomOptional = roomRepository.findById(id);
         if (roomOptional.isPresent()) {
             logger.info("Updating room with id {}", id);
             room.setId(id);
@@ -40,17 +40,17 @@ public class roomService {
         return roomOptional;
     } 
     
-    public room saveRoom(room room) {
+    public Room saveRoom(Room room) {
         logger.info("Saving room with id {}", room.getId());
         return roomRepository.save(room);
     }
 
-    public room getRoomById(Long id) {
+    public Room getRoomById(Long id) {
         logger.info("Retrieving room with id {}", id);
         return roomRepository.findById(id).orElse(null);
     }
 
-    public List<room> getAllRooms() {
+    public List<Room> getAllRooms() {
         logger.info("Retrieving all rooms");
         return roomRepository.findAll();
     }

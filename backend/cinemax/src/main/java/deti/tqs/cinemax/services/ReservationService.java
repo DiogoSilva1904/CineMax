@@ -6,22 +6,22 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import deti.tqs.cinemax.models.session;
+import deti.tqs.cinemax.models.Session;
 
-import deti.tqs.cinemax.models.reservation;
-import deti.tqs.cinemax.repositories.reservationRepository;
+import deti.tqs.cinemax.models.Reservation;
+import deti.tqs.cinemax.repositories.ReservationRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class reservationService {
+public class ReservationService {
 
-    private final reservationRepository reservationRepository;
+    private final ReservationRepository reservationRepository;
 
-    private final sessionService sessionService;
+    private final SessionService sessionService;
 
-    private static final Logger log = LoggerFactory.getLogger(reservationService.class);
+    private static final Logger log = LoggerFactory.getLogger(ReservationService.class);
 
-    public reservationService(reservationRepository reservationRepository, sessionService sessionService) {
+    public ReservationService(ReservationRepository reservationRepository, SessionService sessionService) {
         this.reservationRepository = reservationRepository;
         this.sessionService = sessionService;
     }
@@ -32,9 +32,9 @@ public class reservationService {
     }
 
     @Transactional
-    public reservation saveReservation(reservation reservation) {
+    public Reservation saveReservation(Reservation reservation) {
         List<String> selectedSeats = reservation.getSeatNumbers();
-        session session = sessionService.getSessionById(reservation.getSession().getId());
+        Session session = sessionService.getSessionById(reservation.getSession().getId());
 
         if (session != null) {
             List<String> bookedSeats = session.getBookedSeats();
@@ -54,13 +54,13 @@ public class reservationService {
 
     }
 
-    public reservation getReservationById(Long id) {
+    public Reservation getReservationById(Long id) {
         log.info("Retrieving reservation with id {}", id);
         return reservationRepository.findById(id).orElse(null);
     }
 
-    public Optional<reservation> updateReservation(Long id, reservation reservation) {
-        Optional<reservation> reservationOptional = reservationRepository.findById(id);
+    public Optional<Reservation> updateReservation(Long id, Reservation reservation) {
+        Optional<Reservation> reservationOptional = reservationRepository.findById(id);
 
         if (reservationOptional.isPresent()) {
             log.info("Updating reservation with id {}", id);

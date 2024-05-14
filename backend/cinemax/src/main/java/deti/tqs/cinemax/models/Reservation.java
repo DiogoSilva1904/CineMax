@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "Reservations")
-public class reservation {
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class reservation {
 
     @ManyToOne
     @JoinColumn(name = "session_id")
-    private session session;
+    private Session session;
 
     @ElementCollection
     private List<String> seatNumbers;

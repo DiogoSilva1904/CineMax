@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "Rooms")
-public class room {
+public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +32,8 @@ public class room {
     private String type;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    private List<session> sessions;
+    private List<Session> sessions;
     
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    private List<seat> seats;
+    private List<Seat> seats;
 }

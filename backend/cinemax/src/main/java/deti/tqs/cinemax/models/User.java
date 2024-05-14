@@ -13,25 +13,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Movies")
-public class movie {
+@Table(name = "Users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
-    private String title;
+    private String username;
 
-    private String category;
+    private String password;
 
-    private String genre;
+    private String email;
 
-    private String studio;
+    private String role;
 
-    private String duration;
+    @OneToMany(mappedBy = "username", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<session> session;
-    
 }

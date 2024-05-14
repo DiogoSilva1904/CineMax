@@ -1,18 +1,14 @@
-package deti.tqs.cinemax.service;
+package deti.tqs.cinemax.services;
 
-import deti.tqs.cinemax.models.seat;
+import deti.tqs.cinemax.models.Seat;
 import deti.tqs.cinemax.repositories.*;
-import deti.tqs.cinemax.services.*;
-import deti.tqs.cinemax.models.reservation;
-import deti.tqs.cinemax.models.session;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,27 +16,28 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 @Slf4j
-@SpringBootTest
 class SeatServiceTest {
 
-    @Autowired
-    private seatService seatService;
+    @Mock
+    private SeatRepository seatRepository;
 
-    @MockBean
-    private seatRepository seatRepository;
+    @InjectMocks
+    private SeatService seatService;
+
 
     @Test
      void testGetAllSeats() {
-        List<seat> expectedSeats = new ArrayList<>();
-        expectedSeats.add(new seat(null, "A1", 1, null));
-        expectedSeats.add(new seat(null, "B2", 2, null));
+        List<Seat> expectedSeats = new ArrayList<>();
+        expectedSeats.add(new Seat(null, "A1", 1, null));
+        expectedSeats.add(new Seat(null, "B2", 2, null));
 
         Mockito.when(seatRepository.findAll()).thenReturn(expectedSeats);
 
         log.info("Mocking seatRepository.findAll() to return {} seats", expectedSeats.size());
 
-        List<seat> actualSeats = seatService.getAllSeats();
+        List<Seat> actualSeats = seatService.getAllSeats();
 
         assertEquals(expectedSeats.size(), actualSeats.size());
         for (int i = 0; i < expectedSeats.size(); i++) {
@@ -52,13 +49,13 @@ class SeatServiceTest {
     @Test
      void testGetSeatById_Found() {
         Long id = 1L;
-        seat expectedSeat = new seat(id, "C3", 3, null);
+        Seat expectedSeat = new Seat(id, "C3", 3, null);
 
         Mockito.when(seatRepository.findById(id)).thenReturn(Optional.of(expectedSeat));
 
         log.info("Calling seatService.getSeatById(id={})", id);
 
-        seat actualSeat = seatService.getSeatById(id);
+        Seat actualSeat = seatService.getSeatById(id);
 
         assertNotNull(actualSeat);
         assertEquals(expectedSeat.getId(), actualSeat.getId());
@@ -75,7 +72,7 @@ class SeatServiceTest {
 
         log.info("Calling seatService.getSeatById(id={})", id);
 
-        seat actualSeat = seatService.getSeatById(id);
+        Seat actualSeat = seatService.getSeatById(id);
 
         assertNull(actualSeat);
         log.info("Seat with id {} not found", id);
@@ -83,13 +80,13 @@ class SeatServiceTest {
 
     @Test
      void testSaveSeat() {
-        seat newSeat = new seat(1L, "D4", 4, null);
+        Seat newSeat = new Seat(1L, "D4", 4, null);
 
         Mockito.when(seatRepository.save(newSeat)).thenReturn(newSeat);
 
         log.info("Calling seatService.saveSeat(seat={})", newSeat);
 
-        seat savedSeat = seatService.saveSeat(newSeat);
+        Seat savedSeat = seatService.saveSeat(newSeat);
 
         assertNotNull(savedSeat);
         assertEquals(newSeat.getId(), savedSeat.getId());
@@ -102,18 +99,18 @@ class SeatServiceTest {
     @Test
      void testUpdateSeat_Found() {
         Long id = 2L;
-        seat existingSeat = new seat(id, "E5", 1, null);
-        seat updatedSeat = new seat(id, "E5", 2, null);
+        Seat existingSeat = new Seat(id, "E5", 1, null);
+        Seat updatedSeat = new Seat(id, "E5", 2, null);
 
         Mockito.when(seatRepository.findById(id)).thenReturn(Optional.of(existingSeat));
         Mockito.when(seatRepository.save(updatedSeat)).thenReturn(updatedSeat);
 
         log.info("Calling seatService.updateSeat(id={}, seat={})", id, updatedSeat);
 
-        Optional<seat> updatedOptionalSeat = seatService.updateSeat(id, updatedSeat);
+        Optional<Seat> updatedOptionalSeat = seatService.updateSeat(id, updatedSeat);
 
         assertTrue(updatedOptionalSeat.isPresent());
-        seat actualSeat = updatedOptionalSeat.get();
+        Seat actualSeat = updatedOptionalSeat.get();
 
         assertEquals(id, actualSeat.getId());
         assertEquals(updatedSeat.getSeatIdentifier(), actualSeat.getSeatIdentifier());

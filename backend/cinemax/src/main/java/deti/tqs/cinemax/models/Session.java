@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "Sessions")
-public class session {
+public class Session {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +27,14 @@ public class session {
 
     @ManyToOne
     @JoinColumn(name= "movie_id")
-    private movie movie;
+    private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
-    private room room;
+    private Room room;
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
-    private List<reservation> reservation;
+    private List<Reservation> reservation;
 
     @ElementCollection  // this is and array with the seats occupied example ["A2","A1"] etc...
     private List<String> bookedSeats;
