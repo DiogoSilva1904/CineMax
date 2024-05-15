@@ -2,6 +2,8 @@ package deti.tqs.cinemax.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +27,7 @@ public class Session {
 
     private String time;
 
+    @JsonIgnoreProperties("session")
     @ManyToOne
     @JoinColumn(name= "movie_id")
     private Movie movie;
