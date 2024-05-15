@@ -1,5 +1,7 @@
 package deti.tqs.cinemax.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +29,7 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "room_id")
+    @JsonIgnoreProperties("seats")
     private Room room;
 
 }

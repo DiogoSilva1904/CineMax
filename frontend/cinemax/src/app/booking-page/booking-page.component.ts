@@ -1,5 +1,7 @@
 import { NgForOf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ApiService } from '../service/api.service';
+import { Session } from 'inspector';
 
 interface Seat {
   number: number;
@@ -60,7 +62,16 @@ export class BookingPageComponent {
   sessionTime: string = '18:00'; 
   day: string = 'Monday'; 
   movieName: string = 'Avengers: Endgame'; 
-  totalPrice: number = 0; 
+  totalPrice: number = 0;
+  ApiService= inject(ApiService);
+  Sessions: any[] = [];
+
+  constructor() {
+    this.ApiService.getSessions().then((sessions: any[]) => {
+      console.log('Sessions:', sessions);
+      this.Sessions = sessions;
+    });
+  }
 
   toggleSeat(seatNumber: number) {
     const index = this.selectedSeats.indexOf(seatNumber);
@@ -73,6 +84,7 @@ export class BookingPageComponent {
   }
 
   calculateTotalPrice() {
+    console.log(this.Sessions)
     this.totalPrice = this.selectedSeats.length * 10;
   }
 

@@ -2,6 +2,8 @@ package deti.tqs.cinemax.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,8 +35,10 @@ public class Room {
     private String type;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("room")
     private List<Session> sessions;
     
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("room")
     private List<Seat> seats;
 }
