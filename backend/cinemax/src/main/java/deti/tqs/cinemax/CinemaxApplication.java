@@ -11,6 +11,7 @@ public class CinemaxApplication
 
 
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(CinemaxApplication.class, args);
 	}
