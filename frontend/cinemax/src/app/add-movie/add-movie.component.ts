@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '../service/api.service';
 
 @Component({
   selector: 'app-add-movie',
@@ -10,23 +11,35 @@ import { FormsModule } from '@angular/forms';
 })
 export class AddMovieComponent {
 
+  ApiDataService = inject(ApiService);
+
   movie = {
     title: '',
     duration: null,
-    description: '',
+    studio: '',
     genre: '',
-    poster: null
+    //poster: null
   };
 
   submitForm() {
     // Handle form submission logic here
     console.log('Form submitted:', this.movie);
-    // You can send the form data to a backend service for further processing
+    this.ApiDataService.addMovie(this.movie).then((response) => {
+      console.log('Movie added:', response);
+    });
+    // clear form
+    this.movie = {
+      title: '',
+      duration: null,
+      studio: '',
+      genre: '',
+      //poster: null
+    };
   }
 
   onFileSelected(event: any) {
     // Handle file selection
-    this.movie.poster = event.target.files[0];
+    //this.movie.poster = event.target.files[0];
     console.log('File selected');
   }
 
