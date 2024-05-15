@@ -1,0 +1,19 @@
+<div class="sidebar">
+  <app-navbar></app-navbar>
+</div>
+
+<div class="main-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let movie of movies">
+          <app-movie-card [movie]="movie"></app-movie-card>
+      </div>
+      <!-- New column for adding a new movie -->
+      <div class="col-md-4">
+          <div class="card new-movie-card">
+            <button (click)="addNewMovie()">Add New Movie</button> <!-- Call addNewMovie method when button is clicked -->
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

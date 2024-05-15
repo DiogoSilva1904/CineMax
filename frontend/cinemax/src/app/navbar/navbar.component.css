@@ -1,0 +1,45 @@
+.tp-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 240px; /* Adjust width as needed */
+    background-color: #333;
+    font-size: 1.2em;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.tp-container, .tp-container * {
+    color: white !important; /* Set text color to white for all elements inside .tp-container */
+}
+
+.tp-sidebar {
+    width: 100%;
+    background-color: #333;
+}
+
+.tp-sidebar-header {
+    background-color: #222; /* Darker background */
+    padding: 20px;
+}
+
+.tp-nav-list {
+    padding-top: 20px; /* Add space between header and items */
+}
+
+.tp-section {
+    display: flex; /* Use flexbox */
+    align-items: center; /* Vertically center items */
+    cursor: pointer;
+    padding: 12px 20px; /* Add padding around each item */
+}
+
+.tp-section mat-icon {
+    margin-right: 10px; /* Add space after the icon */
+    margin-bottom: -4px; /* Adjust to vertically align icons with text */
+}
+
+
+.tp-section:hover {
+    background-color: #444; /* Darken background on hover */
+}
