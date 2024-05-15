@@ -1,6 +1,5 @@
 package deti.tqs.cinemax;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,20 +8,29 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 @SpringBootApplication
-@EnableJpaRepositories
-@AllArgsConstructor
-public class CinemaxApplication implements CommandLineRunner {
+public class CinemaxApplication
+		//implements CommandLineRunner
+{
 
-	@Autowired
-	private SetupData setupData;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(CinemaxApplication.class, args);
 	}
 
+
+	/*
+
+	Execute only one time, then comment back
+	@Autowired
+	private SetupData setupData;
 	@Override
 	public void run(String... args) throws Exception
 	{
 		setupData.setup();
 	}
+
+	 */
+
+
 }
