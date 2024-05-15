@@ -3,7 +3,10 @@ import deti.tqs.cinemax.services.*;
 import deti.tqs.cinemax.models.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.List;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Component
 public class SetupData
 {
     private  MovieService movieService;
@@ -18,6 +22,12 @@ public class SetupData
     private RoomService roomService;
 
     private SessionService sessionService;
+
+    public void run(String... args) {
+        setup();
+    }
+
+    
 
     public void setup() {
 
