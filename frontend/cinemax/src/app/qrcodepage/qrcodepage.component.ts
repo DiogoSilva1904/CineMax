@@ -9,5 +9,4 @@ import { QRCodeModule } from 'angularx-qrcode';
   styleUrl: './qrcodepage.component.css'
 })
 export class QrcodepageComponent {
-  
 }

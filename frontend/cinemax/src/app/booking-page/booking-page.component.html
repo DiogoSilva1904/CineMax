@@ -1,0 +1,36 @@
+<h2>Booking Page</h2>
+<div>{{ movieName }}</div> <!-- Display movie name -->
+<div>{{ day }} at {{ sessionTime }}</div> <!-- Display day and session time -->
+<div class="seat-map-container">
+    
+    <div class="legend">
+        <div class="legend-item">
+            <div class="seat occupied"></div> Occupied
+        </div>
+        <div class="legend-item">
+            <div class="seat free"></div> Free
+        </div>
+        <div class="legend-item">
+            <div class="seat selected"></div> Selected
+        </div>
+    </div>
+    <div class="screen">Screen</div>
+    <div class="seat-map">
+        <!-- Iterate over the seats array -->
+        <div class="row">
+            <ng-container *ngFor="let row of seats; let i = index">
+                <div class="seat-column">
+                    <div class="seat" 
+                        [class.selected]="selectedSeats.includes(row.number)"
+                        [class.occupied]="row.occupied"
+                        (click)="toggleSeat(row.number)">
+                        {{ row.number }}
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<div>Total Price: ${{ totalPrice }}</div> <!-- Display total price -->
+<button (click)="reserveSeats()">Reserve</button> <!-- Reserve button -->
+  
