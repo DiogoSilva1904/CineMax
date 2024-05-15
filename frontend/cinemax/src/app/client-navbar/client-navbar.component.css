@@ -1,0 +1,46 @@
+.tp-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.tp-navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 99%;
+  background-color: #f8f9fa;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tp-navbar-header {
+  flex-grow: 1;
+}
+
+.tp-navbar-title {
+  color: black;
+}
+
+.tp-nav-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-grow: 2;
+  margin-right: 20px;
+}
+
+.tp-section {
+  display: flex;
+  align-items: center;
+}
+
+.tp-section mat-icon {
+  margin-right: 8px;
+  color: black;
+  margin-bottom: -4px;
+}
+
+.tp-section span {
+  color: black;
+}
+

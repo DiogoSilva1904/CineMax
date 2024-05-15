@@ -1,0 +1,31 @@
+<div class="sidebar">
+  <app-client-navbar></app-client-navbar>
+</div>
+<div class="main-content">
+  <div *ngIf="movie" class="container">
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <img src="https://m.media-amazon.com/images/I/91vya3UmldL._AC_UF894,1000_QL80_DpWeblab_.jpg" class="card-img-top" alt="{{ movie.title }}">
+          </div>
+          <div class="card-body">
+            <header>{{ movie.title }}</header>
+            <div class="genre">{{ movie.duration }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div *ngFor="let session of movie.sessions" class="session-card">
+          <div class="card-body">
+            <h5 class="card-title">Session Details</h5>
+            <p class="card-text">Room: {{ session.roomId }}</p>
+            <p class="card-text">Date: {{ session.date }}</p>
+            <p class="card-text">Time: {{ session.time }}</p>
+            <button class="btn btn-primary">Select Seat</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
