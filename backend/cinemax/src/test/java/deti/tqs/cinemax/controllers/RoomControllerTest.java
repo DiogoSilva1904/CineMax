@@ -38,28 +38,19 @@ class RoomControllerTest {
             Room room = new Room();
             room.setName("Room 1");
             room.setCapacity(100);
-            room.setRows(10);
-            room.setColumns(10);
             room.setType("Normal");
-            room.setSeats(null);
             room.setSessions(null);
 
             Room room1 = new Room();
             room1.setName("Room 2");
             room1.setCapacity(80);
-            room1.setRows(4);
-            room1.setColumns(8);
             room1.setType("IMAX");
-            room1.setSeats(null);
             room1.setSessions(null);
 
             Room room2 = new Room();
             room2.setName("Room 3");
             room2.setCapacity(80);
-            room2.setRows(4);
-            room2.setColumns(8);
             room2.setType("IMAX");
-            room2.setSeats(null);
             room2.setSessions(null);
 
             Mockito.when(roomService.getAllRooms()).thenReturn(List.of(room, room1, room2));
@@ -85,10 +76,7 @@ class RoomControllerTest {
             Room room = new Room();
             room.setName("Room 1");
             room.setCapacity(100);
-            room.setRows(10);
-            room.setColumns(10);
             room.setType("Normal");
-            room.setSeats(null);
             room.setSessions(null);
 
             Mockito.when(roomService.getRoomById(1L)).thenReturn(room);
@@ -113,10 +101,7 @@ class RoomControllerTest {
             Room room = new Room();
             room.setName("Room 1");
             room.setCapacity(100);
-            room.setRows(10);
-            room.setColumns(10);
             room.setType("Normal");
-            room.setSeats(null);
             room.setSessions(null);
 
             Mockito.when(roomService.saveRoom(Mockito.any())).thenReturn(room);

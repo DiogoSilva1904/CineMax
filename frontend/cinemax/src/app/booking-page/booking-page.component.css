@@ -1,0 +1,52 @@
+.seat-map-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 seats per row */
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  /* Additional styling for seat colors */
+  .seat {
+    width: 40px;
+    height: 40px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .seat-column {
+    display: inline-block;
+    width: 12.5%; /* 100% divided by 8 columns */
+    margin-bottom: 10px; /* Add a default gap between rows */
+}
+
+  .seat.selected {
+    background-color: #3498db;
+    color: #fff;
+  }
+  
+  .seat.occupied {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  
+  .screen {
+    position: absolute;
+    top: 10px; /* Adjust the distance from the top as needed */
+    left: 50%; /* Position it in the middle horizontally */
+    transform: translateX(-50%); /* Center the element horizontally */
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Text color */
+    padding: 10px; /* Add padding for better readability */
+    font-size: 20px; /* Adjust font size as needed */
+    z-index: 1; /* Ensure it's in front of the seats */
+}
+
+
+

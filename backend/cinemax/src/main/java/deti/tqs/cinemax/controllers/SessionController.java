@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "localhost:4200")
 @RequestMapping("/api/sessions")
 @Tag(name = "session", description = "Endpoints to manage session")
 public class SessionController {

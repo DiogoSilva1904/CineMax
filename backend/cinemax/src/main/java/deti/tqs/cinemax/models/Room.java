@@ -27,17 +27,10 @@ public class Room {
 
     private int capacity;
 
-    @Column(name = "`rows`") // Wrapping "rows" in backticks to avoid SQL syntax error
-    private int rows; //pd ser util no frontend
-
-    private int columns; //same
-
     private String type;
 
-    @JsonIgnoreProperties("room")
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("room")
     private List<Session> sessions;
     
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    private List<Seat> seats;
 }
