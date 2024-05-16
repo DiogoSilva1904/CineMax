@@ -28,6 +28,12 @@ public class ReservationService {
 
     public void deleteReservation(Long id) {
         log.info("Deleting reservation with id {}", id);
+        Session session = sessionService.getSessionById(reservationRepository.findById(id).get().getSession().getId());
+        List<String> bookedSeats = session.getBookedSeats();
+        List<String> selectedSeats = reservationRepository.findById(id).get().getSeatNumbers();
+        bookedSeats.removeAll(selectedSeats);
+        session.setBookedSeats(bookedSeats);
+        session.setAvailableSeats(session.getAvailableSeats() + selectedSeats.size());
         reservationRepository.deleteById(id);
     }
 
@@ -46,6 +52,7 @@ public class ReservationService {
             }
             bookedSeats.addAll(selectedSeats);
             session.setBookedSeats(bookedSeats);
+            session.setAvailableSeats(session.getAvailableSeats() - selectedSeats.size());
             sessionService.updateSession(session.getId(), session);
         }
 

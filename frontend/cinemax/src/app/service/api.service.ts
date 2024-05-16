@@ -44,5 +44,23 @@ export class ApiService {
     const response = await fetch(url, { method: 'DELETE' });
     return await response.statusText ?? undefined;
   }
+
+  async getRooms() {
+    const url = `${this.baseUrl}/rooms`;
+    const response = await fetch(url, { method: 'GET' });
+    return await response.json() ?? undefined;
+  }
+
+  async addSession(session: any) {
+    const url = `${this.baseUrl}/sessions`;
+    const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(session) });
+    return await response.json() ?? undefined;
+  }
+
+  async deleteSession(sessionId: string) {
+    const url = `${this.baseUrl}/sessions/${sessionId}`;
+    const response = await fetch(url, { method: 'DELETE' });
+    return await response.statusText ?? undefined;
+  }
   
 }

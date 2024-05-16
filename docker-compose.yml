@@ -9,4 +9,3 @@ services:
       MYSQL_PASSWORD: secret
     ports:
       - "3306:3306"
-    

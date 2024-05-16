@@ -36,7 +36,7 @@ public class Session {
 
     @ManyToOne
     @JoinColumn(name = "room_id")
-    @JsonIgnoreProperties("sessions")   
+    @JsonIgnoreProperties("sessions")
     private Room room;
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
