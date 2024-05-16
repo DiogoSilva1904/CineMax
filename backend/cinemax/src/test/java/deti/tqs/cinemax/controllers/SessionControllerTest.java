@@ -44,10 +44,7 @@ class SessionControllerTest {
                 Room room = new Room();
                 room.setName("Room 1");
                 room.setCapacity(100);
-                room.setRows(10);
-                room.setColumns(10);
                 room.setType("Normal");
-                room.setSeats(null);
                 room.setSessions(null);
 
                 Session session = new Session();
@@ -89,10 +86,7 @@ class SessionControllerTest {
                Room room = new Room();
                room.setName("Room 1");
                room.setCapacity(100);
-               room.setRows(10);
-               room.setColumns(10);
                room.setType("Normal");
-               room.setSeats(null);
                room.setSessions(null);
 
                Session session = new Session();
@@ -131,10 +125,7 @@ class SessionControllerTest {
                 Room room = new Room();
                 room.setName("Room 1");
                 room.setCapacity(100);
-                room.setRows(10);
-                room.setColumns(10);
                 room.setType("Normal");
-                room.setSeats(null);
                 room.setSessions(null);
 
                 Session session = new Session();
