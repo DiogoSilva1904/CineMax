@@ -1,8 +1,13 @@
 <h2>Booking Page</h2>
-<div>{{ movieName }}</div> <!-- Display movie name -->
-<div>{{ day }} at {{ sessionTime }}</div> <!-- Display day and session time -->
+<div class="movie-info">
+  <div class="moviename">
+    <h2>{{ movieName }}</h2>
+    </div> <!-- Display movie name -->
+  <div class="movieschudle">{{ day }} at {{ sessionTime }}</div> <!-- Display day and session time -->
+
+</div>
 <div class="seat-map-container">
-    
+
     <div class="legend">
         <div class="legend-item">
             <div class="seat occupied"></div> Occupied
@@ -20,7 +25,7 @@
         <div class="row">
             <ng-container *ngFor="let row of seats; let i = index">
                 <div class="seat-column">
-                    <div class="seat" 
+                    <div class="seat"
                         [class.selected]="selectedSeats.includes(row.seatIdentifier)"
                         [class.occupied]="row.occupied"
                         (click)="toggleSeat(row.seatIdentifier)">
@@ -31,6 +36,17 @@
         </div>
     </div>
 </div>
-<div>Total Price: ${{ totalPrice }}</div> <!-- Display total price -->
-<button (click)="reserveSeats()">Reserve</button> <!-- Reserve button -->
-  
+<div class="bottomstuff1">
+  <div class="price" >Total Price: ${{ totalPrice }}</div> <!-- Display total price -->
+  <div class="selectedSeats">Seats: {{ selectedSeats.join(', ') }}</div>
+  <button class="clearbtn">clear</button>
+
+</div>
+
+<div class="bottomstuff2">
+  <button class="reserverbtn" (click)="reserveSeats()">Reserve</button> <!-- Reserve button -->
+  <button class="cancelbtn" >Cancel</button> <!-- Reserve button -->
+
+</div>
+
+
