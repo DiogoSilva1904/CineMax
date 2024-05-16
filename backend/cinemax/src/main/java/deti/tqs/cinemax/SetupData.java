@@ -24,8 +24,6 @@ public class SetupData
         setup();
     }
 
-    
-
     public void setup() {
 
         Movie movie1 = new Movie();
