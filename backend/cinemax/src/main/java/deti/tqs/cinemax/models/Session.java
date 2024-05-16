@@ -27,7 +27,6 @@ public class Session {
 
     private String time;
 
-    @JsonIgnoreProperties("session")
     @ManyToOne
     @JoinColumn(name= "movie_id")
     @JsonIgnoreProperties("session")

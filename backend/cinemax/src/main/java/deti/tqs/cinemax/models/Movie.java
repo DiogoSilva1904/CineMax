@@ -36,7 +36,6 @@ public class Movie {
 
     private String duration;
 
-    @JsonIgnoreProperties("movie")
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("movie")
     private List<Session> session;

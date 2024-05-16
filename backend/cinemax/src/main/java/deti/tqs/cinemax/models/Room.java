@@ -34,7 +34,6 @@ public class Room {
 
     private String type;
 
-    @JsonIgnoreProperties("room")
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("room")
     private List<Session> sessions;
