@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Component
-public class SetupData
+public class SetupData implements org.springframework.boot.CommandLineRunner
 {
     private  MovieService movieService;
 
