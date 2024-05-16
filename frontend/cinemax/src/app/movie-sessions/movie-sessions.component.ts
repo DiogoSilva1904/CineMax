@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {ClientNavbarComponent} from "../client-navbar/client-navbar.component";
 import {NgForOf, NgIf} from "@angular/common";
-import { ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute } from '@angular/router';
 import {ApiService} from "../service/api.service";
 
 
@@ -21,7 +21,7 @@ export class MovieSessionsComponent {
 
   ApiDataService = inject(ApiService);
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,private router: Router) {
     this.route.paramMap.subscribe(params => {
       const movieId = params.get('id');
       // Fetch movie details using the movie id
@@ -32,6 +32,10 @@ export class MovieSessionsComponent {
         console.error('Error fetching movie:', error);
       });
     });
+  }
+
+  goToChooseSeat(sessionId: number): void {
+    this.router.navigate(['/seat', sessionId]);
   }
 
 }

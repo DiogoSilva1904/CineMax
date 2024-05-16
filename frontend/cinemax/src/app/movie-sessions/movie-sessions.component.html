@@ -21,7 +21,7 @@
             <h5 class="card-title">Session Details</h5>
             <p class="card-text">Date: {{ session.date }}</p>
             <p class="card-text">Time: {{ session.time }}</p>
-            <button class="btn btn-primary">Select Seat</button>
+            <button class="btn btn-primary" (click)="goToChooseSeat(session.id)">Select Seat</button>
           </div>
         </div>
       </div>
