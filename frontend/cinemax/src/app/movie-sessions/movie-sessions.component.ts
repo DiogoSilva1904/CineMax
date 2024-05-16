@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {ClientNavbarComponent} from "../client-navbar/client-navbar.component";
 import {NgForOf, NgIf} from "@angular/common";
+import { ActivatedRoute } from '@angular/router';
+import {ApiService} from "../service/api.service";
+
 
 @Component({
   selector: 'app-movie-sessions',
@@ -14,23 +17,21 @@ import {NgForOf, NgIf} from "@angular/common";
   styleUrl: './movie-sessions.component.css'
 })
 export class MovieSessionsComponent {
-  movie =
-    {
-      id: 1,
-      title: 'The Shawshank Redemption',
-      category: 'Drama',
-      genre: 'Drama',
-      studio: 'Columbia Pictures',
-      duration: '2h 22m',
-      sessions: [
-        { id: 1, date: '2024-05-15', time: '18:00', movieId: 1, roomId: 1, bookedSeats: ['A1', 'A2'] },
-        { id: 2, date: '2024-05-15', time: '18:00', movieId: 1, roomId: 1, bookedSeats: ['A1', 'A2'] },
-        { id: 3, date: '2024-05-15', time: '18:00', movieId: 1, roomId: 1, bookedSeats: ['A1', 'A2'] },
-        { id: 4, date: '2024-05-15', time: '18:00', movieId: 1, roomId: 1, bookedSeats: ['A1', 'A2'] }
+  movie: any;
 
-      ]
-    };
+  ApiDataService = inject(ApiService);
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    this.route.paramMap.subscribe(params => {
+      const movieId = params.get('id');
+      // Fetch movie details using the movie id
+      this.ApiDataService.getMovie(movieId).then((movie) => {
+        this.movie = movie;
+        console.log(this.movie);
+      }).catch(error => {
+        console.error('Error fetching movie:', error);
+      });
+    });
+  }
 
 }

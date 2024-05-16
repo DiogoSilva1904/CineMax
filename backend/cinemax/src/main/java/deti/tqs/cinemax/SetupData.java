@@ -8,6 +8,7 @@ import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.boot.CommandLineRunner;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Component
-public class SetupData
+public class SetupData implements CommandLineRunner
 {
     private  MovieService movieService;
 
@@ -23,11 +24,11 @@ public class SetupData
 
     private SessionService sessionService;
 
-    public void run(String... args) {
+
+    public void run(String... args)  throws Exception {
         setup();
     }
 
-    
 
     public void setup() {
 

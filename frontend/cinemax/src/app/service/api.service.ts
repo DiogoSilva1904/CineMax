@@ -15,6 +15,12 @@ export class ApiService {
     return await response.json() ?? undefined;
   }
 
+  async getMovie(movieId: string|null) {
+    const url = `${this.baseURL}/api/movies/${movieId}`;
+    const response = await fetch(url, { method: 'GET' });
+    return await response.json() ?? undefined;
+  }
+
   async addMovie(movie: any) {
     const url = `${this.baseURL}/api/movies`;
     const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(movie) });
@@ -33,5 +39,5 @@ export class ApiService {
     const response = await fetch(url, { method: 'GET' });
     return await response.json() ?? undefined;
   }
-  
+
 }

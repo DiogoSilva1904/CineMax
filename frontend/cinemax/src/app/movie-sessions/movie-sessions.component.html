@@ -16,10 +16,9 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div *ngFor="let session of movie.sessions" class="session-card">
+        <div *ngFor="let session of movie.session" class="session-card">
           <div class="card-body">
             <h5 class="card-title">Session Details</h5>
-            <p class="card-text">Room: {{ session.roomId }}</p>
             <p class="card-text">Date: {{ session.date }}</p>
             <p class="card-text">Time: {{ session.time }}</p>
             <button class="btn btn-primary">Select Seat</button>
