@@ -27,6 +27,8 @@ public class Reservation {
 
     private String username; //cant use user
 
+    private int price;
+
     @ManyToOne
     @JoinColumn(name = "session_id")
     @JsonIgnoreProperties("reservation")

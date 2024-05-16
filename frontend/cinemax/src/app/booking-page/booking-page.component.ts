@@ -1,11 +1,28 @@
 import { NgForOf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ApiService } from '../service/api.service';
-import { Session } from 'inspector';
 
 interface Seat {
-  number: number;
+  seatIdentifier: string;
   occupied: boolean;
+}
+
+interface Session {
+  id: number;
+  date: string;
+  time: string;
+  movie: any;
+  room: any;
+  reservation: any[];
+  bookedSeats: string[];
+}
+
+interface Reservation {
+  id: number;
+  username: string;
+  price: number;
+  session: Session;
+  seatNumbers: string[];
 }
 
 @Component({
@@ -17,79 +34,97 @@ interface Seat {
 })
 export class BookingPageComponent {
   seats: Seat[] = [
-    { number: 1, occupied: false },
-    { number: 2, occupied: true },
-    { number: 3, occupied: false },
-    { number: 4, occupied: false },
-    { number: 5, occupied: false },
-    { number: 6, occupied: false },
-    { number: 7, occupied: false },
-    { number: 8, occupied: false },
-    { number: 9, occupied: false },
-    { number: 10, occupied: false },
-    { number: 11, occupied: false },
-    { number: 12, occupied: false },
-    { number: 13, occupied: false },
-    { number: 14, occupied: false },
-    { number: 15, occupied: false },
-    { number: 16, occupied: false },
-    { number: 17, occupied: false },
-    { number: 18, occupied: false },
-    { number: 19, occupied: false },
-    { number: 20, occupied: false },
-    { number: 21, occupied: false },
-    { number: 22, occupied: false },
-    { number: 23, occupied: false },
-    { number: 24, occupied: false },
-    { number: 25, occupied: false },
-    { number: 26, occupied: false },
-    { number: 27, occupied: false },
-    { number: 28, occupied: false },
-    { number: 29, occupied: false },
-    { number: 30, occupied: false },
-    { number: 31, occupied: false },
-    { number: 32, occupied: false },
-    { number: 33, occupied: false },
-    { number: 34, occupied: false },
-    { number: 35, occupied: false },
-    { number: 36, occupied: false },
-    { number: 37, occupied: false },
-    { number: 38, occupied: false },
-    { number: 39, occupied: false },
-    { number: 40, occupied: false }
+    { seatIdentifier: "A1", occupied: false },
+    { seatIdentifier: "A2", occupied: false },
+    { seatIdentifier: "A3", occupied: false },
+    { seatIdentifier: "A4", occupied: false },
+    { seatIdentifier: "A5", occupied: false },
+    { seatIdentifier: "A6", occupied: false },
+    { seatIdentifier: "A7", occupied: false },
+    { seatIdentifier: "A8", occupied: false },
+    { seatIdentifier: "A9", occupied: false },
+    { seatIdentifier: "A10", occupied: false },
+    { seatIdentifier: "B1", occupied: false },
+    { seatIdentifier: "B2", occupied: false },
+    { seatIdentifier: "B3", occupied: false },
+    { seatIdentifier: "B4", occupied: false },
+    { seatIdentifier: "B5", occupied: false },
+    { seatIdentifier: "B6", occupied: false },
+    { seatIdentifier: "B7", occupied: false },
+    { seatIdentifier: "B8", occupied: false },
+    { seatIdentifier: "B9", occupied: false },
+    { seatIdentifier: "B10", occupied: false },
+    { seatIdentifier: "C1", occupied: false },
+    { seatIdentifier: "C2", occupied: false },
+    { seatIdentifier: "C3", occupied: false },
+    { seatIdentifier: "C4", occupied: false },
+    { seatIdentifier: "C5", occupied: false },
+    { seatIdentifier: "C6", occupied: false },
+    { seatIdentifier: "C7", occupied: false },
+    { seatIdentifier: "C8", occupied: false },
+    { seatIdentifier: "C9", occupied: false },
+    { seatIdentifier: "C10", occupied: false },
+    { seatIdentifier: "D1", occupied: false },
+    { seatIdentifier: "D2", occupied: false },
+    { seatIdentifier: "D3", occupied: false },
+    { seatIdentifier: "D4", occupied: false },
+    { seatIdentifier: "D5", occupied: false },
+    { seatIdentifier: "D6", occupied: false },
+    { seatIdentifier: "D7", occupied: false },
+    { seatIdentifier: "D8", occupied: false },
+    { seatIdentifier: "D9", occupied: false },
+    { seatIdentifier: "D10", occupied: false },
   ];
-  selectedSeats: number[] = [];
+  selectedSeats: string[] = [];
   sessionTime: string = '18:00'; 
   day: string = 'Monday'; 
   movieName: string = 'Avengers: Endgame'; 
   totalPrice: number = 0;
   ApiService= inject(ApiService);
-  Sessions: any[] = [];
+  Sessions: Session[] = [];
+  User: string = 'User';
+  Session: any;
 
   constructor() {
     this.ApiService.getSessions().then((sessions: any[]) => {
-      console.log('Sessions:', sessions);
       this.Sessions = sessions;
+      sessions.forEach((session) => {
+        if (session.id === 1)
+          this.movieName = session.movie.title;
+          this.day = session.date;
+          this.sessionTime = session.time;
+          this.Session = session;
+          for (let i = 0; i < this.seats.length; i++) {
+            this.seats[i].occupied = session.bookedSeats.includes(this.seats[i].seatIdentifier);
+          }
+      });
     });
   }
 
-  toggleSeat(seatNumber: number) {
-    const index = this.selectedSeats.indexOf(seatNumber);
+  toggleSeat(seatIdentifier: string) {
+    const index = this.selectedSeats.indexOf(seatIdentifier);
     if (index !== -1) {
       this.selectedSeats.splice(index, 1);
     } else {
-      this.selectedSeats.push(seatNumber);
+      this.selectedSeats.push(seatIdentifier);
     }
     this.calculateTotalPrice(); 
   }
 
   calculateTotalPrice() {
-    console.log(this.Sessions)
     this.totalPrice = this.selectedSeats.length * 10;
   }
 
   reserveSeats() {
-    console.log('Reserving seats:', this.selectedSeats);
-    console.log('Total Price:', this.totalPrice);
+    const reservation = {
+      id: 1,
+      username: this.User,
+      price: this.totalPrice,
+      session: this.Session,
+      seatNumbers: this.selectedSeats
+    };
+    this.ApiService.postReservation(reservation).then((data) => {
+      console.log(data);
+    });
   }
 }

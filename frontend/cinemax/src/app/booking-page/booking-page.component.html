@@ -21,10 +21,10 @@
             <ng-container *ngFor="let row of seats; let i = index">
                 <div class="seat-column">
                     <div class="seat" 
-                        [class.selected]="selectedSeats.includes(row.number)"
+                        [class.selected]="selectedSeats.includes(row.seatIdentifier)"
                         [class.occupied]="row.occupied"
-                        (click)="toggleSeat(row.number)">
-                        {{ row.number }}
+                        (click)="toggleSeat(row.seatIdentifier)">
+                        {{ row.seatIdentifier }}
                     </div>
                 </div>
             </ng-container>

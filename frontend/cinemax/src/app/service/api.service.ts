@@ -13,5 +13,17 @@ export class ApiService {
     const data = await fetch(url, {method: 'GET'});
     return await data.json() ?? undefined;
   }
+
+  async postReservation(reservation: any) {
+    const url = this.baseUrl + "/reservations";
+    const data = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reservation)
+    });
+    return await data.json() ?? undefined;
+  }
   
 }
