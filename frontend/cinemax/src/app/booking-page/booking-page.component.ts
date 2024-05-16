@@ -102,6 +102,10 @@ export class BookingPageComponent {
   }
 
   toggleSeat(seatIdentifier: string) {
+    const seat = this.seats.find(s => s.seatIdentifier === seatIdentifier);
+    if (!seat || seat.occupied) {
+      return;
+    }
     const index = this.selectedSeats.indexOf(seatIdentifier);
     if (index !== -1) {
       this.selectedSeats.splice(index, 1);
@@ -110,6 +114,7 @@ export class BookingPageComponent {
     }
     this.calculateTotalPrice();
   }
+
 
   calculateTotalPrice() {
     this.totalPrice = this.selectedSeats.length * 10;

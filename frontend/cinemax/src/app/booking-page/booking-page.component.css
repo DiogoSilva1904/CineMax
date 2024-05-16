@@ -1,16 +1,14 @@
 .seat-map-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 seats per row */
+    grid-template-columns: repeat(1, 1fr); /* 5 seats per row */
     gap: 10px;
     justify-items: center;
   background-color: #f0f0f0;
-    align-items: center;
+    align-items: flex-end;
     height: 100%;
   }
 
-.moviename{
 
-}
 
 .bottomstuff1{
 
@@ -133,11 +131,12 @@
 
 .legend{
   background-color:  #f0f0f0;
-  padding: 25px;
-  width: 60px;
+  width: 10px;
+  display: flex;
+  padding-right: 10px;
+  column-gap: 20px;
 }
 
-  /* Additional styling for seat colors */
   .seat {
     width: 40px;
     border-radius: 15px;
