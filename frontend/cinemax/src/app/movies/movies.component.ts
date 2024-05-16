@@ -17,16 +17,17 @@ export class MoviesComponent {
 
   movies = [];
 
-  constructor(private router: Router) { 
+  constructor(private router: Router) {
 
     this.ApiDataService.getMovies().then((movies) => {
       this.movies = movies;
-      console.log(this.movies);
+      console.log("Movies fetched",this.movies);
+      console.log("All sessions : ",this.ApiDataService.getSessions())
     });
 
   }
 
-  
+
 
   addNewMovie() {
     this.router.navigate(['/addmovie']);

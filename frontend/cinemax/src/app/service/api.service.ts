@@ -31,7 +31,9 @@ export class ApiService {
   async getSessions() {
     const url = `${this.baseURL}/api/sessions`;
     const response = await fetch(url, { method: 'GET' });
-    return await response.json() ?? undefined;
+   return  await response.json() ?? undefined;
+
   }
-  
+
+
 }
