@@ -115,6 +115,12 @@ export class BookingPageComponent {
     this.totalPrice = this.selectedSeats.length * 10;
   }
 
+  clearSeats(){
+    this.selectedSeats = [];
+    this.calculateTotalPrice();
+  }
+
+
   reserveSeats() {
     const reservation = {
       id: 1,

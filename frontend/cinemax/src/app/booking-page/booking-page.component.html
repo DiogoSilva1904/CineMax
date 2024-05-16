@@ -39,13 +39,13 @@
 <div class="bottomstuff1">
   <div class="price" >Total Price: ${{ totalPrice }}</div> <!-- Display total price -->
   <div class="selectedSeats">Seats: {{ selectedSeats.join(', ') }}</div>
-  <button class="clearbtn">clear</button>
+  <button class="clearbtn" (click)="clearSeats()">clear</button>
 
 </div>
 
 <div class="bottomstuff2">
   <button class="reserverbtn" (click)="reserveSeats()">Reserve</button> <!-- Reserve button -->
-  <button class="cancelbtn" >Cancel</button> <!-- Reserve button -->
+  <button class="cancelbtn"  >Cancel</button> <!-- Reserve button -->
 
 </div>
 
