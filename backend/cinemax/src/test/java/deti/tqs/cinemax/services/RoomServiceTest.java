@@ -30,8 +30,8 @@ class RoomServiceTest {
     @Test
     void testGetAllRooms() {
         List<Room> expectedRooms = new ArrayList<>();
-        expectedRooms.add(new Room(null,"Room 1", 50, 10, 5, "Lecture Hall", null, null));
-        expectedRooms.add(new Room(null,"Room 2", 30, 6, 5, "Meeting Room", null, null));
+        expectedRooms.add(new Room(null,"Room 1", 50, "Lecture Hall", null));
+        expectedRooms.add(new Room(null,"Room 2", 30, "Meeting Room", null));
 
         Mockito.when(roomRepository.findAll()).thenReturn(expectedRooms);
 
@@ -49,7 +49,7 @@ class RoomServiceTest {
     @Test
     void testGetRoomById_Found() {
         Long id = 1L;
-        Room expectedRoom = new Room(null,"Test Room", 20, 5, 4, "Screening Room", null, null);
+        Room expectedRoom = new Room(null,"Test Room", 20, "Screening Room", null);
 
         Mockito.when(roomRepository.findById(id)).thenReturn(Optional.of(expectedRoom));
 
@@ -79,7 +79,7 @@ class RoomServiceTest {
 
     @Test
     void testSaveRoom() {
-        Room newRoom = new Room(null,"New Room", 40, 8, 5, "Classroom", null, null);
+        Room newRoom = new Room(null,"New Room", 40, "Classroom", null);
 
         Mockito.when(roomRepository.save(newRoom)).thenReturn(newRoom);
 
@@ -96,8 +96,8 @@ class RoomServiceTest {
     @Test
     void testUpdateRoom_Found() {
         Long id = 2L;
-        Room existingRoom = new Room(id,"Existing Room", 35, 7, 5, "Conference Room", null, null);
-        Room updatedRoom = new Room(id,"Updated Room", 35, 7, 5, "Conference Room", null, null);
+        Room existingRoom = new Room(id,"Existing Room", 35, "Conference Room", null);
+        Room updatedRoom = new Room(id,"Updated Room", 35, "Conference Room", null);
 
         Mockito.when(roomRepository.findById(id)).thenReturn(Optional.of(existingRoom));
         Mockito.when(roomRepository.save(updatedRoom)).thenReturn(updatedRoom);
@@ -118,7 +118,7 @@ class RoomServiceTest {
     @Test
     public void testUpdateRoom_NotFound() {
         Long id = 3L;
-        Room updatedRoom = new Room(id,"Updated Room", 35, 7, 5, "Conference Room", null, null);
+        Room updatedRoom = new Room(id,"Updated Room", 35,"Conference Room", null);
 
         Mockito.when(roomRepository.findById(id)).thenReturn(Optional.empty());
 

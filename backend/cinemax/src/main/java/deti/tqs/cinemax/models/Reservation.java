@@ -1,6 +1,8 @@
 package deti.tqs.cinemax.models;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,8 +27,11 @@ public class Reservation {
 
     private String username; //cant use user
 
+    private int price;
+
     @ManyToOne
     @JoinColumn(name = "session_id")
+    @JsonIgnoreProperties("reservation")
     private Session session;
 
     @ElementCollection
