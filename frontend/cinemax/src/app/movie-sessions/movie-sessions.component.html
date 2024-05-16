@@ -2,9 +2,9 @@
   <app-client-navbar></app-client-navbar>
 </div>
 <div class="main-content">
-  <div *ngIf="movie" class="container">
-    <div class="row">
-      <div class="col-md-6 mb-4">
+  <div class="container">
+    <div *ngIf="movie" class="container" >
+      <div class="container" id="movie">
         <div class="card">
           <div class="card-header">
             <img src="https://m.media-amazon.com/images/I/91vya3UmldL._AC_UF894,1000_QL80_DpWeblab_.jpg" class="card-img-top" alt="{{ movie.title }}">
@@ -15,7 +15,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="container" id="sessions">
         <div *ngFor="let session of movie.session" class="session-card">
           <div class="card-body">
             <h5 class="card-title">Session Details</h5>

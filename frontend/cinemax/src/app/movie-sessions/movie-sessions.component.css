@@ -1,21 +1,33 @@
 /* Align movie details to the right */
-.card-header {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 100px;
+#movie {
+  float: right; /* Float the movie container to the right */
+  margin-left: 20px; /* Add margin to separate from session container */
+  width: 50%; /* Set width for movie container */
+  margin-top: 10px;
 }
 
 /* Style session cards */
+#sessions {
+  float: left; /* Float the session container to the left */
+  width: 40%; /* Set width for session container */
+}
+
+.card-img-top {
+  height: 800px;
+  object-fit: cover;
+}
+
 .session-card {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
-  width:40%
+  margin-left: 50px;
+  margin-top:100px;
+  width: 40%; /* Adjust width to fill the session container */
 }
 
 .session-card .card-body {
   padding: 10px;
-  margin-top:10px;
 }
 
 .session-card .card-title {
