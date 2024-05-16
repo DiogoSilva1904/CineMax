@@ -1,16 +1,16 @@
 <div class="tp-container">
    <div class="tp-sidebar">
        <div class="tp-sidebar-header">
-           <h2>Sidebar Title</h2>
+           <h2>Cinemax</h2>
        </div>
        <mat-nav-list class="tp-nav-list">
-           <mat-list-item class="tp-section">
+           <mat-list-item (click)="goToMovies()" class="tp-section">
                <mat-icon>movie</mat-icon>
-               <span mat-line (click)="goToMovies()">Movies</span>
+               <span mat-line >Movies</span>
            </mat-list-item>
-           <mat-list-item class="tp-section">
+           <mat-list-item (click)="goToSessions()" class="tp-section">
                <mat-icon>edit</mat-icon>
-               <span mat-line (click)="goToSessions()">Sessions</span>
+               <span mat-line>Sessions</span>
            </mat-list-item>
        </mat-nav-list>
    </div>

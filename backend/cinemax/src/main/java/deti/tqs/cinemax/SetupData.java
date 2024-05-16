@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Component
-public class SetupData
+public class SetupData implements CommandLineRunner
 {
     private  MovieService movieService;
 

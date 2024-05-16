@@ -1,5 +1,6 @@
 package deti.tqs.cinemax.services;
 
+import deti.tqs.cinemax.models.Room;
 import deti.tqs.cinemax.models.Session;
 import deti.tqs.cinemax.repositories.SessionRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -60,8 +61,14 @@ class SessionServiceTest {
         Session newSession = new Session();
         newSession.setId(1L);
 
+        Room room = new Room();
+        room.setCapacity(100);
+
+        newSession.setRoom(room);
+
         log.info("Calling sessionService.saveSession(session={})", newSession);
         Mockito.when(sessionRepository.save(newSession)).thenReturn(newSession);
+
 
         Session savedSession = sessionService.saveSession(newSession);
 
@@ -73,8 +80,8 @@ class SessionServiceTest {
     @Test
     void testUpdateSession_Found() {
         Long id = 1L;
-        Session existingSession = new Session(id, "2024-05-11", "20:00", null, null, null, new ArrayList<>());
-        Session updatedSession = new Session(id, "2024-05-11", "21:00", null, null, null, new ArrayList<>());
+        Session existingSession = new Session(id, "2024-05-11", "20:00", 50, null, null, null, new ArrayList<>());
+        Session updatedSession = new Session(id, "2024-05-11", "21:00", 50, null, null, null, new ArrayList<>());
 
         log.info("Mocking sessionRepository.findById({}) to return existing session", id);
         Mockito.when(sessionRepository.findById(id)).thenReturn(Optional.of(existingSession));

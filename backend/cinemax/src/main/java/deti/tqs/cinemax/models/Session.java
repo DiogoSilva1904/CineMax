@@ -27,6 +27,8 @@ public class Session {
 
     private String time;
 
+    private Integer availableSeats;
+
     @JsonIgnoreProperties("session")
     @ManyToOne
     @JoinColumn(name= "movie_id")
@@ -34,6 +36,7 @@ public class Session {
 
     @ManyToOne
     @JoinColumn(name = "room_id")
+    @JsonIgnoreProperties("sessions")
     private Room room;
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)

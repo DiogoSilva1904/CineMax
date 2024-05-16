@@ -1,12 +1,134 @@
-.example-container {
-    max-width: 85%;
-    overflow: auto;
-    margin-left: 300px;
-  }
-h2 {
-    margin-left: 300px;
-    margin-top: 30px;
-    font-size: 2em;
+/* Header */
+.session-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-left: 300px;
+  margin-top: 30px;
+  font-size: 2em;
 }
 
-  
+/* Add button */
+.add-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  margin-left: 30px;
+}
+
+.add-button:hover {
+  background-color: #45a049; /* Darker green */
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fefefe; /* White background */
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 70%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal heading */
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Modal input fields */
+.modal-content input {
+  width: 96%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px;
+}
+
+/* Modal select field */
+.modal-content select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px;
+}
+
+/* Modal buttons */
+.modal-content button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Modal save button */
+.modal-content .button1 {
+  background-color: #4caf50; /* Green */
+  color: #fff; /* White text */
+}
+
+/* Modal close button */
+.modal-content .button2 {
+  background-color: #f44336; /* Red */
+  color: #fff; /* White text */
+}
+
+/* Modal button hover effect */
+.modal-content button:hover {
+  opacity: 0.8;
+}
+
+/* Table container */
+.example-container {
+  max-width: 85%;
+  overflow: auto;
+  margin-left: 300px;
+}
+
+/* Add this CSS to your stylesheets */
+
+/* Style for the delete button */
+.delete-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for the delete icon */
+.delete-button .mat-icon {
+  color: #f44336; /* Red color for delete button */
+}
+
+/* On hover effect for the delete button */
+.delete-button:hover .mat-icon {
+  color: #d32f2f; /* Darker red color on hover */
+}
+
+
+

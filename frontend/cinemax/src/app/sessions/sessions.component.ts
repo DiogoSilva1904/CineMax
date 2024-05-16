@@ -2,6 +2,9 @@ import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import {MatTableModule} from '@angular/material/table';
 import { ApiService } from '../service/api.service';
+import {MatIconModule} from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { NgFor } from '@angular/common';
 
 export interface PeriodicElement {
   name: string;
@@ -10,23 +13,12 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+
 
 @Component({
   selector: 'app-sessions',
   standalone: true,
-  imports: [ NavbarComponent, MatTableModule ],
+  imports: [ NavbarComponent, MatTableModule, MatIconModule, FormsModule, NgFor ],
   templateUrl: './sessions.component.html',
   styleUrl: './sessions.component.css'
 })
@@ -34,10 +26,13 @@ export class SessionsComponent {
 
   ApiDataService = inject(ApiService);
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'room', 'available_seats', 'delete'];
 
-  sessions = [];
+  sessions: any = [];
+  movies: any = [];
+  rooms: any = [];
+  selectedMovie = null;
+  selectedRoom = null;
 
   constructor() { 
       
@@ -45,6 +40,69 @@ export class SessionsComponent {
         this.sessions = sessions;
         console.log(this.sessions);
       });
+      this.ApiDataService.getMovies().then((movies) => {
+        this.movies = movies;
+        console.log(this.movies);
+      });
+      this.ApiDataService.getRooms().then((rooms) => {
+        this.rooms = rooms;
+        console.log(this.rooms);
+      });
+  }
+
+  addSession() {
+    console.log('Adding session');
+    console.log('Selected movie:', this.selectedMovie);
+    console.log('Selected room:', this.selectedRoom);
+
+    if (!this.selectedMovie || !this.selectedRoom) {
+      console.error('Invalid movie or room');
+      return;
+    }
+
+    const date = document.getElementById('date') as HTMLInputElement;
+    const time = document.getElementById('time') as HTMLInputElement;
+
+    const session = {
+      movie : this.selectedMovie,
+      room : this.selectedRoom,
+      date : date.value,
+      time : time.value,
+    };
+
+    console.log('Session:', session);
+
+    this.ApiDataService.addSession(session).then((response) => {
+      console.log('Response:', response);
+      if (response) {
+        this.sessions.push(response);
+      }
+    });
+
+    this.closeAddModal();
+    location.reload();
+  }
+
+  closeAddModal() {
+    const modal = document.getElementById('addModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
+
+  showAddStudentModal() {
+    const modal = document.getElementById('addModal');
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  deleteSession(sessionId: string) {
+    console.log('Deleting session:', sessionId);
+    this.ApiDataService.deleteSession(sessionId).then((response) => {
+      console.log('Response:', response);
+      location.reload();
+    });
   }
 
 }
