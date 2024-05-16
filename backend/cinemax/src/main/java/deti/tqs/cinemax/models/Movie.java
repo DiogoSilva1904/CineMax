@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -33,6 +36,7 @@ public class Movie {
 
     private String duration;
 
+    @JsonIgnoreProperties("movie")
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("movie")
     private List<Session> session;

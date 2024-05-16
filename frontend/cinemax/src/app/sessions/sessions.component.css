@@ -1,0 +1,12 @@
+.example-container {
+    max-width: 85%;
+    overflow: auto;
+    margin-left: 300px;
+  }
+h2 {
+    margin-left: 300px;
+    margin-top: 30px;
+    font-size: 2em;
+}
+
+  

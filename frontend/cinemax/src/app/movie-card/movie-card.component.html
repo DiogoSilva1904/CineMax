@@ -2,7 +2,7 @@
     <section>
         <img src="https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_.jpg" alt="movie poster">
         <header>{{movie.title}}</header>
-        <div class="genre">{{movie.year }}</div>
-        <button class="btn_btn-danger">Delete</button>
+        <div class="genre">{{movie.duration }}</div>
+        <button class="btn_btn-danger" (click)="deleteMovie(movie.id)">Delete</button>
     </section>
 </div>

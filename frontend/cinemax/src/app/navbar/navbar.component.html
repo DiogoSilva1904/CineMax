@@ -6,11 +6,11 @@
        <mat-nav-list class="tp-nav-list">
            <mat-list-item class="tp-section">
                <mat-icon>movie</mat-icon>
-               <span mat-line>Movies</span>
+               <span mat-line (click)="goToMovies()">Movies</span>
            </mat-list-item>
            <mat-list-item class="tp-section">
                <mat-icon>edit</mat-icon>
-               <span mat-line>Edit</span>
+               <span mat-line (click)="goToSessions()">Sessions</span>
            </mat-list-item>
        </mat-nav-list>
    </div>
