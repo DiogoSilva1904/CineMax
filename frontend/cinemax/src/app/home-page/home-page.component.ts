@@ -27,7 +27,7 @@ export class HomePageComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.ApiDataService.getMovies().then((movies) => {
       this.movies = movies;
-      console.log(this.movies);
+      //console.log(this.movies);
     });
   }
 

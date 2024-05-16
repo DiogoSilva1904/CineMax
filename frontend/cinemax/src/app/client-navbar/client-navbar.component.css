@@ -1,20 +1,35 @@
 .tp-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  background-color: #f5f5f5;
 }
 
 .tp-navbar {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 99%;
   background-color: #f8f9fa;
-  padding: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tp-navbar-left {
+  flex: 1; 
+  
+}
+
+.tp-navbar-right {
+  display: flex;
+  align-items: center;
+  
 }
 
 .tp-navbar-header {
-  flex-grow: 1;
+  flex: 1;
+  margin-left: 20px;
+  margin-top: 20px;
 }
 
 .tp-navbar-title {
@@ -23,15 +38,12 @@
 
 .tp-nav-list {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  flex-grow: 2;
-  margin-right: 20px;
 }
 
 .tp-section {
   display: flex;
   align-items: center;
+  width: 145px;
 }
 
 .tp-section mat-icon {
