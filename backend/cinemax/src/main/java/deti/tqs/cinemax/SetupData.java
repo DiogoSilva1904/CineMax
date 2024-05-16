@@ -67,8 +67,6 @@ public class SetupData
         room1.setId(1L);
         room1.setName("Room A");
         room1.setCapacity(50);
-        room1.setRows(5);
-        room1.setColumns(10);
         room1.setType("Standard");
 
         saveRoomIfNotExists(room1);
@@ -78,8 +76,6 @@ public class SetupData
 
         room2.setName("Room B");
         room2.setCapacity(30);
-        room2.setRows(4);
-        room2.setColumns(8);
         room2.setType("Premium");
 
         saveRoomIfNotExists(room2);
@@ -89,8 +85,6 @@ public class SetupData
 
         room3.setName("Room C");
         room3.setCapacity(100);
-        room3.setRows(8);
-        room3.setColumns(12);
         room3.setType("Standard");
 
         saveRoomIfNotExists(room3);
