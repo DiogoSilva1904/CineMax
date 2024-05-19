@@ -25,11 +25,22 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
 
     private SessionService sessionService;
 
+    private UserService userService;
+
     public void run(String... args) {
         setup();
     }
 
     public void setup() {
+
+        AppUser user1 = new AppUser();
+        user1.setId(1L);
+        user1.setUsername("admin");
+        user1.setPassword("admin");
+        user1.setEmail("admin");
+        user1.setRole("ADMIN");
+
+        saveUserIfNotExists(user1);
 
         Movie movie1 = new Movie();
         movie1.setId(1L);
@@ -146,6 +157,16 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
             log.info("Movie saved: {}", movie.getTitle());
         } else {
             log.info("Movie already exists: {}", movie.getTitle());
+        }
+    }
+
+    private void saveUserIfNotExists(AppUser user) {
+        AppUser existingUser = userService.getUserById(user.getId());
+        if (existingUser == null) {
+            userService.saveUser(user);
+            log.info("User saved: {}", user.getUsername());
+        } else {
+            log.info("User already exists: {}", user.getUsername());
         }
     }
 }
