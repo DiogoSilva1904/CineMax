@@ -27,8 +27,6 @@ public class Session {
 
     private String time;
 
-    private Integer availableSeats;
-
     @ManyToOne
     @JoinColumn(name= "movie_id")
     @JsonIgnoreProperties("session")
