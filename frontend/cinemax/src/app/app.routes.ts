@@ -5,6 +5,7 @@ import { AddMovieComponent } from './add-movie/add-movie.component';
 import { QrcodepageComponent } from './qrcodepage/qrcodepage.component';
 import { BookingPageComponent } from './booking-page/booking-page.component';
 import { SessionsComponent } from './sessions/sessions.component';
+import { DigitalSignagePageComponent } from './digital-signage-page/digital-signage-page.component';
 
 export const routes: Routes = [
     { path: '', component: FrontpageComponent },
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'addmovie', component: AddMovieComponent},
     { path: "buyTicket", component:BookingPageComponent},
     { path: "qrcode", component: QrcodepageComponent},
-    { path: "sessions", component: SessionsComponent}
+    { path: "sessions", component: SessionsComponent},
+    { path: "signage", component: DigitalSignagePageComponent}
 ];

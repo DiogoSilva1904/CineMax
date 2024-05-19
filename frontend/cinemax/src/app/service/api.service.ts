@@ -62,5 +62,12 @@ export class ApiService {
     const response = await fetch(url, { method: 'DELETE' });
     return await response.statusText ?? undefined;
   }
+
+  async getSessionsByDate(date: string) {
+    const url = `${this.baseUrl}/sessions/date/${date}`;
+    console.log('Getting sessions by date: url:', url);
+    const response = await fetch(url, { method: 'GET' });
+    return await response.json() ?? undefined;
+  }
   
 }

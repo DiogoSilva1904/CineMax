@@ -56,4 +56,10 @@ public class SessionService {
         return sessionRepository.findAll();
     }
 
+
+    public List<Session> getSessionsbyDate(String date) {
+        log.info("Retrieving all sessions by date {}", date);
+        return sessionRepository.findByDate(date);
+    }
+
 }
