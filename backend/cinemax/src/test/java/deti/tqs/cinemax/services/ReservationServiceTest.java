@@ -176,6 +176,64 @@ class ReservationServiceTest {
         assertNull(savedReservation);
     }
 
+    @Test
+    void testDeleteReservationSuccess() {
+        Long reservationId = 1L;
+
+        Session session = new Session();
+        session.setId(1L);
+        List<String> bookedSeats = new ArrayList<>();
+        bookedSeats.add("A1");
+        session.setBookedSeats(bookedSeats);
+        session.setAvailableSeats(10);
+
+        Reservation reservation = new Reservation();
+        reservation.setId(reservationId);
+        reservation.setSession(session);
+        List<String> seatNumbers = new ArrayList<>();
+        seatNumbers.add("A1");
+        reservation.setSeatNumbers(seatNumbers);
+
+        Mockito.when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
+        Mockito.when(sessionService.getSessionById(session.getId())).thenReturn(session);
+
+        reservationService.deleteReservation(reservationId);
+
+        Mockito.verify(reservationRepository, Mockito.times(1)).deleteById(reservationId);
+        assertFalse(session.getBookedSeats().contains("A1"));
+        assertEquals(11, session.getAvailableSeats());
+    }
+
+    @Test
+    void testDeleteReservationWithNonExistentSession() {
+        Long reservationId = 1L;
+
+        Reservation reservation = new Reservation();
+        reservation.setId(reservationId);
+
+        Session session = new Session();
+        session.setId(1L);
+        reservation.setSession(session);
+
+        List<String> seatNumbers = new ArrayList<>();
+        seatNumbers.add("A1");
+        reservation.setSeatNumbers(seatNumbers);
+
+        Mockito.when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
+        Mockito.when(sessionService.getSessionById(session.getId())).thenReturn(null);
+
+        Exception exception = assertThrows(NullPointerException.class, () -> {
+            reservationService.deleteReservation(reservationId);
+        });
+
+        String expectedMessage = "Cannot invoke \"deti.tqs.cinemax.models.Session.getBookedSeats()\" because \"session\" is null";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        Mockito.verify(reservationRepository, Mockito.times(0)).deleteById(reservationId);
+    }
+
 
 
 }
