@@ -1,7 +1,6 @@
 import { NgForOf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { ApiService } from '../service/api.service';
-
 
 interface Session {
   id: number;
@@ -21,15 +20,44 @@ interface Session {
   templateUrl: './digital-signage-page.component.html',
   styleUrl: './digital-signage-page.component.css'
 })
-export class DigitalSignagePageComponent {
+export class DigitalSignagePageComponent implements OnInit, OnDestroy{
   currentTime: string = this.getCurrentTime();
   ApiService= inject(ApiService);
   Sessions: Session[] | undefined;
+  interval: any;
 
   constructor() {
-    this.ApiService.getSessionsByDate("2024-05-15").then((sessions) => {
-      this.Sessions = sessions;
-    });
+  }
+
+  ngOnInit(): void {
+    this.currentTime = this.getCurrentTime();
+    this.initDataFetching();
+  }
+
+  ngOnDestroy(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
+
+  async initDataFetching(): Promise<void> {
+    try {
+      this.Sessions = await this.ApiService.getSessionsByDate("2024-05-15");
+      this.interval = setInterval(() => {
+        this.refreshData();
+      }, 10000);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
+  async refreshData(): Promise<void> {
+    try {
+      this.Sessions = await this.ApiService.getSessionsByDate("2024-05-15");
+      this.currentTime = this.getCurrentTime();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   }
 
   getCurrentTime(): string {
