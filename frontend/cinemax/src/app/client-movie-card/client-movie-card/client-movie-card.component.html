@@ -1,21 +1,8 @@
-<div class="container">
-  <div class="cellphone-container">
-    <div class="movie">
-      <div class="menu"><i class="material-icons"></i></div>
-      <div class="movie-img"></div>
-      <div class="text-movie-cont">
-        <div class="mr-grid">
-          <div class="col1">
-            <h1> {{movie.title}}</h1>
-            <ul class="movie-gen">
-              <li>{{movie.genre}} /</li>
-              <li>{{movie.studio}}/</li>
-              <li>{{movie.duration}}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="movie-poster">
+  <img src="https://i.ibb.co/FDGqCmM/papers-co-ag74-interstellar-wide-space-film-movie-art-33-iphone6-wallpaper.jpg"  alt="Movie Poster" class="poster-image">
+  <div class="movie-details">
+    <h1 class="movie-title">{{movie.title}}</h1>
+    <p class="movie-genre">{{ movie.genre }}</p>
+    <p class="movie-duration">{{movie.duration}}</p>
   </div>
 </div>
-

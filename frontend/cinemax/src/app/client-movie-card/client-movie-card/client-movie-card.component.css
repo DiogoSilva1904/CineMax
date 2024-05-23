@@ -1,140 +1,46 @@
 body {
-  background: linear-gradient(
-    rgba(30, 27, 38, 0.95),
-    rgba(30, 27, 38, 0.95)
-  ),
-  url("https://i.ibb.co/FDGqCmM/papers-co-ag74-interstellar-wide-space-film-movie-art-33-iphone6-wallpaper.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: repeat;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 10px;
 }
 
-.container {
+.top-movies {
+  text-align: center;
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Adjust the gap between items as needed */
+  padding: 20px 0;
+}
+
+.movie-item {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 200px; /* Adjust the width of the movie poster */
+}
+
+.movie-item .poster-image {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
-.cellphone-container {
-  width: 175px;
-  height: 650px;
-  background-color: #1e1b26;
-  margin: 60px auto 0 auto;
-  box-shadow: 5px 5px 115px -14px black;
-  border-radius: 4px;
+.movie-item .movie-details {
+  padding: 15px;
 }
 
-.menu {
-  position: absolute;
-  right: 12px;
-  top: 6px;
-  z-index: 999;
+.movie-item .movie-title {
+  font-size: 18px;
+  margin: 0 0 10px;
 }
 
-.menu i {
-  font-size: 40px;
-  color: #fe4141;
-  filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.5));
-}
-
-.movie-img {
-  width: 100%;
-  height: 380px;
-  background-image: url("https://i.ibb.co/FDGqCmM/papers-co-ag74-interstellar-wide-space-film-movie-art-33-iphone6-wallpaper.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: 111 !important;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-
-  position: relative;
-}
-
-.movie {
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0) 38%,
-    rgba(255, 255, 255, 0.06) 39%,
-    rgba(30, 27, 38, 0.88) 53%,
-    rgba(30, 27, 38, 1) 55%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(
-    startColorstr='#00ffffff',
-    endColorstr='#1e1b26',
-    GradientType=0
-  );
-  position: absolute;
-  background-size: contain, cover;
-  z-index: 1 !important;
-  width: 375px;
-  height: 660px;
-  display: block;
-  border-radius: 4px;
-}
-
-.text-movie-cont {
-  padding: 0px 12px;
-  text-align: justify;
-}
-
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,300italic,400italic,600italic,700italic,800italic");
-
-h1 {
-  font-family: 'Montserrat', sans-serif;
-  color: #e7e7e7;
-  margin: 0px;
-  font-size: 36px;
-  font-weight: 400;
-}
-
-.movie-gen {
-  margin: 0px;
-  padding: 0px;
-}
-
-.movie-gen li {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 12px;
-  color: #888888;
-  width: auto;
-  display: block;
-  float: left;
-  margin-right: 6px;
-  font-weight: 600;
-}
-
-.mr-grid {
-  width: 100%;
-}
-
-.mr-grid:before,
-.mr-grid:after {
-  content: "";
-  display: table;
-}
-
-.mr-grid:after {
-  clear: both;
-}
-
-.mr-grid {
-  *zoom: 1;
-}
-
-.col1 {
-  width: 98%;
-  margin: 0 0.5% 0.5% 0.5%;
-  padding: 1%;
-  float: left;
-  display: block;
-}
-
-.dribbble-link {
-  width: 50px;
-  height: 50px;
-  position: fixed;
-  bottom: 15px;
-  right: 15px;
-  border-radius: 50px;
+.movie-item .movie-genre,
+.movie-item .movie-duration {
+  font-size: 14px;
+  margin: 5px 0;
+  color: #555;
 }

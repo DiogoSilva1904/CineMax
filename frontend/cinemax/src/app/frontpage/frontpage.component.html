@@ -1,11 +1,11 @@
 <div class="top-movies py-5">
   <div class="container">
-    <h1>Comming soon</h1>
+    <h1>Coming Soon</h1>
     <h4>Wait for its presence in your favorite cinema</h4>
-    <div class="movie-list" *ngFor="let movie of movies">
-
-        <app-client-movie-card [movie] = movie></app-client-movie-card>
-
+    <div class="movie-list">
+      <div *ngFor="let movie of movies" class="movie-item">
+        <app-client-movie-card [movie]="movie"></app-client-movie-card>
+      </div>
     </div>
   </div>
 </div>
