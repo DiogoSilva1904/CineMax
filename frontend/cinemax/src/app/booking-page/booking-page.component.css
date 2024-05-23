@@ -156,8 +156,8 @@
     display: inline-block;
     width: 12.5%; /* 100% divided by 8 columns */
     margin-bottom: 10px; /* Add a default gap between rows */
-    margin-right: 10px; /* Add a default gap between rows */
-    margin-left: 10px; /* Add a default gap between rows */
+    margin-right: 5px; /* Add a default gap between rows */
+    margin-left: 5px; /* Add a default gap between rows */
 
 }
 

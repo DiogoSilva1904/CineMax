@@ -1,0 +1,5 @@
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust minmax value as needed */
+  gap: 16px; /* Adjust the gap between grid items as needed */
+}
