@@ -42,7 +42,6 @@ public class SessionService {
 
     public Session saveSession(Session session) {
         log.info("Saving session with id {}", session.getId());
-        session.setAvailableSeats(session.getRoom().getCapacity());
         return sessionRepository.save(session);
     }
 

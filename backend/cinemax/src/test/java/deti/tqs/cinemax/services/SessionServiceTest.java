@@ -80,8 +80,8 @@ class SessionServiceTest {
     @Test
     void testUpdateSession_Found() {
         Long id = 1L;
-        Session existingSession = new Session(id, "2024-05-11", "20:00", 50, null, null, null, new ArrayList<>());
-        Session updatedSession = new Session(id, "2024-05-11", "21:00", 50, null, null, null, new ArrayList<>());
+        Session existingSession = new Session(id, "2024-05-11", "20:00", null,null, null, new ArrayList<>());
+        Session updatedSession = new Session(id, "2024-05-11", "21:00", null, null, null, new ArrayList<>());
 
         log.info("Mocking sessionRepository.findById({}) to return existing session", id);
         Mockito.when(sessionRepository.findById(id)).thenReturn(Optional.of(existingSession));
