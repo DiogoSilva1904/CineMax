@@ -1,5 +1,8 @@
 package deti.tqs.cinemax.services;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,7 +61,22 @@ public class SessionService {
 
     public List<Session> getSessionsbyDate(String date) {
         log.info("Retrieving all sessions by date {}", date);
-        return sessionRepository.findByDate(date);
+        List<Session> sessions = sessionRepository.findByDate(date);
+        //checking if the date hour is in the past
+        List<Session> sessionsToRemove = new ArrayList<>();
+
+        for (Session session : sessions) {
+            String sessionDate = session.getDate() + " " + session.getTime();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(sessionDate, formatter);
+            if (LocalDateTime.now().isAfter(dateTime)) {
+                sessionsToRemove.add(session);
+            }
+        }
+
+        sessions.removeAll(sessionsToRemove);
+
+        return sessions;
     }
 
 }

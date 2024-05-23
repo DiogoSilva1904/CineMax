@@ -1,4 +1,4 @@
-import { NgForOf } from '@angular/common';
+import { DatePipe, NgForOf } from '@angular/common';
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { ApiService } from '../service/api.service';
 
@@ -25,12 +25,18 @@ export class DigitalSignagePageComponent implements OnInit, OnDestroy{
   ApiService= inject(ApiService);
   Sessions: Session[] | undefined;
   interval: any;
+  todayDate: string = "";
 
   constructor() {
   }
 
   ngOnInit(): void {
     this.currentTime = this.getCurrentTime();
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ('0' + (today.getMonth() + 1)).slice(-2);
+    const day = ('0' + today.getDate()).slice(-2); 
+    this.todayDate = `${year}-${month}-${day}`;
     this.initDataFetching();
   }
 
@@ -42,7 +48,7 @@ export class DigitalSignagePageComponent implements OnInit, OnDestroy{
 
   async initDataFetching(): Promise<void> {
     try {
-      this.Sessions = await this.ApiService.getSessionsByDate("2024-05-15");
+      this.Sessions = await this.ApiService.getSessionsByDate(this.todayDate);
       this.interval = setInterval(() => {
         this.refreshData();
       }, 10000);
@@ -53,7 +59,7 @@ export class DigitalSignagePageComponent implements OnInit, OnDestroy{
 
   async refreshData(): Promise<void> {
     try {
-      this.Sessions = await this.ApiService.getSessionsByDate("2024-05-15");
+      this.Sessions = await this.ApiService.getSessionsByDate(this.todayDate);
       this.currentTime = this.getCurrentTime();
     } catch (error) {
       console.error('Error fetching data:', error);
