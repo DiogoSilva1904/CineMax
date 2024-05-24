@@ -2,6 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px; /* Adjust the gap between items as needed */
+  gap: 60px;
   padding: 20px 0;
 }
+
+
