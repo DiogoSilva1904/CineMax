@@ -27,7 +27,7 @@ export class MyticketsComponent implements OnInit {
   private async loadTickets() {
     try {
       const ticketData = await this.apiService.getReservationById("1");
-      this.tickets = [ticketData]; // Assuming you get a single ticket object
+      this.tickets = [ticketData];
       console.log(this.tickets);
     } catch (error) {
       console.error('Error fetching tickets', error);
