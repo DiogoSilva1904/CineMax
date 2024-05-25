@@ -26,6 +26,12 @@ export class ApiService {
     return await data.json() ?? undefined;
   }
 
+  async getReservationById(reservationId: string) {
+    const url = `${this.baseUrl}/reservations/${reservationId}`;
+    const response = await fetch(url, { method: 'GET' });
+    return await response.json() ?? undefined;
+  }
+
   async getMovies() {
     const url = `${this.baseUrl}/movies`;
     const response = await fetch(url, { method: 'GET' });
@@ -62,5 +68,5 @@ export class ApiService {
     const response = await fetch(url, { method: 'DELETE' });
     return await response.statusText ?? undefined;
   }
-  
+
 }

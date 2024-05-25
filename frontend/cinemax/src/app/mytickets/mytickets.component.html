@@ -1,1 +1,41 @@
-<p>mytickets works!</p>
+
+<div>
+  <h2>My tickets</h2>
+
+  <div *ngIf="tickets.length > 0; else noTickets">
+    <div *ngFor="let ticket of tickets">
+      <h2>Ticket for {{ ticket.username }}</h2>
+      <ul>
+        <li><strong>Price:</strong> {{ ticket.price }}</li>
+        <li><strong>Session:</strong>
+          <ul>
+            <li><strong>Date:</strong> {{ ticket.session.date }}</li>
+            <li><strong>Time:</strong> {{ ticket.session.time }}</li>
+            <li><strong>Available Seats:</strong> {{ ticket.session.availableSeats }}</li>
+            <li><strong>Movie:</strong>
+              <ul>
+                <li><strong>Title:</strong> {{ ticket.session.movie.title }}</li>
+                <li><strong>Category:</strong> {{ ticket.session.movie.category }}</li>
+                <li><strong>Genre:</strong> {{ ticket.session.movie.genre }}</li>
+                <li><strong>Studio:</strong> {{ ticket.session.movie.studio }}</li>
+                <li><strong>Duration:</strong> {{ ticket.session.movie.duration }}</li>
+              </ul>
+            </li>
+            <li><strong>Room:</strong>
+              <ul>
+                <li><strong>Name:</strong> {{ ticket.session.room.name }}</li>
+                <li><strong>Capacity:</strong> {{ ticket.session.room.capacity }}</li>
+                <li><strong>Type:</strong> {{ ticket.session.room.type }}</li>
+              </ul>
+            </li>
+            <li><strong>Booked Seats:</strong> {{ ticket.session.bookedSeats.join(', ') }}</li>
+          </ul>
+        </li>
+        <li><strong>Seat Numbers:</strong> {{ ticket.seatNumbers.join(', ') }}</li>
+      </ul>
+    </div>
+  </div>
+  <ng-template #noTickets>
+    <p>No tickets found.</p>
+  </ng-template>
+</div>
