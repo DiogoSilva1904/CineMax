@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: 240px; /* Adjust width as needed */
+    width: 265px; /* Adjust width as needed */
     background-color: #333;
     font-size: 1.2em;
     z-index: 1000; /* Ensure it's above other content */

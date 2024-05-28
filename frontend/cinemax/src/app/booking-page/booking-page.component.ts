@@ -76,9 +76,9 @@ export class BookingPageComponent {
     { seatIdentifier: "D10", occupied: false },
   ];
   selectedSeats: string[] = [];
-  sessionTime: string = '18:00'; 
-  day: string = 'Monday'; 
-  movieName: string = 'Avengers: Endgame'; 
+  sessionTime: string = '18:00';
+  day: string = 'Monday';
+  movieName: string = 'Avengers: Endgame';
   totalPrice: number = 0;
   ApiService= inject(ApiService);
   Sessions: Session[] = [];
@@ -102,18 +102,29 @@ export class BookingPageComponent {
   }
 
   toggleSeat(seatIdentifier: string) {
+    const seat = this.seats.find(s => s.seatIdentifier === seatIdentifier);
+    if (!seat || seat.occupied) {
+      return;
+    }
     const index = this.selectedSeats.indexOf(seatIdentifier);
     if (index !== -1) {
       this.selectedSeats.splice(index, 1);
     } else {
       this.selectedSeats.push(seatIdentifier);
     }
-    this.calculateTotalPrice(); 
+    this.calculateTotalPrice();
   }
+
 
   calculateTotalPrice() {
     this.totalPrice = this.selectedSeats.length * 10;
   }
+
+  clearSeats(){
+    this.selectedSeats = [];
+    this.calculateTotalPrice();
+  }
+
 
   reserveSeats() {
     const reservation = {
