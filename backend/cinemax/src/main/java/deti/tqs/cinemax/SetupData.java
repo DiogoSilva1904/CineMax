@@ -163,7 +163,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
     private void saveUserIfNotExists(AppUser user) {
         AppUser existingUser = userService.getUserById(user.getId());
         if (existingUser == null) {
-            userService.saveUser(user);
+            userService.saveAdminUser(user);
             log.info("User saved: {}", user.getUsername());
         } else {
             log.info("User already exists: {}", user.getUsername());

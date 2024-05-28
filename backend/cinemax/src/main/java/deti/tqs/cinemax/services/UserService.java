@@ -35,13 +35,24 @@ public class UserService implements UserDetailsService {
     public AppUser saveUser(AppUser user) {
         UserDetails newUser = User.builder()
             .username(user.getUsername())
-            // bcrypt hash of a random password
             .password(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()))
             .roles("USER")
             .build();
         
         customUserDetailsService.addUser(newUser);
         user.setRole("USER");
+        return userRepository.save(user);
+    }
+
+    public AppUser saveAdminUser(AppUser user){
+        UserDetails newUser = User.builder()
+            .username(user.getUsername())
+            .password(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()))
+            .roles("ADMIN")
+            .build();
+        
+        customUserDetailsService.addUser(newUser);
+        user.setRole("ADMIN");
         return userRepository.save(user);
     }
 
