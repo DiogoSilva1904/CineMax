@@ -1,7 +1,11 @@
 package deti.tqs.cinemax.IT;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import deti.tqs.cinemax.models.Movie;
 import org.apache.coyote.Response;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -17,6 +21,7 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.springframework.http.*;
 
 import java.util.List;
 
@@ -49,9 +54,44 @@ public class MovieIT {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    private static String jwtToken;
+    private static final TestRestTemplate restTemplate1 = new TestRestTemplate();
+
+    @BeforeAll
+    static void setup(@LocalServerPort int port1) {
+        String requestBody = "{\"username\":\"" + "admin" + "\",\"password\":\"" + "admin" + "\"}";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        ResponseEntity<String> response = restTemplate1.exchange(
+                "http://localhost:"+ port1 + "/api/login",
+                HttpMethod.POST,
+                requestEntity,
+                String.class
+        );
+
+        assertEquals(200, response.getStatusCodeValue());
+
+        String responseBody = response.getBody();
+
+        JsonElement jsonElement = JsonParser.parseString(responseBody);
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+        jwtToken = jsonObject.get("jwt").getAsString();
+    }
+
     @Test
     void testGetAllMovies() {
-        ResponseEntity<List<Movie>> response = restTemplate.exchange("http://localhost:" + port + "/api/movies", HttpMethod.GET ,null,new ParameterizedTypeReference<List<Movie>>() {});
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(jwtToken);
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<List<Movie>> response = restTemplate.exchange("http://localhost:" + port + "/api/movies", HttpMethod.GET ,entity,new ParameterizedTypeReference<List<Movie>>() {});
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
         List<Movie> movies = response.getBody();
         assertEquals(3, movies.size());

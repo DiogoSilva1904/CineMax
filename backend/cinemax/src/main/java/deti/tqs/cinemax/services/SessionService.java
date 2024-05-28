@@ -61,7 +61,7 @@ public class SessionService {
 
     public List<Session> getSessionsbyDate(String date) {
         log.info("Retrieving all sessions by date {}", date);
-        List<Session> sessions = sessionRepository.findByDate(date);
+        List<Session> sessions = new ArrayList<>(sessionRepository.findByDate(date)); // Convert to mutable list
         //checking if the date hour is in the past
         List<Session> sessionsToRemove = new ArrayList<>();
 

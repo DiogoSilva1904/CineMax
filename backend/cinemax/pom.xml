@@ -167,6 +167,7 @@
 					<excludes>
 						<exclude>deti/tqs/cinemax/SetupData.class</exclude>
 						<exclude>deti/tqs/cinemax/CinemaxApplication.class</exclude>
+						<exclude>**/config/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>

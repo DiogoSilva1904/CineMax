@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
@@ -44,7 +45,7 @@ class ReservationServiceTest {
         seatNumbers.add("A1");
         reservation.setSeatNumbers(seatNumbers);
 
-        Mockito.when(reservationRepository.save(reservation)).thenReturn(reservation);
+        when(reservationRepository.save(reservation)).thenReturn(reservation);
 
         Reservation savedReservation = reservationService.saveReservation(reservation);
 
@@ -81,7 +82,7 @@ class ReservationServiceTest {
         Reservation reservation = new Reservation();
         reservation.setId(1L);
 
-        Mockito.when(reservationRepository.findById(1L)).thenReturn(Optional.of(reservation));
+        when(reservationRepository.findById(1L)).thenReturn(Optional.of(reservation));
 
         Reservation retrievedReservation = reservationService.getReservationById(1L);
 
@@ -91,7 +92,7 @@ class ReservationServiceTest {
 
     @Test
     void testGetReservationByIdFailure() {
-        Mockito.when(reservationRepository.findById(1L)).thenReturn(Optional.empty());
+        when(reservationRepository.findById(1L)).thenReturn(Optional.empty());
 
         Reservation retrievedReservation = reservationService.getReservationById(1L);
 
@@ -121,8 +122,8 @@ class ReservationServiceTest {
         updatedSeatNumbers.add("A2");
         updatedReservation.setSeatNumbers(updatedSeatNumbers);
 
-        Mockito.when(reservationRepository.findById(1L)).thenReturn(Optional.of(existingReservation));
-        Mockito.when(reservationRepository.save(updatedReservation)).thenReturn(updatedReservation);
+        when(reservationRepository.findById(1L)).thenReturn(Optional.of(existingReservation));
+        when(reservationRepository.save(updatedReservation)).thenReturn(updatedReservation);
 
         Optional<Reservation> updatedOptionalReservation = reservationService.updateReservation(1L, updatedReservation);
 
@@ -174,6 +175,37 @@ class ReservationServiceTest {
         Reservation savedReservation = reservationService.saveReservation(reservation);
 
         assertNull(savedReservation);
+    }
+
+    @Test
+    void testDeleteReservationSuccess() {
+
+        Session session = new Session();
+        session.setId(1L);
+        session.setBookedSeats(new ArrayList<>());
+
+        Reservation reservation = new Reservation();
+        reservation.setId(1L);
+        reservation.setUsername("testUser");
+        List<String> seatNumbers = new ArrayList<>();
+        seatNumbers.add("A2");
+        reservation.setSeatNumbers(seatNumbers);
+        reservation.setSession(session);
+
+        when(reservationRepository.findById(1L)).thenReturn(Optional.of(reservation));
+        when(sessionService.getSessionById(1L)).thenReturn(session);
+
+        reservationService.deleteReservation(reservation.getId());
+
+        log.info("Calling reservationService.deleteReservation(id={})", 1L);
+
+
+        verify(reservationRepository).deleteById(1L);
+        verify(reservationRepository, times(1)).deleteById(1L);
+
+
+
+
     }
 
 

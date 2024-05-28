@@ -1,10 +1,11 @@
-package deti.tqs.cinemax.IT;
+package deti.tqs.cinemax.dataInit;
 
+import deti.tqs.cinemax.models.AppUser;
 import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.services.MovieService;
 import deti.tqs.cinemax.services.RoomService;
 import deti.tqs.cinemax.services.SessionService;
-import org.mockito.Mock;
+import deti.tqs.cinemax.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -20,15 +21,19 @@ public class DataInit implements CommandLineRunner {
 
     private SessionService sessionService;
 
+    private UserService userService;
+
     @Autowired
-    public DataInit(MovieService movieService, RoomService roomService, SessionService sessionService) {
+    public DataInit(MovieService movieService, RoomService roomService, SessionService sessionService, UserService userService) {
         this.movieService = movieService;
         this.roomService = roomService;
         this.sessionService = sessionService;
+        this.userService = userService;
     }
 
     public void run(String... args) throws Exception {
         this.loadMovies();
+        this.loadUser();
     }
 
     private void loadMovies(){
@@ -64,5 +69,16 @@ public class DataInit implements CommandLineRunner {
 
         movieService.saveMovie(movie3);
 
+    }
+
+    private void loadUser(){
+        AppUser user = new AppUser();
+        user.setId(1L);
+        user.setRole("ADMIN");
+        user.setPassword("admin");
+        user.setEmail("dio@gmail.com");
+        user.setUsername("admin");
+
+        userService.saveUser(user);
     }
 }

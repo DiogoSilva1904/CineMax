@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -122,6 +123,44 @@ class SessionServiceTest {
         sessionService.deleteSession(sessionId);
 
         verify(sessionRepository, times(1)).deleteById(sessionId);
+    }
+
+    @Test
+    void testGetAllSessions(){
+        Session session = new Session(1L, "2024-05-11", "20:00", null,null, null, new ArrayList<>());
+        Session session2 = new Session(2L, "2024-05-11", "21:00", null,null, null, new ArrayList<>());
+
+        log.info("Mocking sessionRepository.findAll() to return a list of sessions");
+
+        Mockito.when(sessionRepository.findAll()).thenReturn(java.util.List.of(session, session2));
+
+        log.info("Calling sessionService.getAllSessions()");
+
+        List<Session> sessionList = sessionService.getAllSessions();
+
+        assertEquals(2, sessionList.size());
+        assertEquals(session, sessionList.get(0));
+        assertEquals(session2, sessionList.get(1));
+    }
+
+    @Test
+    //only gets session in the future
+    void testGetSessionsByDate(){
+        Session session = new Session(1L, "2024-05-11", "20:00", null,null, null, new ArrayList<>());
+        Session session2 = new Session(2L, "2024-06-11", "21:00", null,null, null, new ArrayList<>());
+        Session session3 = new Session(3L, "2024-05-11", "19:00", null,null, null, new ArrayList<>());
+
+        log.info("Mocking sessionRepository.findAllByDate('2024-05-11') to return a list of sessions");
+
+        Mockito.when(sessionRepository.findByDate("2024-06-11")).thenReturn(List.of(session2));
+
+        log.info("Calling sessionService.getSessionsByDate('2024-06-11')");
+
+        List<Session> sessionList = sessionService.getSessionsbyDate("2024-06-11");
+
+        assertEquals(1, sessionList.size());
+        assertEquals(session2, sessionList.get(0));
+
     }
 
 }
