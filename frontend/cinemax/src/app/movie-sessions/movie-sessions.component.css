@@ -1,0 +1,54 @@
+/* Align movie details to the right */
+#movie {
+  float: right; /* Float the movie container to the right */
+  margin-left: 20px; /* Add margin to separate from session container */
+  width: 50%; /* Set width for movie container */
+  margin-top: 10px;
+}
+
+/* Style session cards */
+#sessions {
+  float: left; /* Float the session container to the left */
+  width: 40%; /* Set width for session container */
+}
+
+.card-img-top {
+  height: 800px;
+  object-fit: cover;
+}
+
+.session-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  margin-top:100px;
+  width: 40%; /* Adjust width to fill the session container */
+}
+
+.session-card .card-body {
+  padding: 10px;
+}
+
+.session-card .card-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.session-card .card-text {
+  margin-bottom: 5px;
+}
+
+.session-card button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.session-card button:hover {
+  background-color: #0056b3;
+}

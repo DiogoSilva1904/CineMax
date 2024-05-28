@@ -1,5 +1,8 @@
 package deti.tqs.cinemax.controllers;
 
+import deti.tqs.cinemax.config.CustomUserDetailsService;
+import deti.tqs.cinemax.config.IAuthenticationFacade;
+import deti.tqs.cinemax.config.JwtUtilService;
 import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.models.Room;
 import deti.tqs.cinemax.models.Session;
@@ -8,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,10 +28,20 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(SessionController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class SessionControllerTest {
 
             @Autowired
             private MockMvc mvc;
+
+            @MockBean
+            private CustomUserDetailsService customUserDetailsService;
+
+            @MockBean
+            private JwtUtilService jwtUtil;
+
+            @MockBean
+            private IAuthenticationFacade authenticationFacade;
 
             @MockBean
             private SessionService sessionService;

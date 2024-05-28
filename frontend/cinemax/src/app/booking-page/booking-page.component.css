@@ -1,17 +1,149 @@
 .seat-map-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 seats per row */
+    grid-template-columns: repeat(1, 1fr); /* 5 seats per row */
     gap: 10px;
     justify-items: center;
-    align-items: center;
+  background-color: #f0f0f0;
+    align-items: flex-end;
     height: 100%;
   }
 
-  /* Additional styling for seat colors */
+
+
+.bottomstuff1{
+
+  background-color: #eeeeee;
+  display: flex; /* Use flexbox */
+  align-items: center; /* Align items vertically in the center */
+}
+
+.bottomstuff2{
+  background-color: #eeeeee;
+
+}
+
+.reserverbtn {
+}
+  /* CSS */
+.reserverbtn {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 40%;
+  will-change: transform;
+}
+
+  .reserverbtn:disabled {
+    pointer-events: none;
+  }
+
+  .reserverbtn:hover {
+    color: #fff;
+    background-color: #1A1A1A;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+  }
+
+  .reserverbtn:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+
+
+.cancelbtn {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid red;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: red;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 10px;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 40%;
+  will-change: transform;
+}
+
+.cancelbtn:disabled {
+  pointer-events: none;
+}
+
+.reserverbtn:hover {
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.cancelbtn:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+
+
+.bottomstuff1 div{
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.bottomstuff1 buttom{
+  padding: 50px;
+}
+
+
+
+.price{}
+
+.legend{
+  background-color:  #f0f0f0;
+  width: 10px;
+  display: flex;
+  padding-right: 10px;
+  column-gap: 20px;
+}
+
   .seat {
     width: 40px;
+    border-radius: 15px;
     height: 40px;
     background-color: #f0f0f0;
+    padding: 5px;
+    margin-top: 10px;
     border: 1px solid #ccc;
     display: flex;
     align-items: center;
@@ -24,18 +156,25 @@
     display: inline-block;
     width: 12.5%; /* 100% divided by 8 columns */
     margin-bottom: 10px; /* Add a default gap between rows */
+    margin-right: 10px; /* Add a default gap between rows */
+    margin-left: 10px; /* Add a default gap between rows */
+
 }
 
   .seat.selected {
     background-color: #3498db;
     color: #fff;
   }
-  
+
   .seat.occupied {
     background-color: #e74c3c;
     color: #fff;
   }
-  
+
+  .movie-info{
+    background-color: #f0f0f0;
+  }
+
   .screen {
     position: absolute;
     top: 10px; /* Adjust the distance from the top as needed */
@@ -49,4 +188,47 @@
 }
 
 
+                                                     /* CSS */
+                                                   .clearbtn {
+                                                     align-items: center;
+                                                     appearance: none;
+                                                     background-color: #fff;
+                                                     border: 1px solid #dbdbdb;
+                                                     border-radius: .375em;
+                                                     box-shadow: none;
+                                                     box-sizing: border-box;
+                                                     color: #363636;
+                                                     cursor: pointer;
+                                                     display: inline-flex;
+                                                     font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+                                                     font-size: 1rem;
+                                                     height: 2.5em;
+                                                     justify-content: center;
+                                                     line-height: 1.5;
+                                                     padding: calc(.5em - 1px) 1em;
+                                                     position: relative;
+                                                     text-align: center;
+                                                     user-select: none;
+                                                     -webkit-user-select: none;
+                                                     touch-action: manipulation;
+                                                     vertical-align: top;
+                                                     white-space: nowrap;
+                                                   }
 
+.clearbtn:active {
+  border-color: #4a4a4a;
+  outline: 0;
+}
+
+.clearbtn:focus {
+  border-color: #485fc7;
+  outline: 0;
+}
+
+.clearbtn:hover {
+  border-color: #b5b5b5;
+}
+
+.clearbtn:focus:not(:active) {
+  box-shadow: rgba(72, 95, 199, .25) 0 0 0 .125em;
+}
