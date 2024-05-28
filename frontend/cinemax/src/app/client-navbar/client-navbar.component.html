@@ -1,0 +1,23 @@
+<div class="tp-container">
+  <div class="tp-navbar">
+    <div class="tp-navbar-header">
+      <h2>Cinemax</h2>
+    </div>
+    <div class="tp-navbar-right">
+      <div class="tp-login">
+        <!-- Your login form goes here -->
+      </div>
+      <mat-nav-list class="tp-nav-list" horizontal>
+        <mat-list-item class="tp-section" routerLink="/home">
+          <mat-icon>home</mat-icon>
+          <span mat-line>Home</span>
+        </mat-list-item>
+        <mat-list-item class="tp-section" routerLink="/MyTickets">
+          <mat-icon>wallet</mat-icon>
+          <span mat-line>My tickets</span>
+        </mat-list-item>
+        <button mat-button class="tp-logout" (click)="logout()">Logout</button>
+      </mat-nav-list>
+    </div>
+  </div>
+</div>

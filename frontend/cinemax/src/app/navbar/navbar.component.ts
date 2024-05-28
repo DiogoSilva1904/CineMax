@@ -27,4 +27,12 @@ export class NavbarComponent {
     this.router.navigate(['/movies']);
   }
 
+  public goToChangePassword() {
+    this.router.navigate(['/changePassword']);
+  }
+
+  public goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
 }
