@@ -46,7 +46,7 @@
 
     <ng-container matColumnDef="available_seats">
       <th mat-header-cell *matHeaderCellDef> Available Seats </th>
-      <td mat-cell *matCellDef="let element"> {{element.availableSeats}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.room.capacity - element.bookedSeats.length}} </td>
     </ng-container>
 
     <!-- delete button-->

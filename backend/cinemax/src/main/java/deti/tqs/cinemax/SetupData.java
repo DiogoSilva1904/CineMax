@@ -109,8 +109,8 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
 
         Session session1 = new Session();
         session1.setId(1L);
-        session1.setDate("2024-05-15");
-        session1.setTime("18:00");
+        session1.setDate("2024-05-23");
+        session1.setTime("20:00");
         session1.setMovie(movie1);
         session1.setRoom(room1);
         session1.setBookedSeats(List.of("A2", "A1"));

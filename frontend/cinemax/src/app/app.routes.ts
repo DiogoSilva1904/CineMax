@@ -4,6 +4,7 @@ import { AddMovieComponent } from './add-movie/add-movie.component';
 import { QrcodepageComponent } from './qrcodepage/qrcodepage.component';
 import { BookingPageComponent } from './booking-page/booking-page.component';
 import { SessionsComponent } from './sessions/sessions.component';
+import { DigitalSignagePageComponent } from './digital-signage-page/digital-signage-page.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -21,6 +22,7 @@ export const routes: Routes = [
     { path: "buyTicket", component:BookingPageComponent},
     { path: "qrcode", component: QrcodepageComponent},
     { path: "sessions", component: SessionsComponent},
+    { path: "signage", component: DigitalSignagePageComponent},
     { path: "register", component: RegisterComponent},
     { path: "changePassword", component: ChangePasswordComponent},
     { path: 'movie-sessions/:id', component: MovieSessionsComponent},
