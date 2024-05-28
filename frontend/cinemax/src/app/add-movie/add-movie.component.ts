@@ -13,34 +13,49 @@ export class AddMovieComponent {
 
   ApiDataService = inject(ApiService);
 
-  movie = {
+  movie: any = {
     title: '',
-    duration: null,
+    duration: '',
     studio: '',
     genre: '',
-    //poster: null
+    poster:  null
   };
 
+  file: File | null = null;
+
   submitForm() {
-    // Handle form submission logic here
-    console.log('Form submitted:', this.movie);
-    this.ApiDataService.addMovie(this.movie).then((response) => {
-      console.log('Movie added:', response);
+    var formData = new FormData();
+    formData.append('title', this.movie.title);
+    formData.append('duration', this.movie.duration);
+    formData.append('studio', this.movie.studio);
+    formData.append('genre', this.movie.genre);
+    formData.append('poster', this.movie.poster);
+    console.log('Form submitted:', formData);
+    this.ApiDataService.addMovie(formData).then((response) => {
+      console.log('Movie added:', response); 
     });
-    // clear form
-    this.movie = {
-      title: '',
-      duration: null,
-      studio: '',
-      genre: '',
-      //poster: null
-    };
+    this.resetForm();
   }
 
   onFileSelected(event: any) {
-    // Handle file selection
-    //this.movie.poster = event.target.files[0];
-    console.log('File selected');
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.movie.poster = input.files[0];
+      console.log('File selected', this.movie.poster);
+    } else {
+      this.file = null;
+    }
+  }
+
+  resetForm() {
+    this.movie = {
+      title: '',
+      duration: '',
+      studio: '',
+      genre: '',
+      poster: null
+    };
+    this.file = null;
   }
 
 }

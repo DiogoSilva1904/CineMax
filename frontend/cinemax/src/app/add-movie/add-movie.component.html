@@ -1,6 +1,5 @@
-<!-- add-movie.component.html -->
 <h2>Add Movie</h2>
-<form (ngSubmit)="submitForm()" #movieForm="ngForm">
+<form (ngSubmit)="submitForm()" #movieForm="ngForm" enctype="multipart/form-data">
   <div>
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" [(ngModel)]="movie.title" required>

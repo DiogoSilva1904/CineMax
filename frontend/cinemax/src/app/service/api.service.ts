@@ -17,10 +17,12 @@ export class ApiService {
     }
   }
 
-  private getHeaders(withAuth: boolean = false): Headers {
+  private getHeaders(withAuth: boolean = false,isMultipart: boolean = false): Headers {
     const headers = new Headers({
-      'Content-Type': 'application/json'
     });
+    if (!isMultipart) {
+      headers.append('Content-Type', 'application/json');
+    }
     if (withAuth) {
       const token = this.getAuthToken();
       if (token) {
@@ -67,12 +69,13 @@ export class ApiService {
     return await response.json() ?? undefined;
   }
 
-  async addMovie(movie: any) {
-    const url = `${this.baseUrl}/movies`;
+  async addMovie(movieData: any) {
+    const url = `${this.baseUrl}/movies/test`;
+    console.log('movieData', movieData);
     const response = await fetch(url, {
       method: 'POST',
-      headers: this.getHeaders(true),
-      body: JSON.stringify(movie)
+      headers: this.getHeaders(true,true),
+      body: movieData
     });
     return await response.json() ?? undefined;
   }

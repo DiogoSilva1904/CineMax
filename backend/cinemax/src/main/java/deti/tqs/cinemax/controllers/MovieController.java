@@ -6,7 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import deti.tqs.cinemax.models.CustomFile;
+import deti.tqs.cinemax.models.FilesClass;
 import deti.tqs.cinemax.models.Movie;
+import deti.tqs.cinemax.models.MovieClass;
 import deti.tqs.cinemax.services.MovieService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -50,6 +53,13 @@ public class MovieController {
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
         movieService.deleteMovie(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/test")
+    public ResponseEntity<?> createMovie(@ModelAttribute MovieClass movie) {
+        System.out.println(movie);
+        Movie newMovie = movieService.CreateMovie(movie);
+        return new ResponseEntity<>(newMovie, HttpStatus.CREATED);
     }
 
     
