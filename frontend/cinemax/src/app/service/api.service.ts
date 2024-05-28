@@ -39,12 +39,30 @@ export class ApiService {
     return await response.json() ?? undefined;
   }
 
+  async getSession(sessionId: string | null) {
+    const url = `${this.baseUrl}/sessions/${sessionId}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: this.getHeaders(true)
+    });
+    return await response.json() ?? undefined;
+  }
+
   async postReservation(reservation: any) {
     const url = `${this.baseUrl}/reservations`;
     const response = await fetch(url, {
       method: 'POST',
       headers: this.getHeaders(true),
       body: JSON.stringify(reservation)
+    });
+    return await response.json() ?? undefined;
+  }
+
+  async getReservationById(reservationId: string) {
+    const url = `${this.baseUrl}/reservations/${reservationId}`;
+    const response = await fetch(url, { 
+      method: 'GET',
+      headers: this.getHeaders(true)
     });
     return await response.json() ?? undefined;
   }
@@ -156,6 +174,7 @@ export class ApiService {
     return response.status ?? undefined;
   }
 
+
   async getSessionsByDate(date: string) {
     const url = `${this.baseUrl}/sessions/date/${date}`;
     const response = await fetch(url, {
@@ -164,5 +183,15 @@ export class ApiService {
     });
     return await response.json() ?? undefined;
   }
+
+  async getReservationsByUser(username: string | null) {
+    const url = `${this.baseUrl}/reservations/user/${username}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: this.getHeaders(true)
+    });
+    return await response.json() ?? undefined;
+  }
   
+
 }

@@ -21,6 +21,18 @@ public class ReservationController {
             this.reservationService = reservationService;
         }
 
+        @Operation(summary = "Get all reservations")
+        @GetMapping
+        public ResponseEntity<Iterable<Reservation>> getAllReservations() {
+            return new ResponseEntity<>(reservationService.getAllReservations(), HttpStatus.OK);
+        }
+
+        @Operation(summary = "Get reservations by user")
+        @GetMapping("/user/{username}")
+        public ResponseEntity<Iterable<Reservation>> getReservationsByUser(@PathVariable String username) {
+            return new ResponseEntity<>(reservationService.getReservationsByUser(username), HttpStatus.OK);
+        }
+
         @Operation(summary = "Get reservation by id")
         @GetMapping("{id}")
         public ResponseEntity<Reservation> getReservationById(@PathVariable Long id) {
