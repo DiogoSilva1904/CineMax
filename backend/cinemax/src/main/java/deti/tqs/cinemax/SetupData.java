@@ -25,11 +25,24 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
 
     private SessionService sessionService;
 
-    public void run(String... args) {
+    private UserService userService;
+
+
+    public void run(String... args)  throws Exception {
         setup();
     }
 
     public void setup() {
+
+        final String ADMIN_USERNAME = "admin";
+        AppUser user1 = new AppUser();
+        user1.setId(1L);
+        user1.setUsername(ADMIN_USERNAME);
+        user1.setPassword(ADMIN_USERNAME);
+        user1.setEmail(ADMIN_USERNAME);
+        user1.setRole("ADMIN");
+
+        saveUserIfNotExists(user1);
 
         Movie movie1 = new Movie();
         movie1.setId(1L);
@@ -115,6 +128,17 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
 
         saveSessionIfNotExists(session2);
 
+        Session session3 = new Session();
+        session3.setId(3L);
+
+        session3.setDate("2024-05-17");
+        session3.setTime("22:00");
+        session3.setMovie(movie1);
+        session3.setRoom(room3);
+        session3.setBookedSeats(List.of("C1", "C2"));
+
+        saveSessionIfNotExists(session3);
+
         log.info("Session data setup complete.");
 
     }
@@ -146,6 +170,16 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
             log.info("Movie saved: {}", movie.getTitle());
         } else {
             log.info("Movie already exists: {}", movie.getTitle());
+        }
+    }
+
+    private void saveUserIfNotExists(AppUser user) {
+        AppUser existingUser = userService.getUserById(user.getId());
+        if (existingUser == null) {
+            userService.saveAdminUser(user);
+            log.info("User saved: {}", user.getUsername());
+        } else {
+            log.info("User already exists: {}", user.getUsername());
         }
     }
 }

@@ -1,0 +1,86 @@
+.card {
+  display: inline-block;
+  width: 220px;
+  padding: 12px;
+  border: solid 1px #ccc;
+  margin: 15px;
+  border-radius: 3px;
+  overflow: hidden; /* Ensure content stays within the card */
+}
+
+.card img {
+  width: 100%; /* Limit the width of the image to 100% of its container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.card:hover {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.genre {
+  font-size: 1em;
+  padding: 4px;
+  margin-top: -15px;
+}
+
+header {
+  height: 65px;
+  padding-top: 15px;
+  font-size: 1.15em;
+  font-weight: bold;
+}
+
+.btn_btn-danger {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 80px;
+  height: 28px;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.btn_btn-danger:hover {
+  background-color: rgb(193, 0, 0);
+}
+
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 60px; /* Adjust height as needed */
+  background-color: #333;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px; /* Add horizontal padding */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it is on top */
+}
+
+.main-content {
+  margin-top: 60px; /* Adjust to match navbar height */
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center horizontally */
+  height: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the columns horizontally */
+}
+
+.col-md-4 {
+  margin: 10px; /* Add some margin between the columns */
+}
