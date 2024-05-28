@@ -39,10 +39,6 @@ public class CustomFile {
     @JsonIgnoreProperties({"parent", "subDirectories"})
     private List<CustomFile> subDirectories;
 
-    //@OneToOne(mappedBy = "image")
-    //@JsonIgnoreProperties("image")
-    //private Movie movie;
-
     public CustomFile(String name, String type, Long size, CustomFile parent) {
         this.name = name;
         this.type = type;

@@ -33,10 +33,7 @@ public class Movie {
 
     private String duration;
 
-    //@OneToOne(cascade = CascadeType.ALL)
-    //@JsonIgnoreProperties("movie")
-    //@JoinColumn(name = "image_id", referencedColumnName = "id")
-    //private CustomFile image;
+    private String imagePath;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("movie")
