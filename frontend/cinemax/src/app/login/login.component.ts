@@ -42,8 +42,13 @@ export class LoginComponent {
         localStorage.setItem('token', response.data.jwt);
         localStorage.setItem('username', username.value);
         localStorage.setItem('role', response.data.role);
+        console.log(response.data.role);
 
-        this.router.navigate(['homepage']);
+        if (response.data.role === 'ROLE_ADMIN') {
+          this.router.navigate(['movies']);
+        } else {
+          this.router.navigate(['homepage']);
+        }
       }
     });
   }
