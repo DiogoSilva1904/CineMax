@@ -43,7 +43,7 @@ export class LoginComponent {
         localStorage.setItem('username', username.value);
         localStorage.setItem('role', response.data.role);
 
-        this.router.navigate(['frontpage']);
+        this.router.navigate(['homepage']);
       }
     });
   }
