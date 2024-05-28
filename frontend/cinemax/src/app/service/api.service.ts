@@ -162,4 +162,15 @@ export class ApiService {
     return response.status ?? undefined;
   }
 
+
+  async getSessionsByDate(date: string) {
+    const url = `${this.baseUrl}/sessions/date/${date}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: this.getHeaders(true)
+    });
+    return await response.json() ?? undefined;
+  }
+  
+
 }
