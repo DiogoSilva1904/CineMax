@@ -58,9 +58,12 @@ export class ApiService {
     return await response.json() ?? undefined;
   }
 
-  async getMovie(movieId: string|null) {
+  async getMovie(movieId: string | null) {
     const url = `${this.baseUrl}/movies/${movieId}`;
-    const response = await fetch(url, { method: 'GET' });
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: this.getHeaders(true)
+    });
     return await response.json() ?? undefined;
   }
 

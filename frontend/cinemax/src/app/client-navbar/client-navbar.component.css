@@ -17,13 +17,11 @@
 
 .tp-navbar-left {
   flex: 1; 
-  
 }
 
 .tp-navbar-right {
   display: flex;
   align-items: center;
-  
 }
 
 .tp-navbar-header {
@@ -38,6 +36,7 @@
 
 .tp-nav-list {
   display: flex;
+  align-items: center;
 }
 
 .tp-section {
@@ -56,3 +55,18 @@
   color: black;
 }
 
+.tp-logout {
+  margin-left: 16px;
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.tp-logout:hover {
+  background-color: #c62828;
+}
