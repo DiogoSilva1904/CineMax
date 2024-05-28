@@ -25,7 +25,8 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
 
     private SessionService sessionService;
 
-    public void run(String... args) {
+
+    public void run(String... args)  throws Exception {
         setup();
     }
 
@@ -114,6 +115,17 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         session2.setBookedSeats(List.of("B3", "C5"));
 
         saveSessionIfNotExists(session2);
+
+        Session session3 = new Session();
+        session3.setId(3L);
+
+        session3.setDate("2024-05-17");
+        session3.setTime("22:00");
+        session3.setMovie(movie1);
+        session3.setRoom(room3);
+        session3.setBookedSeats(List.of("C1", "C2"));
+
+        saveSessionIfNotExists(session3);
 
         log.info("Session data setup complete.");
 
