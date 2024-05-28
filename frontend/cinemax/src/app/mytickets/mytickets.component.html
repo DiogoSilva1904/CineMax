@@ -1,3 +1,6 @@
+<div class="sidebar">
+  <app-client-navbar></app-client-navbar>
+</div>
 <div>
   <h3>My tickets</h3>
 </div>
@@ -17,7 +20,8 @@
           <li><strong>Duration:</strong> {{ ticket.session.movie.duration }}</li>
           <li><strong>Studio:</strong> {{ ticket.session.movie.studio }}</li>
           <li><strong>Room Type:</strong> {{ ticket.session.room.type }}</li>
-          <li><strong>Booked Seats:</strong> {{ ticket.session.bookedSeats.join(', ') }}</li>
+          <li><strong>Booked Seats:</strong> {{ ticket.seatNumbers.join(', ') }}</li>
+          <li><strong>Total Price:</strong> {{ ticket.price }}</li>
         </ul>
       </div>
     </div>

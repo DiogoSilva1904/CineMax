@@ -39,6 +39,15 @@ export class ApiService {
     return await response.json() ?? undefined;
   }
 
+  async getSession(sessionId: string | null) {
+    const url = `${this.baseUrl}/sessions/${sessionId}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: this.getHeaders(true)
+    });
+    return await response.json() ?? undefined;
+  }
+
   async postReservation(reservation: any) {
     const url = `${this.baseUrl}/reservations`;
     const response = await fetch(url, {
@@ -51,7 +60,10 @@ export class ApiService {
 
   async getReservationById(reservationId: string) {
     const url = `${this.baseUrl}/reservations/${reservationId}`;
-    const response = await fetch(url, { method: 'GET' });
+    const response = await fetch(url, { 
+      method: 'GET',
+      headers: this.getHeaders(true)
+    });
     return await response.json() ?? undefined;
   }
 
@@ -165,6 +177,15 @@ export class ApiService {
 
   async getSessionsByDate(date: string) {
     const url = `${this.baseUrl}/sessions/date/${date}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: this.getHeaders(true)
+    });
+    return await response.json() ?? undefined;
+  }
+
+  async getReservationsByUser(username: string | null) {
+    const url = `${this.baseUrl}/reservations/user/${username}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: this.getHeaders(true)
