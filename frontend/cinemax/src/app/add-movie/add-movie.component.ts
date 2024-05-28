@@ -18,7 +18,7 @@ export class AddMovieComponent {
     duration: '',
     studio: '',
     genre: '',
-    poster:  null
+    image:  null
   };
 
   file: File | null = null;
@@ -29,7 +29,7 @@ export class AddMovieComponent {
     formData.append('duration', this.movie.duration);
     formData.append('studio', this.movie.studio);
     formData.append('genre', this.movie.genre);
-    formData.append('poster', this.movie.poster);
+    formData.append('image', this.movie.image);
     console.log('Form submitted:', formData);
     this.ApiDataService.addMovie(formData).then((response) => {
       console.log('Movie added:', response); 
@@ -40,8 +40,8 @@ export class AddMovieComponent {
   onFileSelected(event: any) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.movie.poster = input.files[0];
-      console.log('File selected', this.movie.poster);
+      this.movie.image = input.files[0];
+      console.log('File selected', this.movie.image);
     } else {
       this.file = null;
     }
@@ -53,7 +53,7 @@ export class AddMovieComponent {
       duration: '',
       studio: '',
       genre: '',
-      poster: null
+      image: null
     };
     this.file = null;
   }

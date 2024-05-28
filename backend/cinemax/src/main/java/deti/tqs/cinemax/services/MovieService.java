@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -51,41 +52,44 @@ public class MovieService {
         newMovie.setDuration(movie.getDuration());
         newMovie.setStudio(movie.getStudio());
         newMovie.setGenre(movie.getGenre());
-
-        String imagePath = CreateFile(movie);
+    
+        String imagePath = movie.getImage() != null ? CreateFile(movie) : null;
         newMovie.setImagePath(imagePath);
-
+    
         Movie savedMovie = movieRepository.save(newMovie);
         if (savedMovie == null) {
             log.error("Failed to save movie");
         }
         return savedMovie;
     }
+    
 
 
     public String CreateFile(MovieClass movie) {
-        if (movie.getImage().isEmpty()) {
-            log.info("Provided file is empty.");
+        if (movie.getImage() == null || movie.getImage().isEmpty()) {
+            log.info("Provided file is empty or null.");
+            return "File is empty or null.";
         }
-
+    
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(movie.getImage().getOriginalFilename()));
-
-        StringBuilder pathBuilder = new StringBuilder();
-        pathBuilder.insert(0, USERDIR);
-        pathBuilder.append("/uploads/");
-        pathBuilder.append(fileName);
-
-        Path fileSysPath = Paths.get(pathBuilder.toString());
-        
+        Path uploadDirPath = Paths.get(USERDIR, "uploads");
+    
         try {
-            Files.copy(movie.getImage().getInputStream(), fileSysPath);
+            if (!Files.exists(uploadDirPath)) {
+                Files.createDirectories(uploadDirPath);
+            }
+    
+            Path fileSysPath = uploadDirPath.resolve(fileName);
+    
+            // Copy the file to the target location, replacing existing file if it exists
+            Files.copy(movie.getImage().getInputStream(), fileSysPath, StandardCopyOption.REPLACE_EXISTING);
             return fileSysPath.toString();
-        } 
-        catch (IOException e) {
-            log.error("Failed to save file: {}", e.getMessage());
+        } catch (IOException e) {
+            log.error("Failed to save file: {}", e.getMessage(), e);
             return "Failed to save file.";
         }
     }
+    
 
 
     public void deleteMovie(Long id) {
