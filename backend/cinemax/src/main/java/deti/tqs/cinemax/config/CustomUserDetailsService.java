@@ -24,18 +24,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final List<UserDetails> users = new ArrayList<>();
 
-    
-
-    /* private final UserDetails adminUser = User.builder()
-        .username("admin")
-        .password(BCrypt.hashpw("admin", BCrypt.gensalt()))
-        .roles("ADMIN")
-        .build(); */
-
 
     @Autowired
     public CustomUserDetailsService( UserRepository userRepository ) {
-        //users.add(adminUser);
 
         List<AppUser> appUsers = userRepository.findAll();
         for (AppUser appUser : appUsers) {
@@ -119,7 +110,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 throw new IllegalArgumentException("User type not supported");
             }
         } else {
-            throw new UsernameNotFoundException("User not found");
+            throw new BadCredentialsException("Bad credentials");
         }
     }
     
