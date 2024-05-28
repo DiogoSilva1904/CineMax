@@ -1,17 +1,12 @@
 package deti.tqs.cinemax.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import deti.tqs.cinemax.config.CustomUserDetailsService;
 import deti.tqs.cinemax.config.JwtUtilService;
-import deti.tqs.cinemax.config.IAuthenticationFacade;
 
 import deti.tqs.cinemax.config.AuthenticationRequest;
 import deti.tqs.cinemax.config.AuthenticationResponse;
@@ -37,14 +31,12 @@ public class AuthController {
 
     private final CustomUserDetailsService userDetailsService;
     private final JwtUtilService jwtUtil;
-    private IAuthenticationFacade authenticationFacade;
     private UserService userService;
 
     @Autowired
-    public AuthController(CustomUserDetailsService userDetailsService, JwtUtilService jwtUtil, IAuthenticationFacade authenticationFacade, UserService userService) {
+    public AuthController(CustomUserDetailsService userDetailsService, JwtUtilService jwtUtil, UserService userService) {
         this.userDetailsService = userDetailsService;
         this.jwtUtil = jwtUtil;
-        this.authenticationFacade = authenticationFacade;
         this.userService = userService;
     }
 
@@ -92,10 +84,10 @@ public class AuthController {
     public ResponseEntity<Object> register(@RequestBody AppUser user) {
         try {
             userDetailsService.loadUserByUsername(user.getUsername());
-            return ResponseEntity.badRequest().body("User already exists");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
         } catch (UsernameNotFoundException e) {
             userService.saveUser(user);
-            return ResponseEntity.ok("User registered successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
         }
     }
 
