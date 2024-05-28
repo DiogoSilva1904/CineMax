@@ -5,6 +5,7 @@ import deti.tqs.cinemax.config.IAuthenticationFacade;
 import deti.tqs.cinemax.config.JwtUtilService;
 import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.services.MovieService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.mockito.Mockito;
@@ -124,6 +125,24 @@ class MovieControllerTest {
                 .andExpect(jsonPath("$.genre", is("Thriller")))
                 .andExpect(jsonPath("$.studio", is("Studio X")))
                 .andExpect(jsonPath("$.duration", is("120min")));
+    }
+
+    @Test
+    @Disabled
+    void testSaveMovieAlreadyExists() throws Exception{
+        Movie movie = new Movie();
+        movie.setTitle("Oppenheimer");
+        movie.setCategory("Action");
+        movie.setGenre("Thriller");
+        movie.setStudio("Studio X");
+        movie.setDuration("120min");
+
+        Mockito.when(movieService.saveMovie(Mockito.any())).thenReturn(null);
+
+        mvc.perform(post("/api/movies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(movie)))
+                .andExpect(status().isBadRequest());
     }
 
 

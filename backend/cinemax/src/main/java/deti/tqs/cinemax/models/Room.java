@@ -30,7 +30,7 @@ public class Room {
     private String type;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("room")
+    @JsonIgnoreProperties(value={"room"},allowSetters = true)
     private List<Session> sessions;
     
 }

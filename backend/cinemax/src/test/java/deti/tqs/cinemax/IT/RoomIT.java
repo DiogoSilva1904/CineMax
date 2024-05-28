@@ -3,28 +3,20 @@ package deti.tqs.cinemax.IT;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import deti.tqs.cinemax.config.CustomUserDetailsService;
-import deti.tqs.cinemax.config.JwtAuthFilter;
 import deti.tqs.cinemax.models.Movie;
-import org.apache.coyote.Response;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import deti.tqs.cinemax.models.Room;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.springframework.http.*;
 
 import java.util.List;
 
@@ -33,15 +25,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {"spring.profiles.active=test"})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class MovieIT {
-
+public class RoomIT {
     @Container
     public static GenericContainer container = new GenericContainer("mysql:latest")
-        .withExposedPorts(3306)
-        .withEnv("MYSQL_ROOT_PASSWORD", "rootpass")
-        .withEnv("MYSQL_DATABASE", "cinemax")
-        .withEnv("MYSQL_USER", "user")
-        .withEnv("MYSQL_PASSWORD", "secret");
+            .withExposedPorts(3306)
+            .withEnv("MYSQL_ROOT_PASSWORD", "rootpass")
+            .withEnv("MYSQL_DATABASE", "cinemax")
+            .withEnv("MYSQL_USER", "user")
+            .withEnv("MYSQL_PASSWORD", "secret");
 
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry) {
@@ -89,87 +80,91 @@ public class MovieIT {
     }
 
     @Test
-    void testGetAllMovies() {
+    @Order(1)
+    void testGetAllRooms() {
         HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
         headers.setBearerAuth(jwtToken);
+
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<List<Movie>> response = restTemplate.exchange("http://localhost:" + port + "/api/movies", HttpMethod.GET ,entity,new ParameterizedTypeReference<List<Movie>>() {});
+        ResponseEntity<List<Room>> response = restTemplate.exchange("http://localhost:" + port + "/api/rooms", HttpMethod.GET, entity, new ParameterizedTypeReference<List<Room>>() {});
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        List<Movie> movies = response.getBody();
-        assertEquals(3, movies.size());
+        List<Room> rooms = response.getBody();
+
+        assertEquals(3, rooms.size());
+        assertEquals("Room A", rooms.get(0).getName());
+        assertEquals(50, rooms.get(0).getCapacity());
+        assertEquals("Standard", rooms.get(0).getType());
+        assertEquals("Room B", rooms.get(1).getName());
+        assertEquals(30, rooms.get(1).getCapacity());
+        assertEquals("Premium", rooms.get(1).getType());
+        assertEquals("Room C", rooms.get(2).getName());
+        assertEquals(100, rooms.get(2).getCapacity());
+        assertEquals("Standard", rooms.get(2).getType());
+
     }
 
     @Test
-    void testGetMovieById() {
+    @Order(2)
+    void testGetRoomById() {
         HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
         headers.setBearerAuth(jwtToken);
+
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<Movie> response = restTemplate.exchange("http://localhost:" + port + "/api/movies/1", HttpMethod.GET ,entity, Movie.class);
+        ResponseEntity<Room> response = restTemplate.exchange("http://localhost:" + port + "/api/rooms/1", HttpMethod.GET, entity, Room.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        Movie movie = response.getBody();
-        assertEquals("Inception", movie.getTitle());
-        assertEquals("Science Fiction", movie.getCategory());
+        Room room = response.getBody();
+
+        assertEquals("Room A", room.getName());
+        assertEquals(50, room.getCapacity());
+        assertEquals("Standard", room.getType());
     }
 
     @Test
-    void testGetMovieByIdFailure() {
+    @Order(3)
+    void testGetRoomByIdNotFound() {
         HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
         headers.setBearerAuth(jwtToken);
+
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<Movie> response = restTemplate.exchange("http://localhost:" + port + "/api/movies/4", HttpMethod.GET ,entity, Movie.class);
+        ResponseEntity<Room> response = restTemplate.exchange("http://localhost:" + port + "/api/rooms/4", HttpMethod.GET, entity, Room.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
-    void testSaveMovie(){
+    @Order(4)
+    void testSaveRoom() {
         HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
         headers.setBearerAuth(jwtToken);
-        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        Movie movie = new Movie();
-        movie.setTitle("The Dark Knight");
-        movie.setCategory("Action");
-        movie.setGenre("Crime");
-        movie.setStudio("Warner Bros.");
-        movie.setDuration("152 minutes");
+        Room room = new Room();
+        room.setName("Room D");
+        room.setCapacity(200);
+        room.setType("IMAX");
 
-        HttpEntity<Movie> entity = new HttpEntity<>(movie, headers);
+        HttpEntity<Room> entity = new HttpEntity<>(room, headers);
 
-        ResponseEntity<Movie> response = restTemplate.exchange("http://localhost:" + port + "/api/movies", HttpMethod.POST ,entity, Movie.class);
+        ResponseEntity<Room> response = restTemplate.exchange("http://localhost:" + port + "/api/rooms", HttpMethod.POST, entity, Room.class);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
-        Movie savedMovie = response.getBody();
-        assertEquals("The Dark Knight", savedMovie.getTitle());
-        assertEquals("Action", savedMovie.getCategory());
+        Room savedRoom = response.getBody();
 
+        assertEquals("Room D", savedRoom.getName());
+        assertEquals(200, savedRoom.getCapacity());
+        assertEquals("IMAX", savedRoom.getType());
     }
 
-    @Test
-    void testSavingMovieAlreadyExists(){
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(jwtToken);
-        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        Movie movie = new Movie();
-        movie.setTitle("Inception");
-        movie.setCategory("Science Fiction");
-        movie.setGenre("Action");
-        movie.setStudio("Warner Bros.");
-        movie.setDuration("148 minutes");
-
-        HttpEntity<Movie> entity = new HttpEntity<>(movie, headers);
-
-        ResponseEntity<Movie> response = restTemplate.exchange("http://localhost:" + port + "/api/movies", HttpMethod.POST ,entity, Movie.class);
-
-        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
-    }
 }

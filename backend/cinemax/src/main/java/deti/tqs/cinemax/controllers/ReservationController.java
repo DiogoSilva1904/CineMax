@@ -29,7 +29,6 @@ public class ReservationController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(reservation, HttpStatus.OK);
-
         }
 
         @PostMapping

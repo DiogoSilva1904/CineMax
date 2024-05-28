@@ -11,6 +11,7 @@ import deti.tqs.cinemax.models.Session;
 import deti.tqs.cinemax.models.Reservation;
 import deti.tqs.cinemax.repositories.ReservationRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.web.servlet.View;
 
 @Service
 public class ReservationService {
@@ -20,10 +21,12 @@ public class ReservationService {
     private final SessionService sessionService;
 
     private static final Logger log = LoggerFactory.getLogger(ReservationService.class);
+    private final View error;
 
-    public ReservationService(ReservationRepository reservationRepository, SessionService sessionService) {
+    public ReservationService(ReservationRepository reservationRepository, SessionService sessionService, View error) {
         this.reservationRepository = reservationRepository;
         this.sessionService = sessionService;
+        this.error = error;
     }
 
     public void deleteReservation(Long id) {
@@ -47,6 +50,7 @@ public class ReservationService {
             for (String seat : selectedSeats) {
                 if (bookedSeats.contains(seat)) {
                     log.info("Seat {} is already booked", seat);
+                    //throw new SeatAlreadyBookedException("Seat " + seat + " is already booked");
                     return null;
                 }
             }

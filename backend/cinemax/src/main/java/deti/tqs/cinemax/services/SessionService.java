@@ -44,8 +44,16 @@ public class SessionService {
     }
 
     public Session saveSession(Session session) {
-        log.info("Saving session with id {}", session.getId());
+        /*if(!sessionRepository.findByDateAndTimeAndRoom(session.getDate(), session.getTime(), session.getRoom()).isEmpty()) {
+            log.info("Session with date {} and time {} and room {} already exists", session.getDate(), session.getTime(), session.getRoom().getId());
+            //throw new IllegalArgumentException("Session with date " + session.getDate() + " and time " + session.getTime() + " and room id " + session.getRoom().getId() + " already exists");
+            return null;
+        }
+        else{
+            log.info("Saving session with id {}", session.getId());*/
         return sessionRepository.save(session);
+        //log.info("Saving session with id {}", session.getId());
+        //return sessionRepository.save(session);
     }
 
     public Session getSessionById(Long id) {

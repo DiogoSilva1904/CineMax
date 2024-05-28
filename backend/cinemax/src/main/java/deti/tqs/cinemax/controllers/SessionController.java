@@ -41,7 +41,6 @@ public class SessionController {
 
     @PostMapping
     public ResponseEntity<Session> saveSession(@RequestBody Session session) {
-        //System.out.println(session);
         Session updatedSession = sessionService.saveSession(session);
         return new ResponseEntity<>(updatedSession, HttpStatus.CREATED);
     }
