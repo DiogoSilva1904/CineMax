@@ -37,4 +37,12 @@ public class ReservationController {
             return new ResponseEntity<>(updatedReservation, HttpStatus.CREATED);
 
         }
+
+        @GetMapping
+       //get all reservations
+        public ResponseEntity<Iterable<Reservation>> getAllReservations() {
+            Iterable<Reservation> reservations = reservationService.getAllReservations();
+            return new ResponseEntity<>(reservations, HttpStatus.OK);
+        }
+
 }

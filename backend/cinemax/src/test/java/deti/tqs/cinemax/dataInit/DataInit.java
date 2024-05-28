@@ -128,35 +128,30 @@ public class DataInit implements CommandLineRunner {
         sessionService.saveSession(session3);
 
         Reservation reservation1 = new Reservation();
-        reservation1.setId(1L);
         reservation1.setSession(session1);
-        reservation1.setSeatNumbers(List.of("A1"));
+        reservation1.setSeatNumbers(List.of("A3"));
         reservation1.setUsername("user1");//need to be changed
         reservation1.setPrice(10);
 
         reservationService.saveReservation(reservation1);
 
         Reservation reservation2 = new Reservation();
-        reservation2.setId(2L);
         reservation2.setSession(session2);
-        reservation2.setSeatNumbers(List.of("B3","B4","B5"));
+        reservation2.setSeatNumbers(List.of("B4","B5"));
         reservation2.setUsername("user2");//need to be changed
         reservation2.setPrice(30);
 
         reservationService.saveReservation(reservation2);
 
         Reservation reservation3 = new Reservation();
-        reservation3.setId(3L);
         reservation3.setSession(session3);
-        reservation3.setSeatNumbers(List.of("C1","C2"));
+        reservation3.setSeatNumbers(List.of("C2"));
         reservation3.setUsername("user3");//need to be changed
         reservation3.setPrice(20);
 
         reservationService.saveReservation(reservation3);
 
         log.info("Data setup for IT complete.");
-
-
     }
 
     private void loadUser(){

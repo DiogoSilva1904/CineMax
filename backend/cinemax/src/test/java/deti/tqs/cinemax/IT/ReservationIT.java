@@ -7,12 +7,8 @@ import deti.tqs.cinemax.models.Session;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
@@ -64,17 +60,15 @@ public class ReservationIT {
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
 
         ResponseEntity<String> response = restTemplate1.exchange(
-                "http://localhost:" + port1 + "/api/login",
+                "http://localhost:"+ port1 + "/api/login",
                 HttpMethod.POST,
                 requestEntity,
                 String.class
         );
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(200, response.getStatusCodeValue());
 
         String responseBody = response.getBody();
-
-        System.out.println(responseBody);
 
         JsonElement jsonElement = JsonParser.parseString(responseBody);
         JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -93,7 +87,7 @@ public class ReservationIT {
 
         ResponseEntity<Reservation> response = restTemplate.exchange("http://localhost:" + port + "/api/reservations/1", HttpMethod.GET, entity, Reservation.class);
 
-        System.out.println("afghj"+response.getBody());
+        
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
         Reservation reservation = response.getBody();
@@ -118,7 +112,7 @@ public class ReservationIT {
 
         Reservation reservation = new Reservation();
         reservation.setPrice(10);
-        reservation.setSeatNumbers(List.of("A1"));
+        reservation.setSeatNumbers(List.of("A6"));
         reservation.setSession(session);
 
         HttpEntity<Reservation> entity = new HttpEntity<>(reservation, headers);

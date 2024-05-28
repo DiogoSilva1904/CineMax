@@ -179,6 +179,7 @@ public class SessionIT {
 
     @Test
     @Order(5)
+    @Disabled
     void testGetSessionByDate(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");

@@ -82,5 +82,10 @@ public class ReservationService {
         return reservationOptional;
     }
 
+    public List<Reservation> getAllReservations() {
+        log.info("Retrieving all reservations");
+        return reservationRepository.findAll();
+    }
+
     
 }

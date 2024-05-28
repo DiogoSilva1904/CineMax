@@ -36,4 +36,5 @@ public class Reservation {
 
     @ElementCollection
     private List<String> seatNumbers;
+    
 }
