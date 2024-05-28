@@ -1,5 +1,6 @@
 package deti.tqs.cinemax.services;
 import deti.tqs.cinemax.repositories.*;
+import deti.tqs.cinemax.models.AppUser;
 import deti.tqs.cinemax.models.Reservation;
 import deti.tqs.cinemax.models.Session;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +27,16 @@ class ReservationServiceTest {
     @Mock
     private SessionService sessionService;
 
+    @Mock
+    private UserService userService;
+
     @InjectMocks
     private ReservationService reservationService;
 
     @Test
     void testSaveReservationSuccess() {
+        AppUser user = new AppUser();
+        user.setUsername("user1");
         Session session = new Session();
         session.setId(1L);
         List<String> bookedSeats = new ArrayList<>();
@@ -38,7 +44,7 @@ class ReservationServiceTest {
         sessionService.saveSession(session); // Assuming saveSession works (not tested here)
 
         Reservation reservation = new Reservation();
-        reservation.setUsername("testUser");
+        reservation.setUser(user);
         reservation.setSession(session);
         List<String> seatNumbers = new ArrayList<>();
         seatNumbers.add("A1");
@@ -49,7 +55,7 @@ class ReservationServiceTest {
         Reservation savedReservation = reservationService.saveReservation(reservation);
 
         assertNotNull(savedReservation);
-        assertEquals(reservation.getUsername(), savedReservation.getUsername());
+        assertEquals(reservation.getUser(), savedReservation.getUser());
         assertEquals(reservation.getSession(), savedReservation.getSession());
         assertEquals(seatNumbers.size(), savedReservation.getSeatNumbers().size());
         assertTrue(savedReservation.getSeatNumbers().contains("A1"));
@@ -57,6 +63,8 @@ class ReservationServiceTest {
 
     @Test
      void testSaveReservationFailure_SeatAlreadyBooked() {
+        AppUser user = new AppUser();
+        user.setUsername("user1");
         Session session = new Session();
         session.setId(1L);
         List<String> bookedSeats = new ArrayList<>();
@@ -65,7 +73,7 @@ class ReservationServiceTest {
         sessionService.saveSession(session);
 
         Reservation reservation = new Reservation();
-        reservation.setUsername("testUser");
+        reservation.setUser(user);
         reservation.setSession(session);
         List<String> seatNumbers = new ArrayList<>();
         seatNumbers.add("A1");
@@ -100,6 +108,8 @@ class ReservationServiceTest {
 
     @Test
     void testUpdateReservationSuccess() {
+        AppUser user = new AppUser();
+        user.setUsername("user1");
         Session session = new Session();
         session.setId(1L);
         List<String> bookedSeats = new ArrayList<>();
@@ -108,14 +118,14 @@ class ReservationServiceTest {
 
         Reservation existingReservation = new Reservation();
         existingReservation.setId(1L);
-        existingReservation.setUsername("testUser");
+        existingReservation.setUser(user);
         existingReservation.setSession(session);
         List<String> existingSeatNumbers = new ArrayList<>();
         existingSeatNumbers.add("A1");
         existingReservation.setSeatNumbers(existingSeatNumbers);
 
         Reservation updatedReservation = new Reservation();
-        updatedReservation.setUsername("updatedUser");
+        updatedReservation.setUser(user);
         updatedReservation.setSession(session);
         List<String> updatedSeatNumbers = new ArrayList<>();
         updatedSeatNumbers.add("A2");
@@ -128,7 +138,7 @@ class ReservationServiceTest {
 
         assertTrue(updatedOptionalReservation.isPresent());
         Reservation returnedReservation = updatedOptionalReservation.get();
-        assertEquals(updatedReservation.getUsername(), returnedReservation.getUsername());
+        assertEquals(existingReservation.getId(), returnedReservation.getId());
         assertEquals(updatedReservation.getSession(), returnedReservation.getSession());
         assertEquals(1, returnedReservation.getSeatNumbers().size());
         assertTrue(returnedReservation.getSeatNumbers().contains("A2"));
@@ -136,6 +146,8 @@ class ReservationServiceTest {
 
     @Test
     void testSaveReservationWithSeatAlreadyBooked() {
+        AppUser user = new AppUser();
+        user.setUsername("user1");
         Session session = new Session();
         session.setId(1L);
         List<String> bookedSeats = new ArrayList<>();
@@ -144,7 +156,7 @@ class ReservationServiceTest {
         sessionService.saveSession(session);
 
         Reservation reservation = new Reservation();
-        reservation.setUsername("testUser");
+        reservation.setUser(user);
         reservation.setSession(session);
         List<String> seatNumbers = new ArrayList<>();
         seatNumbers.add("A1");
@@ -157,6 +169,8 @@ class ReservationServiceTest {
 
     @Test
     void testSaveReservationWithSeatAvailable() {
+        AppUser user = new AppUser();
+        user.setUsername("user1");
         Session session = new Session();
         session.setId(1L);
         List<String> bookedSeats = new ArrayList<>();
@@ -165,7 +179,7 @@ class ReservationServiceTest {
         sessionService.saveSession(session);
 
         Reservation reservation = new Reservation();
-        reservation.setUsername("testUser");
+        reservation.setUser(user);
         reservation.setSession(session);
         List<String> seatNumbers = new ArrayList<>();
         seatNumbers.add("A2");
