@@ -5,11 +5,13 @@ import {ApiService} from "../service/api.service";
 import {Router} from "@angular/router";
 import {MovieCardComponent} from "../movie-card/movie-card.component";
 import {ClientMovieCardComponent} from "../client-movie-card/client-movie-card/client-movie-card.component";
+import {CarouselComponent} from "../carousel/carousel.component";
+import {ClientNavbarComponent} from "../client-navbar/client-navbar.component";
 
 @Component({
   selector: 'app-frontpage',
   standalone: true,
-  imports: [MoviesGridComponent, NgForOf, MovieCardComponent, ClientMovieCardComponent,],
+  imports: [MoviesGridComponent, NgForOf, MovieCardComponent, ClientMovieCardComponent, CarouselComponent, ClientNavbarComponent,],
   templateUrl: './frontpage.component.html',
   styleUrl: './frontpage.component.css'
 })
