@@ -18,7 +18,7 @@ import {ClientNavbarComponent} from "../client-navbar/client-navbar.component";
 export class FrontpageComponent implements OnInit {
   ApiDataService = inject(ApiService);
 
-  movies = [];
+  movies: any[] = [];
 
   constructor(private router: Router) {
 
@@ -27,6 +27,10 @@ export class FrontpageComponent implements OnInit {
       console.log(this.movies);
     });
 
+  }
+
+  goToMovieSessions(movieId: number): void {
+    this.router.navigate(['/movie-sessions', movieId]);
   }
 
   ngOnInit() {

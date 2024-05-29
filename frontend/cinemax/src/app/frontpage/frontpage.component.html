@@ -9,7 +9,7 @@
     <app-carousel></app-carousel>
     <div class="movie-list">
       <div *ngFor="let movie of movies" class="movie-item">
-        <app-client-movie-card [movie]="movie"></app-client-movie-card>
+        <app-client-movie-card [movie]="movie" (click)="goToMovieSessions(movie.id)"></app-client-movie-card>
       </div>
     </div>
   </div>
