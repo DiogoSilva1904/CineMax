@@ -134,6 +134,8 @@ export class BookingPageComponent {
     };
     this.ApiService.postReservation(reservation).then((data) => {
       console.log(data);
+      alert('Reservation successful');
+      location.reload();
     });
   }
 }

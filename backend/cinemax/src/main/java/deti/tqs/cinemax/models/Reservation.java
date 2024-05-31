@@ -28,6 +28,8 @@ public class Reservation {
 
     private int price;
 
+    private boolean used;
+
     @ManyToOne
     @JoinColumn(name = "session_id")
     @JsonIgnoreProperties("reservation")
