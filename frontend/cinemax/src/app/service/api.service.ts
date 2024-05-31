@@ -192,6 +192,18 @@ export class ApiService {
     });
     return await response.json() ?? undefined;
   }
+
+  async validateTicket(ticketId: string, jwt: string) {
+    const url = `${this.baseUrl}/reservations/${ticketId}`;
+    const response = await fetch(url, {
+      method: 'PUT',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwt}`
+      })
+    });
+    return { status: response.status };
+  }
   
 
 }

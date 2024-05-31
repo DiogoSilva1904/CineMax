@@ -11,6 +11,8 @@ RUN npm install -g @angular/cli
 
 RUN npm install
 
+RUN npm install angularx-qrcode --save
+
 COPY . /app
 
 # Expose the default Angular development server port
