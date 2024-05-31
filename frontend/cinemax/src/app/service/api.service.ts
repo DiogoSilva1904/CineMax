@@ -5,7 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class ApiService {
-  baseUrl = "http://localhost:8080/api";
+  baseUrl = "http://deti-tqs-10.ua.pt:8080/api";
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
