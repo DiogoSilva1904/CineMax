@@ -2,22 +2,27 @@ import { Component, inject } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { tick } from '@angular/core/testing';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-validate-ticket',
   standalone: true,
   imports: [ FormsModule ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './validate-ticket.component.html',
+  styleUrl: './validate-ticket.component.css'
 })
-export class LoginComponent {
+export class ValidateTicketComponent {
 
   ApiDataService = inject(ApiService);
-
-  constructor(private router: Router) { }
+  ticketid: any = '';
+  
+  constructor(private router: Router, private route: ActivatedRoute) { 
+    this.ticketid = this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit() {
-    this.clearLocalStorage();
+    //this.clearLocalStorage();
   }
 
   clearLocalStorage() {
@@ -31,6 +36,7 @@ export class LoginComponent {
   onSubmit() {
     const username = document.getElementById('username') as HTMLInputElement;
     const password = document.getElementById('password') as HTMLInputElement;
+    console.log(this.ticketid);
 
     this.ApiDataService.loginUser(username.value, password.value).then((response) => {
       if (response.status === 400) {
@@ -38,26 +44,22 @@ export class LoginComponent {
         return;
       }
       if (response.status === 200) {
-     
-        localStorage.setItem('token', response.data.jwt);
-        localStorage.setItem('username', username.value);
-        localStorage.setItem('role', response.data.role);
         console.log(response.data.role);
 
         if (response.data.role === 'ROLE_ADMIN') {
-          this.router.navigate(['movies']);
+          this.ApiDataService.validateTicket(this.ticketid, response.data.jwt).then((response) => {
+            console.log(response.status);
+            if (response.status === 200) {
+              alert('Ticket validated');
+            } else {
+              alert('Ticket already validated');
+            }
+          });
         } else {
-          this.router.navigate(['homepage']);
+          alert('You are not an admin');
         }
       }
     });
   }
-
-  onCreateAccount() {
-    this.router.navigate(['register']);
-  }
-
-  
-
 
 }

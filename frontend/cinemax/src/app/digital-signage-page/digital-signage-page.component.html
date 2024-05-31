@@ -1,0 +1,32 @@
+<div class="schedule-container">
+    <div class="header">
+        <h1>Cinemax</h1>
+        <h2>Today Sessions</h2>
+        <h2>{{ currentTime }}</h2> <!-- Bind the method to display the current time -->
+      </div>
+    <div class="schedule-list">
+      <div *ngFor="let entry of Sessions" class="schedule-entry">
+        <div class="time-container">
+          <div class="time">{{ entry.time }}</div>
+        </div>
+        <div class="combined-container">
+            <div class="details-container">
+                <div class="session">{{ entry.movie.title }}</div>
+                <div class="type-room">
+                    <div class="room">{{ entry.room.name }} <></div>
+                    <div class="type">{{ entry.room.type }}</div>
+                  </div>
+            </div>
+            <div class="outer-capacity-container">
+                <div class="capacity-container">
+                <div class="capacity-bar-outer">
+                    <div class="capacity-bar-inner" [style.width.%]="( entry.bookedSeats.length * 100) / entry.room.capacity"></div>
+                </div>
+                <div class="capacity-percentage">{{ ( entry.bookedSeats.length * 100) / entry.room.capacity }}%</div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

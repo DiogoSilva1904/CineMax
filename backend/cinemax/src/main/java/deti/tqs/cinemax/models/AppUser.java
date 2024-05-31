@@ -31,8 +31,8 @@ public class AppUser {
 
     private String role;
 
-    @OneToMany(mappedBy = "username", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("username")
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties("user")
     private List<Reservation> reservations;
 
 }
