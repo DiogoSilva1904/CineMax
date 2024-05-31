@@ -64,6 +64,7 @@ class SessionServiceTest {
         newSession.setId(1L);
 
         Room room = new Room();
+        room.setId(1L);
         room.setCapacity(100);
 
         newSession.setRoom(room);

@@ -31,8 +31,8 @@ class MovieServiceTest {
     @Test
     void testGetAllMovies() {
         List<Movie> expectedMovies = new ArrayList<>();
-        expectedMovies.add(new Movie(null, "Test Movie 1", "Action", "Thriller", "Studio X", "120min", null));
-        expectedMovies.add(new Movie(null, "Test Movie 2", "Comedy", "Romance", "Studio Y", "100min", null));
+        expectedMovies.add(new Movie(1L, "Test Movie 1", "Action", "Thriller", "Studio X", "120min", null));
+        expectedMovies.add(new Movie(2L, "Test Movie 2", "Comedy", "Romance", "Studio Y", "100min", null));
 
         Mockito.when(movieRepository.findAll()).thenReturn(expectedMovies);
 
@@ -80,7 +80,7 @@ class MovieServiceTest {
 
     @Test
     void testSaveMovie() {
-        Movie newMovie = new Movie(null, "New Movie", "Sci-Fi", "Drama", "Studio A", "180min", null);
+        Movie newMovie = new Movie(1L, "New Movie", "Sci-Fi", "Drama", "Studio A", "180min", null);
 
         Mockito.when(movieRepository.save(newMovie)).thenReturn(newMovie);
 
@@ -109,7 +109,7 @@ class MovieServiceTest {
     @Test
     void testUpdateMovie_Found() {
         Long id = 3L;
-        Movie existingMovie = new Movie(null,"Existing Movie", "Animation", "Family", "Studio B", "90min", null);
+        Movie existingMovie = new Movie(3L,"Existing Movie", "Animation", "Family", "Studio B", "90min", null);
         Movie updatedMovie = new Movie(null,"Updated Movie", "Comedy", "Family", "Studio B", "90min", null);
 
         Mockito.when(movieRepository.findById(id)).thenReturn(Optional.of(existingMovie));
@@ -128,7 +128,7 @@ class MovieServiceTest {
 
     @Test
     void testSaveMovieWithTitleThatAlreadyExists(){
-        Movie existingMovie = new Movie(null, "Existing Movie", "Animation", "Family", "Studio B", "90min", null);
+        Movie existingMovie = new Movie(1L, "Existing Movie", "Animation", "Family", "Studio B", "90min", null);
 
         Mockito.when(movieRepository.findByTitle(existingMovie.getTitle())).thenReturn(Optional.of(existingMovie));
 

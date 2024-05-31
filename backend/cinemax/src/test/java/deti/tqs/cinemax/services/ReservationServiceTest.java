@@ -37,13 +37,16 @@ class ReservationServiceTest {
     void testSaveReservationSuccess() {
         AppUser user = new AppUser();
         user.setUsername("user1");
+        user.setId(1L);
+
         Session session = new Session();
         session.setId(1L);
         List<String> bookedSeats = new ArrayList<>();
         session.setBookedSeats(bookedSeats);
-        sessionService.saveSession(session); // Assuming saveSession works (not tested here)
+        sessionService.saveSession(session);
 
         Reservation reservation = new Reservation();
+        reservation.setId(1L);
         reservation.setUser(user);
         reservation.setSession(session);
         List<String> seatNumbers = new ArrayList<>();
@@ -65,6 +68,8 @@ class ReservationServiceTest {
      void testSaveReservationFailure_SeatAlreadyBooked() {
         AppUser user = new AppUser();
         user.setUsername("user1");
+        user.setId(1L);
+
         Session session = new Session();
         session.setId(1L);
         List<String> bookedSeats = new ArrayList<>();
@@ -74,6 +79,7 @@ class ReservationServiceTest {
 
         Reservation reservation = new Reservation();
         reservation.setUser(user);
+        reservation.setId(1L);
         reservation.setSession(session);
         List<String> seatNumbers = new ArrayList<>();
         seatNumbers.add("A1");
@@ -110,6 +116,8 @@ class ReservationServiceTest {
     void testUpdateReservationSuccess() {
         AppUser user = new AppUser();
         user.setUsername("user1");
+        user.setId(1L);
+
         Session session = new Session();
         session.setId(1L);
         List<String> bookedSeats = new ArrayList<>();
@@ -148,6 +156,8 @@ class ReservationServiceTest {
     void testSaveReservationWithSeatAlreadyBooked() {
         AppUser user = new AppUser();
         user.setUsername("user1");
+        user.setId(1L);
+
         Session session = new Session();
         session.setId(1L);
         List<String> bookedSeats = new ArrayList<>();
@@ -157,6 +167,7 @@ class ReservationServiceTest {
 
         Reservation reservation = new Reservation();
         reservation.setUser(user);
+        reservation.setId(1L);
         reservation.setSession(session);
         List<String> seatNumbers = new ArrayList<>();
         seatNumbers.add("A1");
@@ -171,6 +182,8 @@ class ReservationServiceTest {
     void testSaveReservationWithSeatAvailable() {
         AppUser user = new AppUser();
         user.setUsername("user1");
+        user.setId(1L);
+
         Session session = new Session();
         session.setId(1L);
         List<String> bookedSeats = new ArrayList<>();
@@ -180,6 +193,7 @@ class ReservationServiceTest {
 
         Reservation reservation = new Reservation();
         reservation.setUser(user);
+        reservation.setId(1L);
         reservation.setSession(session);
         List<String> seatNumbers = new ArrayList<>();
         seatNumbers.add("A2");
@@ -199,6 +213,7 @@ class ReservationServiceTest {
 
         AppUser user = new AppUser();
         user.setUsername("testUser");
+        user.setId(1L);
         user.setPassword("testPassword");
         user.setEmail("testEmail");
         user.setRole("USER");

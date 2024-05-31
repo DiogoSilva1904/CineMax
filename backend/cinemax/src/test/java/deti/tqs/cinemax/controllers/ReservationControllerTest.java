@@ -51,8 +51,11 @@ class ReservationControllerTest {
     @Test
     void testGetReservationById() throws Exception {
         AppUser user = new AppUser();
+        user.setId(1L);
         user.setUsername("user1");
+
         Reservation reservation = new Reservation();
+        reservation.setId(1L);
         reservation.setUser(user);
         reservation.setSession(null);
         reservation.setSeatNumbers(List.of("A1", "A2"));
@@ -79,8 +82,11 @@ class ReservationControllerTest {
     @Test
     void testSaveReservation() throws Exception {
         AppUser user = new AppUser();
+        user.setId(1L);
         user.setUsername("user1");
+
         Reservation reservation = new Reservation();
+        reservation.setId(1L);
         reservation.setUser(user);
         reservation.setSession(null);
         reservation.setSeatNumbers(List.of("J1"));

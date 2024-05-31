@@ -57,6 +57,7 @@ class MovieControllerTest {
     @Test
     void testGetAllMovies() throws Exception{
         Movie movie1 = new Movie();
+        movie1.setId(1L);
         movie1.setTitle("Oppenheimer");
         movie1.setCategory("Action");
         movie1.setGenre("Thriller");
@@ -64,6 +65,7 @@ class MovieControllerTest {
         movie1.setDuration("120min");
 
         Movie movie2 = new Movie();
+        movie2.setId(2L);
         movie2.setTitle("Nope");
         movie2.setCategory("Comedy");
         movie2.setGenre("Romance");
@@ -84,6 +86,7 @@ class MovieControllerTest {
     @Test
     void testGetMovieByID() throws Exception{
         Movie movie1 = new Movie();
+        movie1.setId(1L);
         movie1.setTitle("Oppenheimer");
         movie1.setCategory("Action");
         movie1.setGenre("Thriller");
@@ -114,6 +117,7 @@ class MovieControllerTest {
     @Test
     void testSaveMovie() throws Exception{
         Movie movie = new Movie();
+        movie.setId(1L);
         movie.setTitle("Oppenheimer");
         movie.setCategory("Action");
         movie.setGenre("Thriller");
@@ -137,6 +141,7 @@ class MovieControllerTest {
     @Disabled
     void testSaveMovieAlreadyExists() throws Exception {
         Movie movie = new Movie();
+        movie.setId(1L);
         movie.setTitle("Oppenheimer");
         movie.setCategory("Action");
         movie.setGenre("Thriller");
