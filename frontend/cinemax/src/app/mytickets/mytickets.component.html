@@ -1,0 +1,33 @@
+<div class="sidebar">
+  <app-client-navbar></app-client-navbar>
+</div>
+<div>
+  <h3>My tickets</h3>
+</div>
+<div *ngIf="tickets.length > 0; else noTickets">
+  <div *ngFor="let ticket of tickets">
+    <div class="ticket">
+      <div class="movie-poster">
+        <img src="https://upload.wikimedia.org/wikipedia/pt/b/bf/O_auto_da_compadecida.jpg"
+             alt="{{ ticket.session.movie.title }}" />
+      </div>
+      <div class="ticket-info">
+        <ul>
+          <li><strong>Movie:</strong> {{ ticket.session.movie.title }}</li>
+          <li><strong>Genre:</strong> {{ ticket.session.movie.genre }}</li>
+
+          <li><strong>Date:</strong> {{ ticket.session.date }} <strong>Time:</strong> {{ ticket.session.time }}</li>
+          <li><strong>Duration:</strong> {{ ticket.session.movie.duration }}</li>
+          <li><strong>Studio:</strong> {{ ticket.session.movie.studio }}</li>
+          <li><strong>Room Type:</strong> {{ ticket.session.room.type }}</li>
+          <li><strong>Booked Seats:</strong> {{ ticket.seatNumbers.join(', ') }}</li>
+          <li><strong>Total Price:</strong> {{ ticket.price }}</li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+  </div>
+</div>
+<ng-template #noTickets>
+  <p>No tickets found.</p>
+</ng-template>

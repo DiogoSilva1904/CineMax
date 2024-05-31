@@ -7,11 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import deti.tqs.cinemax.models.Session;
-
+import deti.tqs.cinemax.models.AppUser;
 import deti.tqs.cinemax.models.Reservation;
 import deti.tqs.cinemax.repositories.ReservationRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.web.servlet.View;
 
 @Service
 public class ReservationService {
@@ -20,13 +19,14 @@ public class ReservationService {
 
     private final SessionService sessionService;
 
-    private static final Logger log = LoggerFactory.getLogger(ReservationService.class);
-    private final View error;
+    private final UserService UserService;
 
-    public ReservationService(ReservationRepository reservationRepository, SessionService sessionService, View error) {
+    private static final Logger log = LoggerFactory.getLogger(ReservationService.class);
+
+    public ReservationService(ReservationRepository reservationRepository, SessionService sessionService, UserService UserService) {
         this.reservationRepository = reservationRepository;
         this.sessionService = sessionService;
-        this.error = error;
+        this.UserService = UserService;
     }
 
     public void deleteReservation(Long id) {
@@ -44,6 +44,8 @@ public class ReservationService {
     public Reservation saveReservation(Reservation reservation) {
         List<String> selectedSeats = reservation.getSeatNumbers();
         Session session = sessionService.getSessionById(reservation.getSession().getId());
+        AppUser user = UserService.getUserByUsername(reservation.getUser().getUsername());
+        reservation.setUser(user);
 
         if (session != null) {
             List<String> bookedSeats = session.getBookedSeats();
@@ -67,6 +69,11 @@ public class ReservationService {
     public Reservation getReservationById(Long id) {
         log.info("Retrieving reservation with id {}", id);
         return reservationRepository.findById(id).orElse(null);
+    }
+
+    public List<Reservation> getReservationsByUser(String username) {
+        log.info("Retrieving reservations by user {}", username);
+        return reservationRepository.findByUserUsername(username);
     }
 
     public Optional<Reservation> updateReservation(Long id, Reservation reservation) {

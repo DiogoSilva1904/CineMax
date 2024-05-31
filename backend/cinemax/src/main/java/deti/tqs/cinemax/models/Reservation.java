@@ -21,11 +21,10 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@ManyToOne
-    //@JoinColumn(name = "user_id")
-    //private User user;
-
-    private String username; //cant use user
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("reservations")
+    private AppUser user;
 
     private int price;
 

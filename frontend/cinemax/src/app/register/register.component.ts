@@ -28,11 +28,11 @@ export class RegisterComponent {
     }
 
     this.ApiDataService.registerUser(username.value, password.value, email.value).then((response) => {
-      if (response === 400) {
+      if (response === 409) {
         alert('Username already exists');
         return;
       }
-      if (response === 200) {
+      if (response === 201) {
         this.router.navigate(['login']);
       }
     });
