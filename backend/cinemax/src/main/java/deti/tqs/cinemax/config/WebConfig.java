@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addCorsMappings(CorsRegistry registry) {
 
 		registry.addMapping("/api/**")
-			.allowedOrigins("http://localhost:4200")
+			.allowedOrigins("http://deti-tqs-10.ua.pt:4200")
 			.allowedMethods("PUT", "DELETE", "GET", "POST")
 			.allowedHeaders("*")
 			.exposedHeaders("*")
