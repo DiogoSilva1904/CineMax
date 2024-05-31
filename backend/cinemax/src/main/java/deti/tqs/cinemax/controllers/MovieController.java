@@ -42,8 +42,12 @@ public class MovieController {
 
     @PostMapping
     public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
-        Movie updatedmovie = movieService.saveMovie(movie);
-        return new ResponseEntity<>(updatedmovie, HttpStatus.CREATED);
+        try {
+            Movie savedMovie = movieService.saveMovie(movie);
+            return new ResponseEntity<>(savedMovie, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("{id}")

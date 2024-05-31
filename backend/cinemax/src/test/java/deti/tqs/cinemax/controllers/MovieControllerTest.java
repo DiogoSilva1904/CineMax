@@ -4,6 +4,7 @@ import deti.tqs.cinemax.config.CustomUserDetailsService;
 import deti.tqs.cinemax.config.IAuthenticationFacade;
 import deti.tqs.cinemax.config.JwtUtilService;
 import deti.tqs.cinemax.models.Movie;
+import deti.tqs.cinemax.repositories.MovieRepository;
 import deti.tqs.cinemax.services.MovieService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -25,6 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @WebMvcTest(MovieController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -44,6 +47,9 @@ class MovieControllerTest {
 
     @MockBean
     private MovieService movieService;
+
+    @MockBean
+    private MovieRepository movieRepository;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -66,7 +72,7 @@ class MovieControllerTest {
 
         List<Movie> expectedMovies = List.of(movie1, movie2);
 
-        Mockito.when(movieService.getAllMovies()).thenReturn(expectedMovies);
+        when(movieService.getAllMovies()).thenReturn(expectedMovies);
 
        mvc.perform(get("/api/movies"))
                .andExpect(status().isOk())
@@ -84,7 +90,7 @@ class MovieControllerTest {
         movie1.setStudio("Studio X");
         movie1.setDuration("120min");
 
-        Mockito.when(movieService.getMovieById(1L)).thenReturn(movie1);
+        when(movieService.getMovieById(1L)).thenReturn(movie1);
 
         mvc.perform(get("/api/movies/1"))
                 .andExpect(status().isOk())
@@ -99,7 +105,7 @@ class MovieControllerTest {
 
     @Test
     void testGetMovieByIDFailure() throws Exception{
-        Mockito.when(movieService.getMovieById(1L)).thenReturn(null);
+        when(movieService.getMovieById(1L)).thenReturn(null);
 
         mvc.perform(get("/api/movies/1"))
                 .andExpect(status().isNotFound());
@@ -114,7 +120,7 @@ class MovieControllerTest {
         movie.setStudio("Studio X");
         movie.setDuration("120min");
 
-        Mockito.when(movieService.saveMovie(Mockito.any())).thenReturn(movie);
+        when(movieService.saveMovie(Mockito.any())).thenReturn(movie);
 
         mvc.perform(post("/api/movies")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -129,7 +135,7 @@ class MovieControllerTest {
 
     @Test
     @Disabled
-    void testSaveMovieAlreadyExists() throws Exception{
+    void testSaveMovieAlreadyExists() throws Exception {
         Movie movie = new Movie();
         movie.setTitle("Oppenheimer");
         movie.setCategory("Action");
@@ -137,11 +143,13 @@ class MovieControllerTest {
         movie.setStudio("Studio X");
         movie.setDuration("120min");
 
-        Mockito.when(movieService.saveMovie(Mockito.any())).thenReturn(null);
+        // Mock the repository to return a movie when searching for the title "Oppenheimer"
+        //when(movieRepository.findByTitle("Oppenheimer")).thenReturn();
 
+        // Perform the POST request and expect a BAD_REQUEST status
         mvc.perform(post("/api/movies")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(movie)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(movie)))
                 .andExpect(status().isBadRequest());
     }
 

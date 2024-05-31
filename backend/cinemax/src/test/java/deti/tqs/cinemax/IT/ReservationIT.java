@@ -2,6 +2,7 @@ package deti.tqs.cinemax.IT;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import deti.tqs.cinemax.models.AppUser;
 import deti.tqs.cinemax.models.Reservation;
 import deti.tqs.cinemax.models.Session;
 import org.junit.jupiter.api.*;
@@ -69,6 +70,7 @@ public class ReservationIT {
         assertEquals(200, response.getStatusCodeValue());
 
         String responseBody = response.getBody();
+        System.out.println("asdfgh"+responseBody);
 
         JsonElement jsonElement = JsonParser.parseString(responseBody);
         JsonObject jsonObject = jsonElement.getAsJsonObject();
@@ -110,10 +112,15 @@ public class ReservationIT {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         Session session = response.getBody();
 
+        ResponseEntity<AppUser> response2 = restTemplate.exchange("http://localhost:" + port + "/api/users/2", HttpMethod.GET, entity1, AppUser.class);
+        assertEquals(HttpStatus.OK, response2.getStatusCode());
+        AppUser user = response2.getBody();
+
         Reservation reservation = new Reservation();
         reservation.setPrice(10);
         reservation.setSeatNumbers(List.of("A6"));
         reservation.setSession(session);
+        reservation.setUser(user);
 
         HttpEntity<Reservation> entity = new HttpEntity<>(reservation, headers);
 
@@ -128,6 +135,4 @@ public class ReservationIT {
         assertEquals(10, savedReservation.getPrice());
         assertEquals(1, savedReservation.getSeatNumbers().size());
     }
-
-
 }

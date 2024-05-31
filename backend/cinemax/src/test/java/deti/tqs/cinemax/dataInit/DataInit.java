@@ -36,10 +36,27 @@ public class DataInit implements CommandLineRunner {
 
     public void run(String... args) throws Exception {
         this.loadData();
-        this.loadUser();
     }
 
     private void loadData(){
+        AppUser adminUser = new AppUser();
+        adminUser.setId(1L);
+        adminUser.setRole("ADMIN");
+        adminUser.setPassword("admin");
+        adminUser.setEmail("admin@gmail.com");
+        adminUser.setUsername("admin");
+
+        userService.saveAdminUser(adminUser);
+
+        AppUser user1 = new AppUser();
+        user1.setId(2L);
+        user1.setRole("USER");
+        user1.setPassword("user");
+        user1.setEmail("jojo@gmail.com");
+        user1.setUsername("user");
+
+        userService.saveUser(user1);
+
         Movie movie1 = new Movie();
         movie1.setId(1L);
         movie1.setTitle("Inception");
@@ -130,7 +147,7 @@ public class DataInit implements CommandLineRunner {
         Reservation reservation1 = new Reservation();
         reservation1.setSession(session1);
         reservation1.setSeatNumbers(List.of("A3"));
-        reservation1.setUsername("user1");//need to be changed
+        reservation1.setUser(user1);//need to be changed
         reservation1.setPrice(10);
 
         reservationService.saveReservation(reservation1);
@@ -138,7 +155,7 @@ public class DataInit implements CommandLineRunner {
         Reservation reservation2 = new Reservation();
         reservation2.setSession(session2);
         reservation2.setSeatNumbers(List.of("B4","B5"));
-        reservation2.setUsername("user2");//need to be changed
+        reservation2.setUser(user1);//need to be changed
         reservation2.setPrice(30);
 
         reservationService.saveReservation(reservation2);
@@ -146,22 +163,11 @@ public class DataInit implements CommandLineRunner {
         Reservation reservation3 = new Reservation();
         reservation3.setSession(session3);
         reservation3.setSeatNumbers(List.of("C2"));
-        reservation3.setUsername("user3");//need to be changed
+        reservation3.setUser(adminUser);//need to be changed
         reservation3.setPrice(20);
 
         reservationService.saveReservation(reservation3);
 
         log.info("Data setup for IT complete.");
-    }
-
-    private void loadUser(){
-        AppUser user = new AppUser();
-        user.setId(1L);
-        user.setRole("ADMIN");
-        user.setPassword("admin");
-        user.setEmail("dio@gmail.com");
-        user.setUsername("admin");
-
-        userService.saveUser(user);
     }
 }

@@ -197,9 +197,15 @@ class ReservationServiceTest {
         session.setId(1L);
         session.setBookedSeats(new ArrayList<>());
 
+        AppUser user = new AppUser();
+        user.setUsername("testUser");
+        user.setPassword("testPassword");
+        user.setEmail("testEmail");
+        user.setRole("USER");
+
         Reservation reservation = new Reservation();
         reservation.setId(1L);
-        reservation.setUsername("testUser");
+        reservation.setUser(user);
         List<String> seatNumbers = new ArrayList<>();
         seatNumbers.add("A2");
         reservation.setSeatNumbers(seatNumbers);

@@ -34,8 +34,8 @@ public class MovieService {
         log.info("Saving movie with id {}", movie.getId());
         if(movieRepository.findByTitle(movie.getTitle()).isPresent()) {
             log.info("Movie with title {} already exists", movie.getTitle());
-            //throw new IllegalArgumentException("Movie with title " + movie.getTitle() + " already exists");
-            return null;
+            throw new IllegalArgumentException("Movie with title " + movie.getTitle() + " already exists");
+            //return null;
         }
         return movieRepository.save(movie);
     }
