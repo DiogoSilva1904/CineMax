@@ -1,13 +1,16 @@
 <app-client-navbar></app-client-navbar>
 <div class="top-movies py-5">
   <div class="container">
+    <app-movies-carousel></app-movies-carousel>
+
+
+    <app-carousel></app-carousel>
     <div class="title-stuff">
       <h1>Coming Soon</h1>
       <h4>Wait for its presence in your favorite cinema</h4>
-
     </div>
-    <app-carousel></app-carousel>
     <div class="movie-list">
+
       <div *ngFor="let movie of movies" class="movie-item">
         <app-client-movie-card [movie]="movie" (click)="goToMovieSessions(movie.id)"></app-client-movie-card>
       </div>

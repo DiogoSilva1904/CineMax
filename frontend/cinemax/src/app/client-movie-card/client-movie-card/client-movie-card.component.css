@@ -33,6 +33,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   width: 200px; /* Adjust the width of the movie poster */
+  padding-bottom: 80px;
   flex: 0 0 auto; /* Prevent the item from stretching */
   border: 2px solid #ff6347; /* Set the border color, width, and style */
 }
@@ -68,6 +69,8 @@ body {
 .movie-poster:hover{
   transform: scale(1.05);
   transition-duration: 0.7s;
+  padding-bottom: 100px;
+  margin-bottom: 100px;
 }
 
 

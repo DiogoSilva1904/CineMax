@@ -7,11 +7,12 @@ import {MovieCardComponent} from "../movie-card/movie-card.component";
 import {ClientMovieCardComponent} from "../client-movie-card/client-movie-card/client-movie-card.component";
 import {CarouselComponent} from "../carousel/carousel.component";
 import {ClientNavbarComponent} from "../client-navbar/client-navbar.component";
+import {MoviesCarouselComponent} from "../movies-carousel/movies-carousel.component";
 
 @Component({
   selector: 'app-frontpage',
   standalone: true,
-  imports: [MoviesGridComponent, NgForOf, MovieCardComponent, ClientMovieCardComponent, CarouselComponent, ClientNavbarComponent,],
+  imports: [MoviesGridComponent, NgForOf, MovieCardComponent, ClientMovieCardComponent, CarouselComponent, ClientNavbarComponent, MoviesCarouselComponent,],
   templateUrl: './frontpage.component.html',
   styleUrl: './frontpage.component.css'
 })
