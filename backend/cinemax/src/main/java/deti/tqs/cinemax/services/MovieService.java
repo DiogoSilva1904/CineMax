@@ -1,13 +1,22 @@
 package deti.tqs.cinemax.services;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import deti.tqs.cinemax.models.CustomFile;
 import deti.tqs.cinemax.models.Movie;
+import deti.tqs.cinemax.models.MovieClass;
 import deti.tqs.cinemax.repositories.MovieRepository;
 
 @Service
@@ -15,6 +24,7 @@ public class MovieService {
     
     private final MovieRepository movieRepository;
     private static final Logger log = LoggerFactory.getLogger(MovieService.class);
+    private static final String USERDIR = System.getProperty("user.dir");
 
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
@@ -35,9 +45,71 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
+    public Movie CreateMovie(MovieClass movie) {
+        log.info("Creating movie with title {}", movie.getTitle());
+        Movie newMovie = new Movie();
+        newMovie.setTitle(movie.getTitle());
+        newMovie.setDuration(movie.getDuration());
+        newMovie.setStudio(movie.getStudio());
+        newMovie.setGenre(movie.getGenre());
+    
+        String imagePath = movie.getImage() != null ? CreateFile(movie) : null;
+        newMovie.setImagePath(imagePath);
+    
+        Movie savedMovie = movieRepository.save(newMovie);
+        if (savedMovie == null) {
+            log.error("Failed to save movie");
+        }
+        return savedMovie;
+    }
+    
+
+
+    public String CreateFile(MovieClass movie) {
+        if (movie.getImage() == null || movie.getImage().isEmpty()) {
+            log.info("Provided file is empty or null.");
+            return "File is empty or null.";
+        }
+    
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(movie.getImage().getOriginalFilename()));
+        Path uploadDirPath = Paths.get(USERDIR, "uploads");
+    
+        try {
+            if (!Files.exists(uploadDirPath)) {
+                Files.createDirectories(uploadDirPath);
+            }
+    
+            Path fileSysPath = uploadDirPath.resolve(fileName);
+    
+            // Copy the file to the target location, replacing existing file if it exists
+            Files.copy(movie.getImage().getInputStream(), fileSysPath, StandardCopyOption.REPLACE_EXISTING);
+            return fileName;
+        } catch (IOException e) {
+            log.error("Failed to save file: {}", e.getMessage(), e);
+            return "Failed to save file.";
+        }
+    }
+    
+
 
     public void deleteMovie(Long id) {
         log.info("Deleting movie with id {}", id);
+
+        // Delete the image file
+        Optional<Movie> movieOptional = movieRepository.findById(id);
+        if (movieOptional.isPresent()) {
+            Movie movie = movieOptional.get();
+            if (movie.getImagePath() != null) {
+                Path uploadDirPath = Paths.get(USERDIR, "uploads");
+                Path fileSysPath = uploadDirPath.resolve(movie.getImagePath());
+                try {
+                    Files.deleteIfExists(fileSysPath);
+                } catch (IOException e) {
+                    log.error("Failed to delete image file: {}", e.getMessage(), e);
+                }
+            }
+        }
+
         movieRepository.deleteById(id);
     }
 

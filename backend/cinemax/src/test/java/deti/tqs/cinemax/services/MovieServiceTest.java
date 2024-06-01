@@ -25,14 +25,14 @@ class MovieServiceTest {
     private MovieRepository movieRepository;
 
     @InjectMocks
-    private MovieService movieService;
+    private MovieService movieService;    
 
 
     @Test
     void testGetAllMovies() {
         List<Movie> expectedMovies = new ArrayList<>();
-        expectedMovies.add(new Movie(null, "Test Movie 1", "Action", "Thriller", "Studio X", "120min", null));
-        expectedMovies.add(new Movie(null, "Test Movie 2", "Comedy", "Romance", "Studio Y", "100min", null));
+        expectedMovies.add(new Movie(null, "Test Movie 1", "Action", "Thriller", "Studio X", "120min",null, null));
+        expectedMovies.add(new Movie(null, "Test Movie 2", "Comedy", "Romance", "Studio Y", "100min",null, null));
 
         Mockito.when(movieRepository.findAll()).thenReturn(expectedMovies);
 
@@ -50,7 +50,7 @@ class MovieServiceTest {
     @Test
     void testGetMovieById_Found() {
         Long id = 1L;
-        Movie expectedMovie = new Movie(id, "Test Movie", "Action", "Adventure", "Studio Z", "150min", null);
+        Movie expectedMovie = new Movie(id, "Test Movie", "Action", "Adventure", "Studio Z", "150min",null, null);
 
         Mockito.when(movieRepository.findById(id)).thenReturn(Optional.of(expectedMovie));
 
@@ -80,7 +80,7 @@ class MovieServiceTest {
 
     @Test
     void testSaveMovie() {
-        Movie newMovie = new Movie(null, "New Movie", "Sci-Fi", "Drama", "Studio A", "180min", null);
+        Movie newMovie = new Movie(null, "New Movie", "Sci-Fi", "Drama", "Studio A", "180min",null, null);
 
         Mockito.when(movieRepository.save(newMovie)).thenReturn(newMovie);
 
@@ -109,8 +109,8 @@ class MovieServiceTest {
     @Test
     void testUpdateMovie_Found() {
         Long id = 3L;
-        Movie existingMovie = new Movie(null,"Existing Movie", "Animation", "Family", "Studio B", "90min", null);
-        Movie updatedMovie = new Movie(null,"Updated Movie", "Comedy", "Family", "Studio B", "90min", null);
+        Movie existingMovie = new Movie(null,"Existing Movie", "Animation", "Family", "Studio B", "90min",null, null);
+        Movie updatedMovie = new Movie(null,"Updated Movie", "Comedy", "Family", "Studio B", "90min",null, null);
 
         Mockito.when(movieRepository.findById(id)).thenReturn(Optional.of(existingMovie));
         Mockito.when(movieRepository.save(updatedMovie)).thenReturn(updatedMovie);
