@@ -14,7 +14,6 @@ import deti.tqs.cinemax.repositories.MovieRepository;
 import org.springframework.test.context.TestPropertySource;
 
 @DataJpaTest
-@TestPropertySource(locations = "classpath:application.properties")
 class MovieRepositoryTest {
 
     @Autowired

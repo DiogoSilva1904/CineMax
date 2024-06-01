@@ -1,11 +1,12 @@
 package deti.tqs.cinemax.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Optional;
 
-import deti.tqs.cinemax.repositories.SessionRepository;
-import deti.tqs.cinemax.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,10 +15,10 @@ import deti.tqs.cinemax.models.AppUser;
 import deti.tqs.cinemax.models.Reservation;
 import deti.tqs.cinemax.models.Session;
 import deti.tqs.cinemax.repositories.ReservationRepository;
-import org.springframework.test.context.TestPropertySource;
+import deti.tqs.cinemax.repositories.SessionRepository;
+import deti.tqs.cinemax.repositories.UserRepository;
 
 @DataJpaTest
-@TestPropertySource(locations = "classpath:application.properties")
 class ReservationRepositoryTest {
 
     @Autowired
@@ -79,4 +80,44 @@ class ReservationRepositoryTest {
         assertThat(reservations).hasSize(1);
     }
 
+    @Test
+    void testUpdateReservation() {
+        AppUser user = new AppUser();
+        user.setUsername("user1");
+        user.setPassword("password");
+        user.setEmail("user1@example.com");
+        user.setRole("USER");
+        userRepository.save(user);
+
+        Session session = new Session();
+        session.setDate("2024-06-01");
+        session.setTime("10:00");
+        sessionRepository.save(session);
+
+        Reservation reservation = new Reservation();
+        reservation.setUser(user);
+        reservation.setPrice(10);
+        reservation.setUsed(false);
+        reservation.setSession(session);
+        reservationRepository.save(reservation);
+
+        reservation.setPrice(15);
+        reservation.setUsed(true);
+        Reservation updatedReservation = reservationRepository.save(reservation);
+
+        assertThat(updatedReservation.getPrice()).isEqualTo(15);
+        assertTrue(updatedReservation.isUsed());
+    }
+
+    @Test
+    void testFindByIdNonExistent() {
+        Optional<Reservation> reservation = reservationRepository.findById(-1L);
+        assertFalse(reservation.isPresent());
+    }
+
+    @Test
+    void testFindByNonExistentUsername() {
+        List<Reservation> reservations = reservationRepository.findByUserUsername("nonexistent_user");
+        assertThat(reservations).isEmpty();
+    }
 }

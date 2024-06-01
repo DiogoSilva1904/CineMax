@@ -1,8 +1,9 @@
-package deti.tqs.cinemax.repositories;
+package deti.tqs.cinemax.repository;
 
 import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.models.Room;
 import deti.tqs.cinemax.models.Session;
+import deti.tqs.cinemax.repositories.SessionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@TestPropertySource(locations = "classpath:application.properties")
 class SessionRepositoryTest {
 
     @Autowired

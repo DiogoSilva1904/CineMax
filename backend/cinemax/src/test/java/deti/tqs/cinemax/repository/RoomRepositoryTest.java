@@ -13,7 +13,6 @@ import deti.tqs.cinemax.repositories.RoomRepository;
 import org.springframework.test.context.TestPropertySource;
 
 @DataJpaTest
-@TestPropertySource(locations = "classpath:application.properties")
 class RoomRepositoryTest {
 
     @Autowired

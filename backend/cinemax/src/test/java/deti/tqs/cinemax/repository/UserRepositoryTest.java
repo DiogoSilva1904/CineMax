@@ -12,7 +12,6 @@ import org.springframework.test.context.TestPropertySource;
 import java.util.Optional;
 
 @DataJpaTest
-@TestPropertySource(locations = "classpath:application.properties")
 class UserRepositoryTest {
 
     @Autowired
@@ -34,14 +33,14 @@ class UserRepositoryTest {
     }
 
     @Test
-     void testFindUserByIdNotFound() {
+    void testFindUserByIdNotFound() {
         AppUser foundUser = userRepository.findById(100L).orElse(null);
 
         assertThat(foundUser).isNull();
     }
 
     @Test
-    public void testDeleteUserByIdSuccess() {
+    void testDeleteUserByIdSuccess() {
         AppUser user = new AppUser();
         user.setUsername("testUser");
         user.setPassword("password");
@@ -56,7 +55,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    public void testUpdateExistingUser() {
+    void testUpdateExistingUser() {
         AppUser user = new AppUser();
         user.setUsername("testUser");
         user.setPassword("password");
@@ -74,7 +73,7 @@ class UserRepositoryTest {
 
 
     @Test
-     void testDeleteUserByIdNotFound() {
+    void testDeleteUserByIdNotFound() {
         userRepository.deleteById(100L);
 
         AppUser deletedUser = userRepository.findById(100L).orElse(null);
@@ -82,7 +81,7 @@ class UserRepositoryTest {
     }
 
     @Test
-     void testSaveExistingUser() {
+    void testSaveExistingUser() {
         AppUser user = new AppUser();
         user.setUsername("testUser");
         user.setPassword("password");
