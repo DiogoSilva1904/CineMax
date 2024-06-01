@@ -155,7 +155,7 @@ public class SessionIT {
         Movie movie = response2.getBody();
 
         Session session = new Session();
-        session.setDate("2024-05-23");
+        session.setDate("2024-05-24");
         session.setTime("20:00");
         session.setRoom(room);
         session.setBookedSeats(List.of("C1", "C2"));
@@ -169,7 +169,7 @@ public class SessionIT {
 
         Session savedSession = response1.getBody();
 
-        assertEquals("2024-05-23", savedSession.getDate());
+        assertEquals("2024-05-24", savedSession.getDate());
         assertEquals("20:00", savedSession.getTime());
         assertEquals("Room A", savedSession.getRoom().getName());
         assertEquals("C1", savedSession.getBookedSeats().get(0));
