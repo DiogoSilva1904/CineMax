@@ -1,6 +1,7 @@
 package deti.tqs.cinemax.services;
 
 import deti.tqs.cinemax.models.Movie;
+import deti.tqs.cinemax.models.MovieClass;
 import deti.tqs.cinemax.repositories.*;
 
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +12,17 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
@@ -134,7 +141,37 @@ class MovieServiceTest {
 
         log.info("Calling movieService.saveMovie(movie={})", existingMovie);
 
-        assertThrows(IllegalArgumentException.class, () -> movieService.saveMovie(existingMovie));
+        assertNull(movieService.saveMovie(existingMovie));
         log.info("Movie with title {} already exists", existingMovie.getTitle());
+    }
+
+    @Test
+    void testCreateMovie() {
+        MultipartFile image = new MockMultipartFile("image", "image.jpg", "image/jpeg", "image".getBytes());
+
+        MovieClass newMovie = new MovieClass("New Movie1",  "180", "Studio A",  "Sci-Fi", image);
+
+        Movie savedMovie = new Movie();
+        savedMovie.setTitle(newMovie.getTitle());
+        savedMovie.setDuration(newMovie.getDuration());
+        savedMovie.setStudio(newMovie.getStudio());
+        savedMovie.setGenre(newMovie.getGenre());
+        savedMovie.setImagePath("image.jpg");
+
+        Mockito.when(movieRepository.findByTitle(newMovie.getTitle())).thenReturn(Optional.empty());
+        Mockito.when(movieRepository.save(any(Movie.class))).thenReturn(savedMovie);
+
+        log.info("Calling movieService.CreateMovie(movie={})", newMovie);
+
+        Movie returnedMovie = movieService.CreateMovie(newMovie);
+        File file = new File(System.getProperty("user.dir") + "/uploads/" + savedMovie.getImagePath());
+
+
+        assertNotNull(returnedMovie);
+        assertEquals(newMovie.getTitle(), returnedMovie.getTitle());
+        assertEquals(true, file.exists());
+        file.delete();
+        assertFalse(file.exists());
+        log.info("Created movie: {}", savedMovie);
     }
 }

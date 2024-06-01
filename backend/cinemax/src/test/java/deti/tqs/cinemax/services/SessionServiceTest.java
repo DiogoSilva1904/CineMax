@@ -1,5 +1,6 @@
 package deti.tqs.cinemax.services;
 
+import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.models.Room;
 import deti.tqs.cinemax.models.Session;
 import deti.tqs.cinemax.repositories.SessionRepository;
@@ -195,5 +196,49 @@ class SessionServiceTest {
         assertEquals(session2, sessionList.get(0));
 
     }
+
+    @Test
+    void testSaveSessionOverlapping() {
+        Room room = new Room();
+        room.setId(1L);
+        room.setCapacity(100);
+
+        Movie movie = new Movie();
+        movie.setId(1L);
+        movie.setDuration("120");
+
+        Session session1 = new Session();
+        session1.setId(1L);
+        session1.setDate("2024-05-11");
+        session1.setTime("20:00");
+        session1.setMovie(movie);
+        session1.setRoom(room);
+
+        Mockito.when(sessionRepository.findByDate("2024-05-11")).thenReturn(List.of(session1));
+        Mockito.when(sessionRepository.save(any(Session.class))).thenReturn(session1);
+
+
+        Session session2 = new Session();
+        session2.setId(2L);
+        session2.setDate("2024-05-11");
+        session2.setTime("21:00");
+        session2.setMovie(movie);
+        session2.setRoom(room);
+
+        log.info("Calling sessionService.saveSession(session={})", session2);
+
+        Session savedSession1 = sessionRepository.save(session1);
+
+        assertEquals(session1, savedSession1);
+
+        Session savedSession2 = sessionService.saveSession(session2);
+
+        assertNull(savedSession2);
+
+        log.info("Session overlaps with another session");
+
+    }
+
+        
 
 }

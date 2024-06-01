@@ -1,6 +1,7 @@
 package deti.tqs.cinemax.services;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,16 +45,26 @@ public class SessionService {
     }
 
     public Session saveSession(Session session) {
-        /*if(!sessionRepository.findByDateAndTimeAndRoom(session.getDate(), session.getTime(), session.getRoom()).isEmpty()) {
-            log.info("Session with date {} and time {} and room {} already exists", session.getDate(), session.getTime(), session.getRoom().getId());
-            //throw new IllegalArgumentException("Session with date " + session.getDate() + " and time " + session.getTime() + " and room id " + session.getRoom().getId() + " already exists");
-            return null;
+        //check all sessions with the same date
+        List<Session> sessions = sessionRepository.findByDate(session.getDate());
+        for (Session s : sessions) {
+            if (isOverlapping(s, session) && s.getRoom().getId().equals(session.getRoom().getId())){
+                log.info("Session overlaps with another session");
+                return null;
+            }
         }
-        else{
-            log.info("Saving session with id {}", session.getId());*/
+
         return sessionRepository.save(session);
-        //log.info("Saving session with id {}", session.getId());
-        //return sessionRepository.save(session);
+    }
+
+    private boolean isOverlapping(Session s1, Session s2) {
+        LocalTime s1StartTime = LocalTime.parse(s1.getTime());
+        LocalTime s1EndTime = s1StartTime.plusMinutes(Long.parseLong(s1.getMovie().getDuration()));
+
+        LocalTime s2StartTime = LocalTime.parse(s2.getTime());
+        LocalTime s2EndTime = s2StartTime.plusMinutes(Long.parseLong(s2.getMovie().getDuration()));
+
+        return s1StartTime.isBefore(s2EndTime) && s2StartTime.isBefore(s1EndTime);
     }
 
     public Session getSessionById(Long id) {

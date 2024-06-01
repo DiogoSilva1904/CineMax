@@ -123,7 +123,7 @@ export class ApiService {
       headers: this.getHeaders(true),
       body: JSON.stringify(session)
     });
-    return await response.json() ?? undefined;
+    return { status: response.status };
   }
 
   async deleteSession(sessionId: string) {
