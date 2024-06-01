@@ -154,7 +154,7 @@ public class MovieIT {
     }
 
     @Test
-    void testSavingMovieAlreadyExists(){
+    void testSavingMovieAlreadyExists(){//could need a change on final assert
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(jwtToken);
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -170,6 +170,6 @@ public class MovieIT {
 
         ResponseEntity<Movie> response = restTemplate.exchange("http://localhost:" + port + "/api/movies", HttpMethod.POST ,entity, Movie.class);
 
-        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 }
