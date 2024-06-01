@@ -83,7 +83,7 @@ public class MovieService {
     
             // Copy the file to the target location, replacing existing file if it exists
             Files.copy(movie.getImage().getInputStream(), fileSysPath, StandardCopyOption.REPLACE_EXISTING);
-            return fileSysPath.toString();
+            return fileName;
         } catch (IOException e) {
             log.error("Failed to save file: {}", e.getMessage(), e);
             return "Failed to save file.";
@@ -94,6 +94,22 @@ public class MovieService {
 
     public void deleteMovie(Long id) {
         log.info("Deleting movie with id {}", id);
+
+        // Delete the image file
+        Optional<Movie> movieOptional = movieRepository.findById(id);
+        if (movieOptional.isPresent()) {
+            Movie movie = movieOptional.get();
+            if (movie.getImagePath() != null) {
+                Path uploadDirPath = Paths.get(USERDIR, "uploads");
+                Path fileSysPath = uploadDirPath.resolve(movie.getImagePath());
+                try {
+                    Files.deleteIfExists(fileSysPath);
+                } catch (IOException e) {
+                    log.error("Failed to delete image file: {}", e.getMessage(), e);
+                }
+            }
+        }
+
         movieRepository.deleteById(id);
     }
 

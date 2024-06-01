@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../service/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-movie',
@@ -23,6 +24,8 @@ export class AddMovieComponent {
 
   file: File | null = null;
 
+  constructor(private router: Router) { }
+
   submitForm() {
     var formData = new FormData();
     formData.append('title', this.movie.title);
@@ -35,6 +38,7 @@ export class AddMovieComponent {
       console.log('Movie added:', response); 
     });
     this.resetForm();
+    this.router.navigate(['/movies']);
   }
 
   onFileSelected(event: any) {

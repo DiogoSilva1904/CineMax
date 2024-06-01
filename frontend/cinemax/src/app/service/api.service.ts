@@ -70,7 +70,7 @@ export class ApiService {
   }
 
   async addMovie(movieData: any) {
-    const url = `${this.baseUrl}/movies/test`;
+    const url = `${this.baseUrl}/movies`;
     console.log('movieData', movieData);
     const response = await fetch(url, {
       method: 'POST',
@@ -167,5 +167,21 @@ export class ApiService {
     });
     return await response.json() ?? undefined;
   }
+
+  async getImage(path: string): Promise<Blob | undefined> {
+    const url = `${this.baseUrl}/movies/image/${path}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: this.getHeaders(true),
+    });
+    
+    if (!response.ok) {
+      console.error(`Failed to fetch image. Status: ${response.status}`);
+      return undefined;
+    }
+    
+    return await response.blob();
+  }
+  
   
 }
