@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -51,8 +52,8 @@ public class MovieService {
 
     public Movie CreateMovie(MovieClass movie) {
         log.info("Creating movie with title {}", movie.getTitle());
-        Movie existingMovie = movieRepository.findByTitle(movie.getTitle()).orElse(null);
-        if (existingMovie != null) {
+        Optional<Movie> existingMovie = movieRepository.findByTitle(movie.getTitle());
+        if (existingMovie.isPresent()) {
             log.info("Movie with title {} already exists", movie.getTitle());
             return null;
         }
@@ -64,6 +65,8 @@ public class MovieService {
     
         String imagePath = movie.getImage() != null ? CreateFile(movie) : null;
         newMovie.setImagePath(imagePath);
+
+        log.info("Saving movie: {}", newMovie);
     
         Movie savedMovie = movieRepository.save(newMovie);
         if (savedMovie == null) {
