@@ -52,7 +52,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         movie1.setCategory("Science Fiction");
         movie1.setGenre("Action");
         movie1.setStudio("Warner Bros.");
-        movie1.setDuration("148 minutes");
+        movie1.setDuration("148");
 
         saveMovieIfNotExists(movie1);
 
@@ -63,7 +63,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         movie2.setCategory("Drama");
         movie2.setGenre("Crime");
         movie2.setStudio("Castle Rock Entertainment");
-        movie2.setDuration("142 minutes");
+        movie2.setDuration("142");
 
         saveMovieIfNotExists(movie2);
 
@@ -74,7 +74,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         movie3.setCategory("Crime");
         movie3.setGenre("Drama");
         movie3.setStudio("Paramount Pictures");
-        movie3.setDuration("175 minutes");
+        movie3.setDuration("175");
 
         saveMovieIfNotExists(movie3);
 

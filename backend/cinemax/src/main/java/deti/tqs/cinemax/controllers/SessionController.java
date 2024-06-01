@@ -42,6 +42,9 @@ public class SessionController {
     @PostMapping
     public ResponseEntity<Session> saveSession(@RequestBody Session session) {
         Session updatedSession = sessionService.saveSession(session);
+        if (updatedSession == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(updatedSession, HttpStatus.CREATED);
     }
 
