@@ -1,6 +1,8 @@
 import { NgForOf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ApiService } from '../service/api.service';
+import { ActivatedRoute } from '@angular/router';
+import { ClientNavbarComponent } from '../client-navbar/client-navbar.component';
 
 interface Seat {
   seatIdentifier: string;
@@ -28,7 +30,7 @@ interface Reservation {
 @Component({
   selector: 'app-booking-page',
   standalone: true,
-  imports: [NgForOf],
+  imports: [NgForOf, ClientNavbarComponent],
   templateUrl: './booking-page.component.html',
   styleUrl: './booking-page.component.css'
 })
@@ -81,23 +83,20 @@ export class BookingPageComponent {
   movieName: string = 'Avengers: Endgame';
   totalPrice: number = 0;
   ApiService= inject(ApiService);
-  Sessions: Session[] = [];
   User: string = 'User';
   Session: any;
 
-  constructor() {
-    this.ApiService.getSessions().then((sessions: any[]) => {
-      this.Sessions = sessions;
-      sessions.forEach((session) => {
-        if (session.id === 1)
-          this.movieName = session.movie.title;
-          this.day = session.date;
-          this.sessionTime = session.time;
-          this.Session = session;
-          for (let i = 0; i < this.seats.length; i++) {
-            this.seats[i].occupied = session.bookedSeats.includes(this.seats[i].seatIdentifier);
-          }
-      });
+  constructor( private route: ActivatedRoute) {
+    //get the session id from the url
+    const sessionId = this.route.snapshot.paramMap.get('id');
+    this.ApiService.getSession(sessionId).then((session: Session) => {
+      this.Session = session;
+      this.movieName = session.movie.title;
+      this.day = session.date;
+      this.sessionTime = session.time;
+      for (let i = 0; i < this.seats.length; i++) {
+        this.seats[i].occupied = session.bookedSeats.includes(this.seats[i].seatIdentifier);
+      }
     });
   }
 
@@ -128,14 +127,15 @@ export class BookingPageComponent {
 
   reserveSeats() {
     const reservation = {
-      id: 1,
-      username: this.User,
+      user: { username: localStorage.getItem('username')},
       price: this.totalPrice,
       session: this.Session,
       seatNumbers: this.selectedSeats
     };
     this.ApiService.postReservation(reservation).then((data) => {
       console.log(data);
+      alert('Reservation successful');
+      location.reload();
     });
   }
 }

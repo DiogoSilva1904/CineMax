@@ -3,6 +3,7 @@ package deti.tqs.cinemax.controllers;
 import deti.tqs.cinemax.config.CustomUserDetailsService;
 import deti.tqs.cinemax.config.IAuthenticationFacade;
 import deti.tqs.cinemax.config.JwtUtilService;
+import deti.tqs.cinemax.models.AppUser;
 import deti.tqs.cinemax.models.Reservation;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -49,8 +50,10 @@ class ReservationControllerTest {
 
     @Test
     void testGetReservationById() throws Exception {
+        AppUser user = new AppUser();
+        user.setUsername("user1");
         Reservation reservation = new Reservation();
-        reservation.setUsername("user1");
+        reservation.setUser(user);
         reservation.setSession(null);
         reservation.setSeatNumbers(List.of("A1", "A2"));
 
@@ -59,7 +62,7 @@ class ReservationControllerTest {
         mvc.perform(get("/api/reservations/1"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.username", is("user1")))
+            .andExpect(jsonPath("$.user.username", is("user1")))
             .andExpect(jsonPath("$.seatNumbers", hasSize(2)))
             .andExpect(jsonPath("$.seatNumbers[0]", is("A1")))
             .andExpect(jsonPath("$.seatNumbers[1]", is("A2")));
@@ -75,8 +78,10 @@ class ReservationControllerTest {
 
     @Test
     void testSaveReservation() throws Exception {
+        AppUser user = new AppUser();
+        user.setUsername("user1");
         Reservation reservation = new Reservation();
-        reservation.setUsername("user10");
+        reservation.setUser(user);
         reservation.setSession(null);
         reservation.setSeatNumbers(List.of("J1"));
 
@@ -86,7 +91,7 @@ class ReservationControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(reservation)))
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.username", is("user10")))
+            .andExpect(jsonPath("$.user.username", is("user1")))
             .andExpect(jsonPath("$.seatNumbers", hasSize(1)))
             .andExpect(jsonPath("$.seatNumbers[0]", is("J1")));
     }
