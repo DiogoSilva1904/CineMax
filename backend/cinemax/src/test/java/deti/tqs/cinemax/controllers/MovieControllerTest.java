@@ -124,7 +124,7 @@ class MovieControllerTest {
         movie.setStudio("Studio X");
         movie.setDuration("120min");
 
-        when(movieService.saveMovie(Mockito.any())).thenReturn(movie);
+        Mockito.when(movieService.CreateMovie(Mockito.any())).thenReturn(movie);
 
         mvc.perform(post("/api/movies")
                 .contentType(MediaType.APPLICATION_JSON)

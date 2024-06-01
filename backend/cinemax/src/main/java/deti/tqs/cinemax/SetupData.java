@@ -18,8 +18,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Component
-@Profile("!test")
-public class SetupData implements CommandLineRunner
+@Profile("!test && !integration-test")
+public class SetupData implements org.springframework.boot.CommandLineRunner
 {
     private  MovieService movieService;
 
