@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +13,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-public class FileRepositoryTest {
+class FileRepositoryTest {
 
     @Autowired
     private FileRepository fileRepository;
@@ -64,36 +63,5 @@ public class FileRepositoryTest {
         assertThat(foundFile.get().getPath()).isEqualTo("/path/to/test_file");
     }
 
-    @Test
-    @Disabled
-    void testFindAllByParentIsNull() {
-        CustomFile file1 = new CustomFile();
-        file1.setName("file1");
-        file1.setType("txt");
-        file1.setSize(1024L);
-        file1.setPath("/path/to/file1");
-
-        CustomFile parent = new CustomFile();
-        parent.setName("parent");
-        parent.setType("directory");
-        parent.setSize(0L);
-        parent.setPath("/path/to/parent");
-        fileRepository.save(parent);
-
-        CustomFile file2 = new CustomFile();
-        file2.setName("file2");
-        file2.setType("txt");
-        file2.setSize(1024L);
-        file2.setPath("/path/to/parent/file2");
-        file2.setParent(parent);
-        fileRepository.save(file2);
-
-        fileRepository.save(file1);
-        fileRepository.save(file2);
-
-        List<CustomFile> files = fileRepository.findAllByParentIsNull();
-
-        assertThat(files).containsExactly(file1).doesNotContain(parent);
-    }
 
 }
