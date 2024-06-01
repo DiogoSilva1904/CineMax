@@ -44,8 +44,16 @@ public class SessionService {
     }
 
     public Session saveSession(Session session) {
-        log.info("Saving session with id {}", session.getId());
+        /*if(!sessionRepository.findByDateAndTimeAndRoom(session.getDate(), session.getTime(), session.getRoom()).isEmpty()) {
+            log.info("Session with date {} and time {} and room {} already exists", session.getDate(), session.getTime(), session.getRoom().getId());
+            //throw new IllegalArgumentException("Session with date " + session.getDate() + " and time " + session.getTime() + " and room id " + session.getRoom().getId() + " already exists");
+            return null;
+        }
+        else{
+            log.info("Saving session with id {}", session.getId());*/
         return sessionRepository.save(session);
+        //log.info("Saving session with id {}", session.getId());
+        //return sessionRepository.save(session);
     }
 
     public Session getSessionById(Long id) {
@@ -61,7 +69,7 @@ public class SessionService {
 
     public List<Session> getSessionsbyDate(String date) {
         log.info("Retrieving all sessions by date {}", date);
-        List<Session> sessions = sessionRepository.findByDate(date);
+        List<Session> sessions = new ArrayList<>(sessionRepository.findByDate(date)); // Convert to mutable list
         //checking if the date hour is in the past
         List<Session> sessionsToRemove = new ArrayList<>();
 

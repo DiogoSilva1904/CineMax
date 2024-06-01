@@ -30,8 +30,8 @@ class RoomServiceTest {
     @Test
     void testGetAllRooms() {
         List<Room> expectedRooms = new ArrayList<>();
-        expectedRooms.add(new Room(null,"Room 1", 50, "Lecture Hall", null));
-        expectedRooms.add(new Room(null,"Room 2", 30, "Meeting Room", null));
+        expectedRooms.add(new Room( 1L,"Room 1", 50, "Lecture Hall", null));
+        expectedRooms.add(new Room(2L,"Room 2", 30, "Meeting Room", null));
 
         Mockito.when(roomRepository.findAll()).thenReturn(expectedRooms);
 
@@ -49,7 +49,7 @@ class RoomServiceTest {
     @Test
     void testGetRoomById_Found() {
         Long id = 1L;
-        Room expectedRoom = new Room(null,"Test Room", 20, "Screening Room", null);
+        Room expectedRoom = new Room(1L,"Test Room", 20, "Screening Room", null);
 
         Mockito.when(roomRepository.findById(id)).thenReturn(Optional.of(expectedRoom));
 
@@ -79,7 +79,7 @@ class RoomServiceTest {
 
     @Test
     void testSaveRoom() {
-        Room newRoom = new Room(null,"New Room", 40, "Classroom", null);
+        Room newRoom = new Room(1L,"New Room", 40, "Classroom", null);
 
         Mockito.when(roomRepository.save(newRoom)).thenReturn(newRoom);
 
@@ -116,7 +116,7 @@ class RoomServiceTest {
     }
 
     @Test
-    public void testUpdateRoom_NotFound() {
+    void testUpdateRoom_NotFound() {
         Long id = 3L;
         Room updatedRoom = new Room(id,"Updated Room", 35,"Conference Room", null);
 

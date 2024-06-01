@@ -36,7 +36,7 @@ public class Movie {
     private String imagePath;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("movie")
+    @JsonIgnoreProperties(value={"movie"},allowSetters = true)
     private List<Session> session;
     
 }

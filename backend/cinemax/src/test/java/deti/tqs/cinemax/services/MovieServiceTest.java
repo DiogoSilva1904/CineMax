@@ -125,4 +125,16 @@ class MovieServiceTest {
         assertEquals(updatedMovie.getCategory(), actualMovie.getCategory());
         log.info("Updated movie with id {}", id);
     }
+
+    @Test
+    void testSaveMovieWithTitleThatAlreadyExists(){
+        Movie existingMovie = new Movie(1L, "Existing Movie", "Animation", "Family", "Studio B", "90min", null,null);
+
+        Mockito.when(movieRepository.findByTitle(existingMovie.getTitle())).thenReturn(Optional.of(existingMovie));
+
+        log.info("Calling movieService.saveMovie(movie={})", existingMovie);
+
+        assertThrows(IllegalArgumentException.class, () -> movieService.saveMovie(existingMovie));
+        log.info("Movie with title {} already exists", existingMovie.getTitle());
+    }
 }

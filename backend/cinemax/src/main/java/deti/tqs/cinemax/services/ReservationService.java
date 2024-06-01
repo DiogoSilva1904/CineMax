@@ -53,6 +53,7 @@ public class ReservationService {
             for (String seat : selectedSeats) {
                 if (bookedSeats.contains(seat)) {
                     log.info("Seat {} is already booked", seat);
+                    //throw new SeatAlreadyBookedException("Seat " + seat + " is already booked");
                     return null;
                 }
             }
