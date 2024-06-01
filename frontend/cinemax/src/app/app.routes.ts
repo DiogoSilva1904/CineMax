@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MovieSessionsComponent } from './movie-sessions/movie-sessions.component';
+import { ValidateTicketComponent } from './validate-ticket/validate-ticket.component';
     
 
 
@@ -28,6 +29,7 @@ export const routes: Routes = [
     { path: "register", component: RegisterComponent},
     { path: "changePassword", component: ChangePasswordComponent},
     { path: 'movie-sessions/:id', component: MovieSessionsComponent},
-    { path: 'seat/:id', component:  BookingPageComponent}
+    { path: 'seat/:id', component:  BookingPageComponent},
+    { path: 'validate/:id', component: ValidateTicketComponent}
 
 ];

@@ -1,7 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ApiService } from '../service/api.service';
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgClass } from "@angular/common";
 import { ClientNavbarComponent } from '../client-navbar/client-navbar.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @Component({
   selector: 'app-mytickets',
@@ -9,7 +10,9 @@ import { ClientNavbarComponent } from '../client-navbar/client-navbar.component'
   imports: [
     NgIf,
     NgForOf,
-    ClientNavbarComponent
+    ClientNavbarComponent,
+    QRCodeModule,
+    NgClass
   ],
   templateUrl: './mytickets.component.html',
   styleUrls: ['./mytickets.component.css']

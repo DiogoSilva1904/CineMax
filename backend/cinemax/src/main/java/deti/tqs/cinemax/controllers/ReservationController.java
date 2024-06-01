@@ -49,4 +49,14 @@ public class ReservationController {
             return new ResponseEntity<>(updatedReservation, HttpStatus.CREATED);
 
         }
+
+        @Operation(summary = "Make reservation used")
+        @PutMapping("{id}")
+        public ResponseEntity<Reservation> makeReservationUsed(@PathVariable Long id) {
+            Reservation reservation = reservationService.makeReservationUsed(id);
+            if(reservation == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(reservation, HttpStatus.OK);
+        }
 }

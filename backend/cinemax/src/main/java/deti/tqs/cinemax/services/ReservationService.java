@@ -46,6 +46,7 @@ public class ReservationService {
         Session session = sessionService.getSessionById(reservation.getSession().getId());
         AppUser user = UserService.getUserByUsername(reservation.getUser().getUsername());
         reservation.setUser(user);
+        reservation.setUsed(false);
 
         if (session != null) {
             List<String> bookedSeats = session.getBookedSeats();
@@ -92,6 +93,16 @@ public class ReservationService {
     public List<Reservation> getAllReservations() {
         log.info("Retrieving all reservations");
         return reservationRepository.findAll();
+    }
+
+    public Reservation makeReservationUsed(Long id) {
+        log.info("Making reservation with id {} used", id);
+        Reservation reservation = reservationRepository.findById(id).orElse(null);
+        if (reservation != null && !reservation.isUsed()) {
+            reservation.setUsed(true);
+            return reservationRepository.save(reservation);
+        }
+        return null;
     }
 
     
