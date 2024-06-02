@@ -31,5 +31,16 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete user by usernmae")
+    @DeleteMapping("{username}")
+    public ResponseEntity<AppUser> deleteUserByUsername(@PathVariable String username) {
+        AppUser user = userService.getUserByUsername(username);
+        if(user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        userService.deleteUser(user.getId());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

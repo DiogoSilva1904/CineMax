@@ -20,6 +20,9 @@
 		<sonar.exclusions>**/SetupData.java</sonar.exclusions>
 		<selenium-java.version>4.18.1</selenium-java.version>
 		<selenium-jupiter.version>5.0.1</selenium-jupiter.version>
+		<junit-platform-suite.version>1.10.1</junit-platform-suite.version>
+		<cucumber.version>7.15.0</cucumber.version>
+		<webdrivermanager.version>5.7.0</webdrivermanager.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -83,7 +86,12 @@
 			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite</artifactId>
+			<version>${junit-platform-suite.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -167,6 +175,30 @@
 			<groupId>org.testcontainers</groupId>
 			<artifactId>mysql</artifactId>
 			<version>1.19.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit-platform-engine</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium-java.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>${webdrivermanager.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
