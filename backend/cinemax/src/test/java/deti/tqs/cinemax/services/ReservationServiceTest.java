@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -312,6 +313,72 @@ class ReservationServiceTest {
 
         assertNotNull(allReservations);
         assertEquals(1, allReservations.size());
+    }
+
+     @Test
+    public void testMakeReservationUsed_ReservationFoundAndNotUsed() {
+        Long id = 1L;
+        Reservation reservation = new Reservation();
+        reservation.setId(id);
+        reservation.setUsed(false);
+        when(reservationRepository.findById(id)).thenReturn(Optional.of(reservation));
+        when(reservationRepository.save(reservation)).thenReturn(reservation);
+
+        Reservation result = reservationService.makeReservationUsed(id);
+
+        assertNotNull(result);
+        assertTrue(result.isUsed());
+        verify(reservationRepository, times(1)).save(reservation);
+    }
+
+    @Test
+    public void testMakeReservationUsed_ReservationFoundButAlreadyUsed() {
+        Long id = 1L;
+        Reservation reservation = new Reservation();
+        reservation.setId(id);
+        reservation.setUsed(true);
+        when(reservationRepository.findById(id)).thenReturn(Optional.of(reservation));
+
+        Reservation result = reservationService.makeReservationUsed(id);
+
+        assertNull(result);
+        verify(reservationRepository, never()).save(any());
+    }
+
+    @Test
+    public void testMakeReservationUsed_ReservationNotFound() {
+        Long id = 1L;
+        when(reservationRepository.findById(id)).thenReturn(Optional.empty());
+
+        Reservation result = reservationService.makeReservationUsed(id);
+
+        assertNull(result);
+        verify(reservationRepository, never()).save(any());
+    }
+
+    @Test
+    public void testGetReservationsByUser_ReservationsFound() {
+        String username = "testUser";
+        List<Reservation> reservations = new ArrayList<>();
+        reservations.add(new Reservation());
+        reservations.add(new Reservation());
+        when(reservationRepository.findByUserUsername(username)).thenReturn(reservations);
+
+        List<Reservation> result = reservationService.getReservationsByUser(username);
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    public void testGetReservationsByUser_NoReservationsFound() {
+        String username = "nonExistingUser";
+        when(reservationRepository.findByUserUsername(username)).thenReturn(new ArrayList<>());
+
+        List<Reservation> result = reservationService.getReservationsByUser(username);
+
+        assertNotNull(result);
+        assertEquals(0, result.size());
     }
 
 

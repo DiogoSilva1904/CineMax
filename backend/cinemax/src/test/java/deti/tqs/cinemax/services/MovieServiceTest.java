@@ -5,11 +5,15 @@ import deti.tqs.cinemax.models.MovieClass;
 import deti.tqs.cinemax.repositories.*;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
@@ -21,9 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.access.method.P;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,7 +51,22 @@ class MovieServiceTest {
     private MovieRepository movieRepository;
 
     @InjectMocks
-    private MovieService movieService;    
+    private MovieService movieService;
+    
+    private static final String TEST_IMAGE_PATH = "test_image.jpg";
+    private static final String USERDIR = System.getProperty("user.dir");
+    private static final String TEST_UPLOADS_DIR = USERDIR + "/uploads";
+
+    @AfterEach
+    void tearDown() {
+        // Clean up temporary test files
+        Path testImage = Paths.get(TEST_UPLOADS_DIR, TEST_IMAGE_PATH);
+        try {
+            Files.deleteIfExists(testImage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Test
@@ -255,4 +277,5 @@ class MovieServiceTest {
         MediaType mediaType = movieService.determineMediaType(imagePath);
         assertEquals(MediaType.APPLICATION_OCTET_STREAM, mediaType);
     }
+    
 }
