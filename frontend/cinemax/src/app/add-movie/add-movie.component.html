@@ -26,5 +26,5 @@
     <label for="poster">Poster:</label>
     <input type="file" id="poster" name="poster" accept="image/*" (change)="onFileSelected($event)" required>
   </div>
-  <button type="submit" [disabled]="movieForm.invalid">Add Movie</button>
+  <button type="submit" id="create" [disabled]="movieForm.invalid">Add Movie</button>
 </form>

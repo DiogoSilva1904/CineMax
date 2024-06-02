@@ -32,7 +32,9 @@ export class AddMovieComponent {
     formData.append('duration', this.movie.duration);
     formData.append('studio', this.movie.studio);
     formData.append('genre', this.movie.genre);
-    formData.append('image', this.movie.image);
+    if (this.movie.image) {
+      formData.append('image', this.movie.image);
+    }
     console.log('Form submitted:', formData);
     this.ApiDataService.addMovie(formData).then((response) => {
       console.log('Movie added:', response); 
