@@ -12,7 +12,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -28,7 +27,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -69,7 +67,7 @@ public class BuyTicketSteps {
         loginButton.click();
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1000); //NOSONAR
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -125,7 +123,6 @@ public class BuyTicketSteps {
         
         // Assert the alert text
         assertEquals("Reservation successful", alertText);
-        //assertEquals("Please select a seat", alertText);
         
         // Accept the alert to close it
         alert.accept();

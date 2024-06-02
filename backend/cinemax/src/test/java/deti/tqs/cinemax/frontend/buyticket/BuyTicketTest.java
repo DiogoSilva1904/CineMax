@@ -16,4 +16,4 @@ import org.junit.platform.suite.api.Suite;
 @ConfigurationParameter(
         key = GLUE_PROPERTY_NAME,
         value = "deti.tqs.cinemax.frontend.buyticket")
-public class BuyTicketTest { }
+public class BuyTicketTest { } //NOSONAR

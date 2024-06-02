@@ -1,18 +1,15 @@
 package deti.tqs.cinemax.frontend.createmovieandsession;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -21,22 +18,16 @@ import org.openqa.selenium.support.ui.Select;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+
 import java.time.Duration;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.containsString;
 
 public class CreatemovieandsessionSteps {
     private WebDriver driver;
     private Wait<WebDriver> wait;
-    private String createdUsername;
 
     @Given("the user is on the log in page")
     public void theUserIsOnTheLogInPage() {
