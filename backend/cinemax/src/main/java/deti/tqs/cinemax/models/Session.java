@@ -27,8 +27,6 @@ public class Session {
 
     private String time;
 
-    private Integer availableSeats;
-
     @ManyToOne
     @JoinColumn(name= "movie_id")
     @JsonIgnoreProperties("session")
@@ -40,7 +38,7 @@ public class Session {
     private Room room;
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("session")
+    @JsonIgnoreProperties(value={"session"},allowSetters = true)
     private List<Reservation> reservation;
 
     @ElementCollection  // this is and array with the seats occupied example ["A2","A1"] etc...

@@ -1,11 +1,15 @@
 package deti.tqs.cinemax.controllers;
 
+import deti.tqs.cinemax.config.CustomUserDetailsService;
+import deti.tqs.cinemax.config.IAuthenticationFacade;
+import deti.tqs.cinemax.config.JwtUtilService;
 import deti.tqs.cinemax.models.Room;
 import deti.tqs.cinemax.services.RoomService;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,17 +19,25 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(RoomController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class RoomControllerTest {
 
         @Autowired
         private MockMvc mvc;
+
+        @MockBean
+        private CustomUserDetailsService customUserDetailsService;
+
+        @MockBean
+        private JwtUtilService jwtUtil;
+
+        @MockBean
+        private IAuthenticationFacade authenticationFacade;
 
         @MockBean
         private RoomService roomService;
@@ -36,18 +48,21 @@ class RoomControllerTest {
         @Test
         void testGetAllRooms() throws Exception{
             Room room = new Room();
+            room.setId(1L);
             room.setName("Room 1");
             room.setCapacity(100);
             room.setType("Normal");
             room.setSessions(null);
 
             Room room1 = new Room();
+            room.setId(2L);
             room1.setName("Room 2");
             room1.setCapacity(80);
             room1.setType("IMAX");
             room1.setSessions(null);
 
             Room room2 = new Room();
+            room.setId(3L);
             room2.setName("Room 3");
             room2.setCapacity(80);
             room2.setType("IMAX");
@@ -74,6 +89,7 @@ class RoomControllerTest {
         @Test
         void testGetRoomById() throws Exception {
             Room room = new Room();
+            room.setId(1L);
             room.setName("Room 1");
             room.setCapacity(100);
             room.setType("Normal");

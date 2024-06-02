@@ -1,0 +1,33 @@
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+#car-movies
+{
+  padding: 20px;
+  height: 800px;
+}
+.carousel-slide {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}

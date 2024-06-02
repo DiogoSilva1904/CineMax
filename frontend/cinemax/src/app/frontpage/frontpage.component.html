@@ -1,6 +1,13 @@
+<app-client-navbar></app-client-navbar>
 <div class="top-movies py-5">
   <div class="container">
-    <h2 class="mb-4">Top Movies</h2>
-    <app-movies-grid [limit]="8" [columns]="4"></app-movies-grid>
+
+    <app-carousel></app-carousel>
+    
+    <div class="movie-list"> 
+    <div *ngFor="let movie of movies" class="movie-item">
+        <app-client-movie-card [movie]="movie" (click)="goToMovieSessions(movie.id)"></app-client-movie-card>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,0 +1,20 @@
+<div class="sidebar">
+  <app-client-navbar></app-client-navbar>
+</div>
+
+<div class="main-content">
+  <div class="container">
+    <div class="row">
+      <div *ngFor="let movie of movies" class="custom-col mb-4">
+        <div class="card">
+          <section>
+            <img src="https://m.media-amazon.com/images/I/91vya3UmldL._AC_UF894,1000_QL80_DpWeblab_.jpg" class="card-img-top" alt="{{ movie.title }}">
+            <header>{{movie.title}}</header>
+            <div class="genre">{{movie.duration }}</div>
+            <button class="btn btn-danger" (click)="goToMovieSessions(movie.id)">Buy Ticket</button>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

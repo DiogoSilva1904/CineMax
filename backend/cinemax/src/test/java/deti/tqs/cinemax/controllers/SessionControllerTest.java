@@ -1,5 +1,8 @@
 package deti.tqs.cinemax.controllers;
 
+import deti.tqs.cinemax.config.CustomUserDetailsService;
+import deti.tqs.cinemax.config.IAuthenticationFacade;
+import deti.tqs.cinemax.config.JwtUtilService;
 import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.models.Room;
 import deti.tqs.cinemax.models.Session;
@@ -8,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,17 +21,25 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(SessionController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class SessionControllerTest {
 
             @Autowired
             private MockMvc mvc;
+
+            @MockBean
+            private CustomUserDetailsService customUserDetailsService;
+
+            @MockBean
+            private JwtUtilService jwtUtil;
+
+            @MockBean
+            private IAuthenticationFacade authenticationFacade;
 
             @MockBean
             private SessionService sessionService;
@@ -38,16 +50,19 @@ class SessionControllerTest {
             @Test
             void testGetAllSessions() throws Exception{
                 Movie movie = new Movie();
+                movie.setId(1L);
                 movie.setTitle("The Avengers");
                 movie.setDuration("120");
 
                 Room room = new Room();
+                room.setId(1L);
                 room.setName("Room 1");
                 room.setCapacity(100);
                 room.setType("Normal");
                 room.setSessions(null);
 
                 Session session = new Session();
+                session.setId(1L);
                 session.setDate("2021-05-05");
                 session.setTime("20:00");
                 session.setMovie(movie);
@@ -56,6 +71,7 @@ class SessionControllerTest {
                 session.setBookedSeats(List.of("A1", "A2"));
 
                 Session session1 = new Session();
+                session1.setId(2L);
                 session1.setDate("2021-05-06");
                 session1.setTime("22:45");
                 session1.setMovie(movie);
@@ -80,10 +96,12 @@ class SessionControllerTest {
             @Test
             void testGetSessionById() throws Exception{
                Movie movie = new Movie();
+               movie.setId(1L);
                movie.setTitle("The Avengers");
                movie.setDuration("120");
 
                Room room = new Room();
+                room.setId(1L);
                room.setName("Room 1");
                room.setCapacity(100);
                room.setType("Normal");
@@ -119,16 +137,19 @@ class SessionControllerTest {
             @Test
             void testSaveSeat() throws Exception{
                 Movie movie = new Movie();
+                movie.setId(1L);
                 movie.setTitle("The Avengers");
                 movie.setDuration("120");
 
                 Room room = new Room();
+                room.setId(1L);
                 room.setName("Room 1");
                 room.setCapacity(100);
                 room.setType("Normal");
                 room.setSessions(null);
 
                 Session session = new Session();
+                session.setId(1L);
                 session.setDate("2021-05-05");
                 session.setTime("20:00");
                 session.setMovie(movie);

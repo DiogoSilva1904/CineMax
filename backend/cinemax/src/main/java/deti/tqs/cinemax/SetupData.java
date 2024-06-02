@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Component
+@Profile("!test && !integration-test")
 public class SetupData implements org.springframework.boot.CommandLineRunner
 {
     private  MovieService movieService;
@@ -25,11 +27,24 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
 
     private SessionService sessionService;
 
-    public void run(String... args) {
+    private UserService userService;
+
+
+    public void run(String... args)  throws Exception {
         setup();
     }
 
     public void setup() {
+
+        final String ADMIN_USERNAME = "admin";
+        AppUser user1 = new AppUser();
+        user1.setId(1L);
+        user1.setUsername(ADMIN_USERNAME);
+        user1.setPassword(ADMIN_USERNAME);
+        user1.setEmail(ADMIN_USERNAME);
+        user1.setRole("ADMIN");
+
+        saveUserIfNotExists(user1);
 
         Movie movie1 = new Movie();
         movie1.setId(1L);
@@ -37,7 +52,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         movie1.setCategory("Science Fiction");
         movie1.setGenre("Action");
         movie1.setStudio("Warner Bros.");
-        movie1.setDuration("148 minutes");
+        movie1.setDuration("148");
 
         saveMovieIfNotExists(movie1);
 
@@ -48,7 +63,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         movie2.setCategory("Drama");
         movie2.setGenre("Crime");
         movie2.setStudio("Castle Rock Entertainment");
-        movie2.setDuration("142 minutes");
+        movie2.setDuration("142");
 
         saveMovieIfNotExists(movie2);
 
@@ -59,7 +74,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         movie3.setCategory("Crime");
         movie3.setGenre("Drama");
         movie3.setStudio("Paramount Pictures");
-        movie3.setDuration("175 minutes");
+        movie3.setDuration("175");
 
         saveMovieIfNotExists(movie3);
 
@@ -96,8 +111,8 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
 
         Session session1 = new Session();
         session1.setId(1L);
-        session1.setDate("2024-05-15");
-        session1.setTime("18:00");
+        session1.setDate("2024-05-23");
+        session1.setTime("20:00");
         session1.setMovie(movie1);
         session1.setRoom(room1);
         session1.setBookedSeats(List.of("A2", "A1"));
@@ -114,6 +129,17 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         session2.setBookedSeats(List.of("B3", "C5"));
 
         saveSessionIfNotExists(session2);
+
+        Session session3 = new Session();
+        session3.setId(3L);
+
+        session3.setDate("2024-05-28");
+        session3.setTime("22:00");
+        session3.setMovie(movie1);
+        session3.setRoom(room3);
+        session3.setBookedSeats(List.of("C1", "C2"));
+
+        saveSessionIfNotExists(session3);
 
         log.info("Session data setup complete.");
 
@@ -146,6 +172,16 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
             log.info("Movie saved: {}", movie.getTitle());
         } else {
             log.info("Movie already exists: {}", movie.getTitle());
+        }
+    }
+
+    private void saveUserIfNotExists(AppUser user) {
+        AppUser existingUser = userService.getUserById(user.getId());
+        if (existingUser == null) {
+            userService.saveAdminUser(user);
+            log.info("User saved: {}", user.getUsername());
+        } else {
+            log.info("User already exists: {}", user.getUsername());
         }
     }
 }

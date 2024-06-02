@@ -1,0 +1,132 @@
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .header {
+    margin-bottom: 20px;
+    background-color: black;
+  }
+  
+  .schedule-list {
+    width: 100%;
+    background-color: black; /* Set the background color of the container to black */
+  }
+  
+  .schedule-entry {
+    display: flex;
+    padding: 20px 0; /* Add padding to the top and bottom of each entry */
+  }
+  
+  .schedule-entry:not(:last-child) {
+    border-bottom: 1px solid transparent; /* Add transparent border to all entries except the last one */
+  }
+  
+  .time-container, .details-container, .room-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px 10px;
+  }
+  
+  .time-container {
+    flex: 0 0 10%; /* Adjust the width to 20% */
+    text-align: left;
+    color: yellow;
+    background-color: #333;
+    
+  }
+  
+  .details-container {
+    flex: 2;
+    text-align: center;
+  }
+  
+  .outer-capacity-container {
+    flex: 0 0 10%;
+    text-align: right;
+  }
+  
+  .capacity-container {
+    display: flex;
+    flex: 1;
+    position: relative;
+    /*justify-content: flex-end;*/
+    align-items: center;
+    margin-top: 35px;
+  }
+  
+  .capacity-bar {
+    height: 6px; /* Reduced height for a sleeker look */
+    background-color: rgb(224, 224, 224); /* Updated fill color */
+    flex-grow: 1;
+    /*margin-right: 5px;  Reduced margin for a more compact look */
+    position: relative; 
+  }
+  
+  .capacity-bar-outer {
+    height: 6px; /* Reduced height for a sleeker look */
+    background-color: rgba(255, 255, 255, 0.3); /* Outer bar color */
+    width: 70%; /* Set outer bar width to 100% */
+    margin-right: 5px; /* Reduced margin for a more compact look */
+    border-radius: 3px; /* Adjust border radius for a rounded appearance */
+  }
+  
+  .capacity-bar-inner {
+    height: 100%; /* Set inner bar height to 100% */
+    background-color: rgb(252, 252, 252); /* Inner bar color */
+    border-radius: 3px; /* Adjust border radius for a rounded appearance */
+  }
+  
+  .capacity-percentage {
+    position: absolute;
+    top: -20px; /* Adjust the vertical position as needed */
+    left: 0; /* Position it horizontally centered */
+    /*min-width: 30px;  Reduced width for a more compact appearance */
+    font-size: 12px; /* Smaller font size for percentage text */
+    color: white; /* Set text color to white */
+  }
+  
+  .combined-container {
+    display: flex;
+    flex-grow: 1;
+    background-color: #555;
+  }
+
+  .details-container {
+    flex: 2;
+    text-align: center;
+    position: relative;
+  }
+  
+  .session {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
+  }
+  
+  .type-room {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex; /* Display the type and room in a flex container */
+    flex-direction: row; /* Display them in a row */
+    color: white; /* Set the text color */
+    
+  }
+  
+  .room{
+    padding: 5px; /* Add padding for better visibility */
+  }
+
+  .type {
+    padding: 5px; /* Add padding for better visibility */
+    padding-left: 0;
+  }
+  

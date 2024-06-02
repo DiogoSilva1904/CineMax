@@ -4,7 +4,7 @@
 
 <h2 class="session-header">
   Sessions
-  <button (click)="showAddStudentModal()" mat-icon-button color="primary"class="add-button">
+  <button id="addsession" (click)="showAddStudentModal()" mat-icon-button color="primary"class="add-button">
       <mat-icon>add</mat-icon>
   </button>
 </h2>
@@ -46,7 +46,7 @@
 
     <ng-container matColumnDef="available_seats">
       <th mat-header-cell *matHeaderCellDef> Available Seats </th>
-      <td mat-cell *matCellDef="let element"> {{element.availableSeats}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.room.capacity - element.bookedSeats.length}} </td>
     </ng-container>
 
     <!-- delete button-->
@@ -74,21 +74,21 @@
       </div>
       <div class="select">
         <p>Room:
-          <select id="modalselect2" [(ngModel)]="selectedRoom">
+          <select id="room" [(ngModel)]="selectedRoom">
             <option *ngFor="let room of rooms" [ngValue]="room">{{room.name}}</option>
           </select>          
         </p>
       </div>
       <div class="select">
         <p>Movie:
-          <select id="modalselect2" [(ngModel)]="selectedMovie">
+          <select id="movie" [(ngModel)]="selectedMovie">
             <option *ngFor="let movie of movies" [ngValue]="movie">{{movie.title}}</option>
           </select>          
         </p>
       </div>
     </div>
     <!-- Add more fields as needed -->
-    <button (click)="addSession()" class="button1">Save Changes</button>
+    <button id="create" (click)="addSession()" class="button1">Save Changes</button>
     <button (click)="closeAddModal()" class="button2">Close</button>
   </div>
 </div>

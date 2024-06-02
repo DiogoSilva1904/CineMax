@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "Users")
-public class User {
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +31,8 @@ public class User {
 
     private String role;
 
-    @OneToMany(mappedBy = "username", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("username")
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties("user")
     private List<Reservation> reservations;
 
 }

@@ -41,8 +41,10 @@ public class SessionController {
 
     @PostMapping
     public ResponseEntity<Session> saveSession(@RequestBody Session session) {
-        System.out.println(session);
         Session updatedSession = sessionService.saveSession(session);
+        if (updatedSession == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(updatedSession, HttpStatus.CREATED);
     }
 
@@ -50,5 +52,11 @@ public class SessionController {
     public ResponseEntity<Void> deleteSession(@PathVariable Long id) {
         sessionService.deleteSession(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/date/{date}")
+    public ResponseEntity<List<Session>> getSessionsByDate(@PathVariable String date) {
+        List<Session> sessions = sessionService.getSessionsbyDate(date);
+        return new ResponseEntity<>(sessions, HttpStatus.OK);
     }
 }

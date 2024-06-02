@@ -5,13 +5,12 @@
 <div class="main-content">
   <div class="container">
     <div class="row">
-      <div class="col-md-4" *ngFor="let movie of movies">
+      <div class="col-md-3" *ngFor="let movie of movies">
           <app-movie-card [movie]="movie"></app-movie-card>
       </div>
-      <!-- New column for adding a new movie -->
       <div class="col-md-4">
           <div class="card new-movie-card">
-            <button (click)="addNewMovie()">Add New Movie</button> <!-- Call addNewMovie method when button is clicked -->
+            <button id="addmovie" (click)="addNewMovie()">Add New Movie</button>
           </div>
       </div>
     </div>
