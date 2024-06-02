@@ -18,7 +18,6 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.shaded.org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 
@@ -209,7 +208,7 @@ public class SessionIT {
 
     @Test
     @Order(6)
-    @Disabled
+    @Disabled("not working because of service")
     void whenGetSessionsByDate_ReturnSessions(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");

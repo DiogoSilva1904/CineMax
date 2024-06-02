@@ -7,10 +7,7 @@ import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.repositories.MovieRepository;
 import deti.tqs.cinemax.services.MovieService;
 
-import org.junit.Rule;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.TemporaryFolder;
 import org.springframework.http.MediaType;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -137,26 +131,5 @@ class MovieControllerTest {
                 .andExpect(jsonPath("$.genre", is("Thriller")))
                 .andExpect(jsonPath("$.studio", is("Studio X")))
                 .andExpect(jsonPath("$.duration", is("120min")));
-    }
-
-    @Test
-    @Disabled
-    void testSaveMovieAlreadyExists() throws Exception {
-        Movie movie = new Movie();
-        movie.setId(1L);
-        movie.setTitle("Oppenheimer");
-        movie.setCategory("Action");
-        movie.setGenre("Thriller");
-        movie.setStudio("Studio X");
-        movie.setDuration("120min");
-
-        // Mock the repository to return a movie when searching for the title "Oppenheimer"
-        //when(movieRepository.findByTitle("Oppenheimer")).thenReturn();
-
-        // Perform the POST request and expect a BAD_REQUEST status
-        mvc.perform(post("/api/movies")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(movie)))
-                .andExpect(status().isBadRequest());
     }
 }

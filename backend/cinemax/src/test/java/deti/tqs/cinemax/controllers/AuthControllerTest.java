@@ -14,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,8 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import deti.tqs.cinemax.config.AuthenticationRequest;
-import deti.tqs.cinemax.config.AuthenticationResponse;
-import deti.tqs.cinemax.config.ChangePasswordRequest;
 import deti.tqs.cinemax.config.CustomUserDetailsService;
 import deti.tqs.cinemax.config.IAuthenticationFacade;
 import deti.tqs.cinemax.config.JwtUtilService;
@@ -46,7 +43,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @WebMvcTest(AuthController.class)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc(addFilters = false)
-public class AuthControllerTest {
+class AuthControllerTest {
 
     @Autowired
     private MockMvc mvc;

@@ -202,6 +202,4 @@ public class AuthIT {
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
-
-
 }

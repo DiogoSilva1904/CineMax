@@ -7,13 +7,11 @@ import deti.tqs.cinemax.repositories.*;
 import lombok.extern.slf4j.Slf4j;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
@@ -25,19 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -136,7 +128,7 @@ class MovieServiceTest {
     }
 
     @Test
-    public void testDeleteMovie_Success() throws IOException {
+    void testDeleteMovie_Success() throws IOException {
         Long movieId = 100L;
         String UserDir = System.getProperty("user.dir");
         String imagePath = "movie_poster.jpg";
@@ -157,7 +149,7 @@ class MovieServiceTest {
     
 
     @Test
-    public void testDeleteMovie_NoImage() {
+    void testDeleteMovie_NoImage() {
         Long movieId = 200L;
         Movie movie = new Movie(movieId, "Test Movie", "Action", "Adventure", "Studio Z", "150min", null, null);
         when(movieRepository.findById(movieId)).thenReturn(Optional.of(movie));
@@ -232,7 +224,7 @@ class MovieServiceTest {
 
 
     @Test
-    public void testDetermineMediaType_Jpeg() {
+    void testDetermineMediaType_Jpeg() {
         Path imagePath = mock(Path.class);
         when(imagePath.getFileName()).thenReturn(Paths.get("image.jpg"));
 
@@ -242,7 +234,7 @@ class MovieServiceTest {
     }
 
     @Test
-    public void testDetermineMediaType_Png() {
+    void testDetermineMediaType_Png() {
         Path imagePath = mock(Path.class);
         when(imagePath.getFileName()).thenReturn(Paths.get("image.png"));
         
@@ -252,7 +244,7 @@ class MovieServiceTest {
     }
 
     @Test
-    public void testDetermineMediaType_Gif() {
+    void testDetermineMediaType_Gif() {
         Path imagePath = mock(Path.class);
         when(imagePath.getFileName()).thenReturn(Paths.get("image.gif")); 
     
@@ -261,7 +253,7 @@ class MovieServiceTest {
     }
 
     @Test
-    public void testDetermineMediaType_Other() {
+    void testDetermineMediaType_Other() {
         Path imagePath = mock(Path.class);
         when(imagePath.getFileName()).thenReturn(Paths.get("image")); 
     
@@ -270,7 +262,7 @@ class MovieServiceTest {
     }
 
     @Test
-    public void testDetermineMediaType_Invalid() {
+    void testDetermineMediaType_Invalid() {
         Path imagePath = mock(Path.class);
         when(imagePath.getFileName()).thenReturn(Paths.get("image.invalid")); 
     

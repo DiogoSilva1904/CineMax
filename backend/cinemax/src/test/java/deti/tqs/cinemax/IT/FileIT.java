@@ -1,4 +1,4 @@
-package deti.tqs.cinemax.integrationTests;
+package deti.tqs.cinemax.IT;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

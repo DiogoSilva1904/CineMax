@@ -72,7 +72,7 @@ class ReservationServiceTest {
     }
 
     @Test
-    public void testSaveReservation_SeatAlreadyBooked() {
+    void testSaveReservation_SeatAlreadyBooked() {
         // Setup data (pre-book one seat)
         Session session = new Session();
         session.setId(1L);
@@ -268,7 +268,7 @@ class ReservationServiceTest {
     }
 
     @Test
-    public void testGetAllReservationsEmpty() {
+    void testGetAllReservationsEmpty() {
 
         List<Reservation> Reservations = new ArrayList<>();
 
@@ -282,7 +282,7 @@ class ReservationServiceTest {
 
 
     @Test
-    public void testGetAllReservationsWithReservations() {
+    void testGetAllReservationsWithReservations() {
 
         Session session = new Session();
         session.setId(1L);
@@ -316,7 +316,7 @@ class ReservationServiceTest {
     }
 
      @Test
-    public void testMakeReservationUsed_ReservationFoundAndNotUsed() {
+    void testMakeReservationUsed_ReservationFoundAndNotUsed() {
         Long id = 1L;
         Reservation reservation = new Reservation();
         reservation.setId(id);
@@ -332,7 +332,7 @@ class ReservationServiceTest {
     }
 
     @Test
-    public void testMakeReservationUsed_ReservationFoundButAlreadyUsed() {
+    void testMakeReservationUsed_ReservationFoundButAlreadyUsed() {
         Long id = 1L;
         Reservation reservation = new Reservation();
         reservation.setId(id);
@@ -346,7 +346,7 @@ class ReservationServiceTest {
     }
 
     @Test
-    public void testMakeReservationUsed_ReservationNotFound() {
+    void testMakeReservationUsed_ReservationNotFound() {
         Long id = 1L;
         when(reservationRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -357,7 +357,7 @@ class ReservationServiceTest {
     }
 
     @Test
-    public void testGetReservationsByUser_ReservationsFound() {
+    void testGetReservationsByUser_ReservationsFound() {
         String username = "testUser";
         List<Reservation> reservations = new ArrayList<>();
         reservations.add(new Reservation());
@@ -371,7 +371,7 @@ class ReservationServiceTest {
     }
 
     @Test
-    public void testGetReservationsByUser_NoReservationsFound() {
+    void testGetReservationsByUser_NoReservationsFound() {
         String username = "nonExistingUser";
         when(reservationRepository.findByUserUsername(username)).thenReturn(new ArrayList<>());
 

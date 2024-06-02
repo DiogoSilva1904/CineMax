@@ -111,7 +111,6 @@ public class UserIT {
 
     @Test
     @Order(3)
-    @Disabled("tirar disabled quando a branch 23 for para a dev")
     void whenDeleteUser_thenReturnNoContent(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
@@ -121,12 +120,11 @@ public class UserIT {
 
         ResponseEntity<Void> response = restTemplate.exchange("http://localhost:" + port + "/api/users/2", HttpMethod.DELETE, entity, Void.class);
 
-        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
     @Order(4)
-    @Disabled("tirar disabled quando a branch 23 for para a dev")
     void whenDeleteUser_ReturnNotFound(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");

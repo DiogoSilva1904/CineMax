@@ -3,7 +3,6 @@ package deti.tqs.cinemax.IT;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.models.Room;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

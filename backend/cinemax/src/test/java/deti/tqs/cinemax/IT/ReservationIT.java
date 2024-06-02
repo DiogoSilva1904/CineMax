@@ -3,7 +3,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import deti.tqs.cinemax.models.AppUser;
-import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.models.Reservation;
 import deti.tqs.cinemax.models.Session;
 import org.junit.jupiter.api.*;
