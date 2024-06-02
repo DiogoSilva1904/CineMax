@@ -6,5 +6,9 @@ Feature: Buy ticket
         Then the user creates an account with username rafa5481, password 123456 and email rafa548@gmail.com
         Then the user logs in with username rafa5481 and password 123456
         When the user selects the first film
-        #And chooses the session
-        #Then the user buys a ticket for the film "The Godfather"
+        And chooses the first session
+        And selects the third seat
+        And clicks on reserve button
+        Then the user should see a success message
+        Then the user go to the tickets page
+        Then the user should see the ticket

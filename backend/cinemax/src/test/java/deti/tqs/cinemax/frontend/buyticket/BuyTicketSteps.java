@@ -6,6 +6,8 @@ import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.github.bonigarcia.wdm.WebDriverManager;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,6 +21,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -65,6 +68,12 @@ public class BuyTicketSteps {
         createAccountButton.click();
         loginButton.click();
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Then("the user logs in with username {} and password {}")
@@ -85,6 +94,62 @@ public class BuyTicketSteps {
         firstBuyTicketButton.click();
     }
 
+    @And("chooses the first session")
+    public void choosesTheFirstSession() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/app-movie-sessions/div[2]/div/div/div[2]/div[1]/div/button")));
+        WebElement firstBuyTicketButton = driver.findElement(By.xpath("/html/body/app-root/app-movie-sessions/div[2]/div/div/div[2]/div[1]/div/button"));
+        firstBuyTicketButton.click();
+    }
+
+    @And("selects the third seat")
+    public void selectsTheThirdSeat() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/app-booking-page/div[3]/div[3]/div/div[3]/div")));
+        WebElement thirdSeatButton = driver.findElement(By.xpath("/html/body/app-root/app-booking-page/div[3]/div[3]/div/div[3]/div"));
+        thirdSeatButton.click();
+    }
+
+    @And("clicks on reserve button")
+    public void clicksOnReserveButton() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/app-booking-page/div[5]/button[1]")));
+        WebElement reserveButton = driver.findElement(By.xpath("/html/body/app-root/app-booking-page/div[5]/button[1]"));
+        reserveButton.click();
+    }
+
+    @Then("the user should see a success message")
+    public void theUserShouldSeeASuccessMessage() {
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        
+        // Get the text of the alert
+        String alertText = alert.getText();
+        
+        // Assert the alert text
+        assertEquals("Reservation successful", alertText);
+        //assertEquals("Please select a seat", alertText);
+        
+        // Accept the alert to close it
+        alert.accept();
+    }
+
+    @Then ("the user go to the tickets page")
+    public void theUserGoForTheTicketsPage() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/app-booking-page/div[1]/app-client-navbar/div/div/div[2]/mat-nav-list/mat-list-item[2]")));
+        WebElement ticketsButton = driver.findElement(By.xpath("/html/body/app-root/app-booking-page/div[1]/app-client-navbar/div/div/div[2]/mat-nav-list/mat-list-item[2]"));
+        ticketsButton.click();
+    }
+
+    @Then("the user should see the ticket")
+    public void theUserShouldSeeTheTicket() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/app-mytickets/div[2]/div/div/div/div[2]/ul/li[1]")));
+        WebElement moviename = driver.findElement(By.xpath("/html/body/app-root/app-mytickets/div[2]/div/div/div/div[2]/ul/li[1]"));
+        assertThat(moviename.getText(), containsString("Movie: Inception"));
+        WebElement seat = driver.findElement(By.xpath("/html/body/app-root/app-mytickets/div[2]/div/div/div/div[2]/ul/li[7]"));
+        assertThat(seat.getText(), containsString("Booked Seats: A3"));
+    }
+
+      
+
+
 
     @After
     public void cleanUp() {
@@ -96,7 +161,7 @@ public class BuyTicketSteps {
 
         // Close the browser
         if (driver != null) {
-            //driver.quit();
+            driver.quit();
         }
     }
 

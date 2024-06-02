@@ -2,11 +2,13 @@ import { Component, inject } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from '../navbar/navbar.component';
+
 
 @Component({
   selector: 'app-change-password',
   standalone: true,
-  imports: [ FormsModule ],
+  imports: [ FormsModule, NavbarComponent ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.css'
 })
