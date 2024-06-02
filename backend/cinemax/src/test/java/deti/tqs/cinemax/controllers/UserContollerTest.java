@@ -70,4 +70,33 @@ class UserContollerTest {
                 .andExpect(jsonPath("$.email", is("admin@gmail.com")))
                 .andExpect(jsonPath("$.username", is("admin")));
     }
+
+    @Test
+    void testDeleteUser() throws Exception{
+
+        AppUser user = new AppUser();
+        user.setId(1L);
+        user.setRole("ADMIN");
+        user.setPassword("admin");
+        user.setEmail("admin@gmail.com");
+        user.setUsername("admin");
+
+        Mockito.when(userService.getUserByUsername("admin")).thenReturn(user);
+
+        mvc.perform(delete("/api/users/admin")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    void testDeleteUserNotFound() throws Exception{
+
+        Mockito.when(userService.getUserByUsername("admin")).thenReturn(null);
+
+        mvc.perform(delete("/api/users/admin")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+    }
 }
