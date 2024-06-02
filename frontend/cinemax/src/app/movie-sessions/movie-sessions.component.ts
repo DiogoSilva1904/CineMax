@@ -43,7 +43,7 @@ export class MovieSessionsComponent implements OnInit{
 
   async loadImage(): Promise<void> {
     if (this.movie.imagePath == null) {
-      this.imageUrl = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png';
+      this.imageUrl = 'https://i.ibb.co/FDGqCmM/papers-co-ag74-interstellar-wide-space-film-movie-art-33-iphone6-wallpaper.jpg';
     }
     else {
       const imageBlob = await this.ApiDataService.getImage(this.movie.imagePath);

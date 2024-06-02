@@ -73,6 +73,9 @@ body {
   margin-bottom: 100px;
 }
 
+.movie-poster img {
+  max-width: 360px; 
+}
 
 
 

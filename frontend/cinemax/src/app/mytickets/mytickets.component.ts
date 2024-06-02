@@ -33,7 +33,7 @@ export class MyticketsComponent implements OnInit {
   async loadImage(ticket: any): Promise<void> {
     const movie = ticket.session.movie;
     if (movie.imagePath == null) {
-      ticket.imageUrl = 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png';
+      ticket.imageUrl = 'https://i.ibb.co/FDGqCmM/papers-co-ag74-interstellar-wide-space-film-movie-art-33-iphone6-wallpaper.jpg';
     }
     else {
       const imageBlob = await this.apiService.getImage(movie.imagePath);
