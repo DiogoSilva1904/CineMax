@@ -80,8 +80,8 @@ public class BuyTicketSteps {
     @When("the user selects the first film")
     public void theUserSelectsTheFirstFilm() {
         // Ensure the page has loaded and elements are present
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"Inception\"]")));
-        WebElement firstBuyTicketButton = driver.findElement(By.xpath("//*[@id=\"Inception\"]"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/app-home-page/div[2]/div/div/div[1]/div/section/button")));
+        WebElement firstBuyTicketButton = driver.findElement(By.xpath("/html/body/app-root/app-home-page/div[2]/div/div/div[1]/div/section/button"));
         firstBuyTicketButton.click();
     }
 

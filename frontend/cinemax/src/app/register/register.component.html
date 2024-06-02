@@ -17,7 +17,7 @@
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" name="confirmPassword" ngModel required>
       </div>
-      <button type="submit" [disabled]="!registerForm.form.valid">Register</button>
+      <button id="register" type="submit" [disabled]="!registerForm.form.valid">Register</button>
     </form>
     <button class="back-to-login-btn" (click)="onBackToLogin()">Back to Login</button>
   </div>
