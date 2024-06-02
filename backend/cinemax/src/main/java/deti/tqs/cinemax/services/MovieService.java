@@ -109,11 +109,14 @@ public class MovieService {
 
         // Delete the image file
         Optional<Movie> movieOptional = movieRepository.findById(id);
+        log.info("Movie optional: {}", movieOptional);
         if (movieOptional.isPresent()) {
             Movie movie = movieOptional.get();
+            log.info("Movie: {}", movie.getImagePath());
             if (movie.getImagePath() != null) {
                 Path uploadDirPath = Paths.get(USERDIR, "uploads");
                 Path fileSysPath = uploadDirPath.resolve(movie.getImagePath());
+                log.info("Deleting image file: {}", fileSysPath);
                 try {
                     Files.deleteIfExists(fileSysPath);
                 } catch (IOException e) {

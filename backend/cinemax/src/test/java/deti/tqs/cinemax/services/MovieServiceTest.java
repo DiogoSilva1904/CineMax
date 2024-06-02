@@ -13,6 +13,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +24,14 @@ import java.util.Optional;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
@@ -102,16 +111,37 @@ class MovieServiceTest {
     }
 
     @Test
-    void testDeleteMovie() {
-        Long id = 2L;
+    public void testDeleteMovie_Success() throws IOException {
+        Long movieId = 100L;
+        String UserDir = System.getProperty("user.dir");
+        String imagePath = "movie_poster.jpg";
+        Movie movie = new Movie(movieId, "Test Movie", "Action", "Adventure", "Studio Z", "150min", imagePath, null);
 
-        // No need to mock anything for delete, as it doesn't return a value
-        movieService.deleteMovie(id);
+        Path uploadDirPath = Paths.get(UserDir, "uploads");
+        Files.createDirectories(uploadDirPath); 
+        Path filePath = uploadDirPath.resolve(imagePath);
+        Files.write(filePath, "test content".getBytes()); 
 
-        log.info("Calling movieService.deleteMovie(id={})", id);
+        when(movieRepository.findById(movieId)).thenReturn(Optional.of(movie));
 
-        Mockito.verify(movieRepository).deleteById(id);
+        movieService.deleteMovie(movieId);
+
+        verify(movieRepository, times(1)).deleteById(movieId);
+        assertFalse(Files.exists(filePath));
     }
+    
+
+    @Test
+    public void testDeleteMovie_NoImage() {
+        Long movieId = 200L;
+        Movie movie = new Movie(movieId, "Test Movie", "Action", "Adventure", "Studio Z", "150min", null, null);
+        when(movieRepository.findById(movieId)).thenReturn(Optional.of(movie));
+
+        movieService.deleteMovie(movieId);
+
+        verify(movieRepository, times(1)).deleteById(movieId);
+    }
+
 
     @Test
     void testUpdateMovie_Found() {
