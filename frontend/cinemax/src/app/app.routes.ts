@@ -20,7 +20,7 @@ import { ValidateTicketComponent } from './validate-ticket/validate-ticket.compo
 export const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'homepage', component: HomePageComponent },
+  { path: 'homepage', redirectTo: 'frontpage', pathMatch: 'full'},
   { path: 'frontpage', component: FrontpageComponent },
     { path: 'movies', component: MoviesComponent},
     { path: 'addmovie', component: AddMovieComponent},
