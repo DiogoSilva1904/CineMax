@@ -26,5 +26,21 @@ https://cinem4x.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog
 
 https://sonarcloud.io/project/overview?id=DiogoSilva1904_CineMax
 
+### Project Report
+
+https://docs.google.com/document/d/1aqLJ6EX2aGqahu4blK77T0IhTzl8RofkRXJMERwamdk/edit?usp=sharing
+
+### Project QA Manual
+
+https://docs.google.com/document/d/1SmETX_DwVvHfmYJCmOfb9xyrs4gBTJq0zagazAmamRY/edit?usp=sharing
+
+### Project Website
+
+http://deti-tqs-10.ua.pt:4200
+
+### Swagger Documentation
+
+http://deti-tqs-10.ua.pt:8080/swagger-ui/index.html#/
+
 
 
