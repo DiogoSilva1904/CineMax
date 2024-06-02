@@ -38,6 +38,7 @@ public class BuyTicketSteps {
     public void theUserIsOnTheLogInPage() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(6));
         driver.get("http://localhost:4200");
     }
 
@@ -76,12 +77,13 @@ public class BuyTicketSteps {
         loginButton.click();
     }
 
-    @When("the user selects the film {}")
-    public void theUserSelectsTheFilm(String film) {
-
+    @When("the user selects the first film")
+    public void theUserSelectsTheFirstFilm() {
+        // Ensure the page has loaded and elements are present
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"Inception\"]")));
+        WebElement firstBuyTicketButton = driver.findElement(By.xpath("//*[@id=\"Inception\"]"));
+        firstBuyTicketButton.click();
     }
-
-
 
 
     @After
