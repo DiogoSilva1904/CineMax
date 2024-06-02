@@ -19,8 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import java.util.List;
 
@@ -131,5 +130,22 @@ class MovieControllerTest {
                 .andExpect(jsonPath("$.genre", is("Thriller")))
                 .andExpect(jsonPath("$.studio", is("Studio X")))
                 .andExpect(jsonPath("$.duration", is("120min")));
+    }
+
+    @Test
+    void testDeleteMovie() throws Exception{
+        Movie movie = new Movie();
+
+        movie.setId(1L);
+        movie.setTitle("Oppenheimer");
+        movie.setCategory("Action");
+        movie.setGenre("Thriller");
+        movie.setStudio("Studio X");
+        movie.setDuration("120min");
+
+        Mockito.when(movieService.getMovieById(1L)).thenReturn(movie);
+
+        mvc.perform(delete("/api/movies/1"))
+                .andExpect(status().isNoContent());
     }
 }

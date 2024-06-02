@@ -66,7 +66,7 @@ class AuthControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    public void testCreateAuthenticationToken_ValidCredentials() throws Exception {
+    void testCreateAuthenticationToken_ValidCredentials() throws Exception {
         AuthenticationRequest request = new AuthenticationRequest("admin", "admin");
         UserDetails userDetails = new org.springframework.security.core.userdetails.User("admin", "admin", Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
         when(customUserDetailsService.loadUserByUsernameAndPassword("admin","admin")).thenReturn(userDetails);
@@ -83,7 +83,7 @@ class AuthControllerTest {
     }
 
     @Test
-    public void testRegister_UserExists() throws Exception {
+    void testRegister_UserExists() throws Exception {
         String username = "existingUser";
         AppUser existingUser = new AppUser(1L, username, "password", "email", "role", Collections.emptyList());
 
@@ -102,7 +102,7 @@ class AuthControllerTest {
     }
 
     @Test
-    public void testRegister_NewUser() throws Exception {
+    void testRegister_NewUser() throws Exception {
         String username = "newUser";
         AppUser newUser = new AppUser(2L, username, "password", "email", "role", Collections.emptyList());
 
@@ -120,7 +120,7 @@ class AuthControllerTest {
     }
 
     @Test
-    public void testChangePassword_Success() throws Exception {
+    void testChangePassword_Success() throws Exception {
         String username = "existingUser";
         String currentPassword = "oldPassword";
         String newPassword = "newPassword";
@@ -143,4 +143,5 @@ class AuthControllerTest {
         verify(userService, times(1)).getUserByUsername(username);
         verify(userService, times(1)).updateUser(user);
     }
+
 }
