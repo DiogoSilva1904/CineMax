@@ -1,4 +1,4 @@
-package deti.tqs.cinemax.integrationTests;
+package deti.tqs.cinemax.IT;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -81,7 +81,6 @@ class FileIT {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
 
         jwtToken = jsonObject.get("jwt").getAsString();
-        System.out.println("123"+jwtToken);
     }
 
     // Important!!!!
