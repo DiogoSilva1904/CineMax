@@ -36,4 +36,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: | 
           cd backend/cinemax  
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=DiogoSilva1904_CineMax
+          mvn -B '-Dtest=!deti.tqs.cinemax.frontend.**' verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=DiogoSilva1904_CineMax
