@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import deti.tqs.cinemax.models.Movie;
 import deti.tqs.cinemax.repositories.MovieRepository;
-import org.springframework.test.context.TestPropertySource;
 
 @DataJpaTest
 class MovieRepositoryTest {

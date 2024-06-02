@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import deti.tqs.cinemax.models.Room;
 import deti.tqs.cinemax.repositories.RoomRepository;
-import org.springframework.test.context.TestPropertySource;
 
 @DataJpaTest
 class RoomRepositoryTest {
