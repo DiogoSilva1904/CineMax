@@ -117,6 +117,7 @@ class MovieControllerTest {
     @Test
     void testSaveMovie() throws Exception{
         Movie movie = new Movie();
+
         movie.setId(1L);
         movie.setTitle("Oppenheimer");
         movie.setCategory("Action");

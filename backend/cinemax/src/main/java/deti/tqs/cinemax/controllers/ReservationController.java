@@ -46,6 +46,9 @@ public class ReservationController {
         @PostMapping
         public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation) {
             Reservation updatedReservation = reservationService.saveReservation(reservation);
+            if(updatedReservation == null) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
             return new ResponseEntity<>(updatedReservation, HttpStatus.CREATED);
 
         }
