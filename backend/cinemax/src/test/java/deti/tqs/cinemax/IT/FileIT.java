@@ -81,7 +81,6 @@ class FileIT {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
 
         jwtToken = jsonObject.get("jwt").getAsString();
-        System.out.println("123"+jwtToken);
     }
 
     // Important!!!!

@@ -1,19 +1,20 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
-import { ApiService } from '../service/api.service';
+import {Component, Input, inject} from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ApiService } from '../../service/api.service';
 
 @Component({
-  selector: 'app-movie-card',
+  selector: 'app-client-movie-card',
   standalone: true,
   imports: [],
-  templateUrl: './movie-card.component.html',
-  styleUrl: './movie-card.component.css'
+  templateUrl: './client-movie-card.component.html',
+  styleUrl: './client-movie-card.component.css'
 })
-export class MovieCardComponent implements OnInit{
+export class ClientMovieCardComponent {
+
+  @Input() movie: any;
 
   ApiDataService = inject(ApiService);
 
-  @Input() movie: any;
   imageUrl: SafeUrl | undefined;
 
   constructor(private sanitizer: DomSanitizer) { }
@@ -34,15 +35,5 @@ export class MovieCardComponent implements OnInit{
       }
     }
   }
-
-  deleteMovie(movieId: string) {
-    console.log('Deleting movie:', movieId);
-    this.ApiDataService.deleteMovie(movieId).then((response) => {
-      console.log('Movie deleted:', response);
-      window.location.reload();
-    });
-  }
-
-
 
 }

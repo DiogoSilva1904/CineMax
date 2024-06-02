@@ -1,0 +1,9 @@
+<div class="carousel-container">
+  <button (click)="prevSlide()" [disabled]="currentSlideIndex === 0">&#10094;</button>
+  <div class="carousel-slide" *ngIf="movies.length > 0">
+    <div class="carousel-item" id="car-movies" *ngFor="let movie of movies.slice(currentSlideIndex, currentSlideIndex + 2)">
+      <app-client-movie-card [movie]="movie" (click)="goToMovieSessions(movie.id)"></app-client-movie-card>
+    </div>
+  </div>
+  <button (click)="nextSlide()" [disabled]="currentSlideIndex >= Math.max(movies.length - 2, 0)">&#10095;</button>
+</div>

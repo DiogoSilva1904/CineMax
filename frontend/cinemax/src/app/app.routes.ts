@@ -11,14 +11,17 @@ import { RegisterComponent } from './register/register.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MovieSessionsComponent } from './movie-sessions/movie-sessions.component';
+import {FrontpageComponent} from "./frontpage/frontpage.component";
 import { ValidateTicketComponent } from './validate-ticket/validate-ticket.component';
     
+
 
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'homepage', component: HomePageComponent },
+  { path: 'homepage', redirectTo: 'frontpage', pathMatch: 'full'},
+  { path: 'frontpage', component: FrontpageComponent },
     { path: 'movies', component: MoviesComponent},
     { path: 'addmovie', component: AddMovieComponent},
     { path: "buyTicket", component:BookingPageComponent},
