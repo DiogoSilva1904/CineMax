@@ -25,6 +25,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -75,11 +76,13 @@ public class BuyTicketSteps {
         loginButton.click();
     }
 
-    @When("the user is in the main page")
-    public void theUserIsInTheMainPage() {
-        //WebElement homeButton = driver.findElement(By.className("home-btn"));
-        //homeButton.click();
+    @When("the user selects the film {}")
+    public void theUserSelectsTheFilm(String film) {
+
     }
+
+
+
 
     @After
     public void cleanUp() {
@@ -91,7 +94,7 @@ public class BuyTicketSteps {
 
         // Close the browser
         if (driver != null) {
-            driver.quit();
+            //driver.quit();
         }
     }
 
