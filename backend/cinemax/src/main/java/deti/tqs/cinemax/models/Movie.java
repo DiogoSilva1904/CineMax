@@ -33,10 +33,10 @@ public class Movie {
 
     private String duration;
 
-    //private String imagePath;
+    private String imagePath;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("movie")
+    @JsonIgnoreProperties(value={"movie"},allowSetters = true)
     private List<Session> session;
     
 }

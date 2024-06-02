@@ -52,16 +52,19 @@ class SessionControllerTest {
             @Test
             void testGetAllSessions() throws Exception{
                 Movie movie = new Movie();
+                movie.setId(1L);
                 movie.setTitle("The Avengers");
                 movie.setDuration("120");
 
                 Room room = new Room();
+                room.setId(1L);
                 room.setName("Room 1");
                 room.setCapacity(100);
                 room.setType("Normal");
                 room.setSessions(null);
 
                 Session session = new Session();
+                session.setId(1L);
                 session.setDate("2021-05-05");
                 session.setTime("20:00");
                 session.setMovie(movie);
@@ -70,6 +73,7 @@ class SessionControllerTest {
                 session.setBookedSeats(List.of("A1", "A2"));
 
                 Session session1 = new Session();
+                session1.setId(2L);
                 session1.setDate("2021-05-06");
                 session1.setTime("22:45");
                 session1.setMovie(movie);
@@ -94,10 +98,12 @@ class SessionControllerTest {
             @Test
             void testGetSessionById() throws Exception{
                Movie movie = new Movie();
+               movie.setId(1L);
                movie.setTitle("The Avengers");
                movie.setDuration("120");
 
                Room room = new Room();
+                room.setId(1L);
                room.setName("Room 1");
                room.setCapacity(100);
                room.setType("Normal");
@@ -133,16 +139,19 @@ class SessionControllerTest {
             @Test
             void testSaveSeat() throws Exception{
                 Movie movie = new Movie();
+                movie.setId(1L);
                 movie.setTitle("The Avengers");
                 movie.setDuration("120");
 
                 Room room = new Room();
+                room.setId(1L);
                 room.setName("Room 1");
                 room.setCapacity(100);
                 room.setType("Normal");
                 room.setSessions(null);
 
                 Session session = new Session();
+                session.setId(1L);
                 session.setDate("2021-05-05");
                 session.setTime("20:00");
                 session.setMovie(movie);

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Component
+@Profile("!test && !integration-test")
 public class SetupData implements org.springframework.boot.CommandLineRunner
 {
     private  MovieService movieService;
@@ -50,7 +52,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         movie1.setCategory("Science Fiction");
         movie1.setGenre("Action");
         movie1.setStudio("Warner Bros.");
-        movie1.setDuration("148 minutes");
+        movie1.setDuration("148");
 
         saveMovieIfNotExists(movie1);
 
@@ -61,7 +63,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         movie2.setCategory("Drama");
         movie2.setGenre("Crime");
         movie2.setStudio("Castle Rock Entertainment");
-        movie2.setDuration("142 minutes");
+        movie2.setDuration("142");
 
         saveMovieIfNotExists(movie2);
 
@@ -72,7 +74,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         movie3.setCategory("Crime");
         movie3.setGenre("Drama");
         movie3.setStudio("Paramount Pictures");
-        movie3.setDuration("175 minutes");
+        movie3.setDuration("175");
 
         saveMovieIfNotExists(movie3);
 
@@ -131,7 +133,7 @@ public class SetupData implements org.springframework.boot.CommandLineRunner
         Session session3 = new Session();
         session3.setId(3L);
 
-        session3.setDate("2024-05-17");
+        session3.setDate("2024-05-28");
         session3.setTime("22:00");
         session3.setMovie(movie1);
         session3.setRoom(room3);

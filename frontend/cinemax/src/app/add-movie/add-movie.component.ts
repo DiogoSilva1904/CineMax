@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../service/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-movie',
@@ -13,34 +14,52 @@ export class AddMovieComponent {
 
   ApiDataService = inject(ApiService);
 
-  movie = {
+  movie: any = {
     title: '',
-    duration: null,
+    duration: '',
     studio: '',
     genre: '',
-    //poster: null
+    image:  null
   };
 
+  file: File | null = null;
+
+  constructor(private router: Router) { }
+
   submitForm() {
-    // Handle form submission logic here
-    console.log('Form submitted:', this.movie);
-    this.ApiDataService.addMovie(this.movie).then((response) => {
-      console.log('Movie added:', response);
+    var formData = new FormData();
+    formData.append('title', this.movie.title);
+    formData.append('duration', this.movie.duration);
+    formData.append('studio', this.movie.studio);
+    formData.append('genre', this.movie.genre);
+    formData.append('image', this.movie.image);
+    console.log('Form submitted:', formData);
+    this.ApiDataService.addMovie(formData).then((response) => {
+      console.log('Movie added:', response); 
     });
-    // clear form
-    this.movie = {
-      title: '',
-      duration: null,
-      studio: '',
-      genre: '',
-      //poster: null
-    };
+    this.resetForm();
+    this.router.navigate(['/movies']);
   }
 
   onFileSelected(event: any) {
-    // Handle file selection
-    //this.movie.poster = event.target.files[0];
-    console.log('File selected');
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.movie.image = input.files[0];
+      console.log('File selected', this.movie.image);
+    } else {
+      this.file = null;
+    }
+  }
+
+  resetForm() {
+    this.movie = {
+      title: '',
+      duration: '',
+      studio: '',
+      genre: '',
+      image: null
+    };
+    this.file = null;
   }
 
 }

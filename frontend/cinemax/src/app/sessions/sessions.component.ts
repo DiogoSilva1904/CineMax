@@ -74,8 +74,10 @@ export class SessionsComponent {
 
     this.ApiDataService.addSession(session).then((response) => {
       console.log('Response:', response);
-      if (response) {
+      if (response.status === 201) {
         this.sessions.push(response);
+      } else {
+        alert('Sessions overlap')
       }
     });
 

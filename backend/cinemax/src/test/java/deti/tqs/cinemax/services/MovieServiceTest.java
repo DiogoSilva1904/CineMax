@@ -1,6 +1,7 @@
 package deti.tqs.cinemax.services;
 
 import deti.tqs.cinemax.models.Movie;
+import deti.tqs.cinemax.models.MovieClass;
 import deti.tqs.cinemax.repositories.*;
 
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +12,17 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
@@ -25,14 +32,14 @@ class MovieServiceTest {
     private MovieRepository movieRepository;
 
     @InjectMocks
-    private MovieService movieService;
+    private MovieService movieService;    
 
 
     @Test
     void testGetAllMovies() {
         List<Movie> expectedMovies = new ArrayList<>();
-        expectedMovies.add(new Movie(null, "Test Movie 1", "Action", "Thriller", "Studio X", "120min", null));
-        expectedMovies.add(new Movie(null, "Test Movie 2", "Comedy", "Romance", "Studio Y", "100min", null));
+        expectedMovies.add(new Movie(null, "Test Movie 1", "Action", "Thriller", "Studio X", "120min",null, null));
+        expectedMovies.add(new Movie(null, "Test Movie 2", "Comedy", "Romance", "Studio Y", "100min",null, null));
 
         Mockito.when(movieRepository.findAll()).thenReturn(expectedMovies);
 
@@ -50,7 +57,7 @@ class MovieServiceTest {
     @Test
     void testGetMovieById_Found() {
         Long id = 1L;
-        Movie expectedMovie = new Movie(id, "Test Movie", "Action", "Adventure", "Studio Z", "150min", null);
+        Movie expectedMovie = new Movie(id, "Test Movie", "Action", "Adventure", "Studio Z", "150min",null, null);
 
         Mockito.when(movieRepository.findById(id)).thenReturn(Optional.of(expectedMovie));
 
@@ -80,7 +87,7 @@ class MovieServiceTest {
 
     @Test
     void testSaveMovie() {
-        Movie newMovie = new Movie(null, "New Movie", "Sci-Fi", "Drama", "Studio A", "180min", null);
+        Movie newMovie = new Movie(null, "New Movie", "Sci-Fi", "Drama", "Studio A", "180min",null, null);
 
         Mockito.when(movieRepository.save(newMovie)).thenReturn(newMovie);
 
@@ -109,8 +116,8 @@ class MovieServiceTest {
     @Test
     void testUpdateMovie_Found() {
         Long id = 3L;
-        Movie existingMovie = new Movie(null,"Existing Movie", "Animation", "Family", "Studio B", "90min", null);
-        Movie updatedMovie = new Movie(null,"Updated Movie", "Comedy", "Family", "Studio B", "90min", null);
+        Movie existingMovie = new Movie(null,"Existing Movie", "Animation", "Family", "Studio B", "90min",null, null);
+        Movie updatedMovie = new Movie(null,"Updated Movie", "Comedy", "Family", "Studio B", "90min",null, null);
 
         Mockito.when(movieRepository.findById(id)).thenReturn(Optional.of(existingMovie));
         Mockito.when(movieRepository.save(updatedMovie)).thenReturn(updatedMovie);
@@ -124,5 +131,47 @@ class MovieServiceTest {
         assertEquals(updatedMovie.getTitle(), actualMovie.getTitle());
         assertEquals(updatedMovie.getCategory(), actualMovie.getCategory());
         log.info("Updated movie with id {}", id);
+    }
+
+    @Test
+    void testSaveMovieWithTitleThatAlreadyExists(){
+        Movie existingMovie = new Movie(1L, "Existing Movie", "Animation", "Family", "Studio B", "90min", null,null);
+
+        Mockito.when(movieRepository.findByTitle(existingMovie.getTitle())).thenReturn(Optional.of(existingMovie));
+
+        log.info("Calling movieService.saveMovie(movie={})", existingMovie);
+
+        assertNull(movieService.saveMovie(existingMovie));
+        log.info("Movie with title {} already exists", existingMovie.getTitle());
+    }
+
+    @Test
+    void testCreateMovie() {
+        MultipartFile image = new MockMultipartFile("image", "image.jpg", "image/jpeg", "image".getBytes());
+
+        MovieClass newMovie = new MovieClass("New Movie1",  "180", "Studio A",  "Sci-Fi", image);
+
+        Movie savedMovie = new Movie();
+        savedMovie.setTitle(newMovie.getTitle());
+        savedMovie.setDuration(newMovie.getDuration());
+        savedMovie.setStudio(newMovie.getStudio());
+        savedMovie.setGenre(newMovie.getGenre());
+        savedMovie.setImagePath("image.jpg");
+
+        Mockito.when(movieRepository.findByTitle(newMovie.getTitle())).thenReturn(Optional.empty());
+        Mockito.when(movieRepository.save(any(Movie.class))).thenReturn(savedMovie);
+
+        log.info("Calling movieService.CreateMovie(movie={})", newMovie);
+
+        Movie returnedMovie = movieService.CreateMovie(newMovie);
+        File file = new File(System.getProperty("user.dir") + "/uploads/" + savedMovie.getImagePath());
+
+
+        assertNotNull(returnedMovie);
+        assertEquals(newMovie.getTitle(), returnedMovie.getTitle());
+        assertEquals(true, file.exists());
+        file.delete();
+        assertFalse(file.exists());
+        log.info("Created movie: {}", savedMovie);
     }
 }
