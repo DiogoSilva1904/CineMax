@@ -4,11 +4,6 @@ import deti.tqs.cinemax.config.CustomUserDetailsService;
 import deti.tqs.cinemax.config.IAuthenticationFacade;
 import deti.tqs.cinemax.config.JwtUtilService;
 import deti.tqs.cinemax.models.AppUser;
-import deti.tqs.cinemax.models.Movie;
-import deti.tqs.cinemax.models.Room;
-import deti.tqs.cinemax.models.Session;
-import deti.tqs.cinemax.services.RoomService;
-import deti.tqs.cinemax.services.SessionService;
 import deti.tqs.cinemax.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -20,14 +15,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UserController.class)

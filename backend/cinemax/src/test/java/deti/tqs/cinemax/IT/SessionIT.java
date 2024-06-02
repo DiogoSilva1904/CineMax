@@ -18,7 +18,6 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.shaded.org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 
@@ -83,7 +82,7 @@ public class SessionIT {
 
     @Test
     @Order(1)
-    void testGetAllSessions(){
+    void whenGetAllSessions_ReturnAllSessions(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         headers.setBearerAuth(jwtToken);
@@ -107,7 +106,7 @@ public class SessionIT {
 
     @Test
     @Order(2)
-    void testGetSessionById(){
+    void whenGetSessionById_ReturnSession(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         headers.setBearerAuth(jwtToken);
@@ -126,7 +125,7 @@ public class SessionIT {
 
     @Test
     @Order(3)
-    void testGetSessionByIdNotFound(){
+    void whenGetSessionById_ReturnNotFound(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         headers.setBearerAuth(jwtToken);
@@ -140,7 +139,7 @@ public class SessionIT {
 
     @Test
     @Order(4)
-    void testSaveSession(){
+    void whenCreateSession_ReturnCorrectResponse(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         headers.setBearerAuth(jwtToken);
@@ -179,8 +178,38 @@ public class SessionIT {
 
     @Test
     @Order(5)
-    @Disabled
-    void testGetSessionByDate(){
+        void whenCreateSessionWithOverlapingSession_ReturnBadRequest(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        headers.setBearerAuth(jwtToken);
+
+        HttpEntity<?> entity1 = new HttpEntity<>(headers);
+
+        ResponseEntity<Room> response = restTemplate.exchange("http://localhost:" + port + "/api/rooms/1", HttpMethod.GET, entity1, Room.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        Room room = response.getBody();
+
+        ResponseEntity<Movie> response2 = restTemplate.exchange("http://localhost:" + port + "/api/movies/1", HttpMethod.GET, entity1, Movie.class);
+        Movie movie = response2.getBody();
+
+        Session session = new Session();
+        session.setDate("2024-05-23");
+        session.setTime("20:00");
+        session.setMovie(movie);
+        session.setRoom(room);
+        session.setBookedSeats(List.of("A2", "A1"));
+
+        HttpEntity<Session> entity = new HttpEntity<>(session, headers);
+
+        ResponseEntity<Session> response1 = restTemplate.exchange("http://localhost:" + port + "/api/sessions", HttpMethod.POST, entity, Session.class);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response1.getStatusCode());
+    }
+
+    @Test
+    @Order(6)
+    @Disabled("not working because of service")
+    void whenGetSessionsByDate_ReturnSessions(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         headers.setBearerAuth(jwtToken);
@@ -199,8 +228,8 @@ public class SessionIT {
     }
 
     @Test
-    @Order(6)
-    void testDeleteSession(){
+    @Order(7)
+    void whenDeleteSession_ReturnNoContent(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         headers.setBearerAuth(jwtToken);

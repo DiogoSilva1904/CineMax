@@ -5,6 +5,8 @@ import deti.tqs.cinemax.models.MovieClass;
 import deti.tqs.cinemax.repositories.*;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,16 +15,25 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
@@ -32,7 +43,22 @@ class MovieServiceTest {
     private MovieRepository movieRepository;
 
     @InjectMocks
-    private MovieService movieService;    
+    private MovieService movieService;
+    
+    private static final String TEST_IMAGE_PATH = "test_image.jpg";
+    private static final String USERDIR = System.getProperty("user.dir");
+    private static final String TEST_UPLOADS_DIR = USERDIR + "/uploads";
+
+    @AfterEach
+    void tearDown() {
+        // Clean up temporary test files
+        Path testImage = Paths.get(TEST_UPLOADS_DIR, TEST_IMAGE_PATH);
+        try {
+            Files.deleteIfExists(testImage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Test
@@ -102,16 +128,37 @@ class MovieServiceTest {
     }
 
     @Test
-    void testDeleteMovie() {
-        Long id = 2L;
+    void testDeleteMovie_Success() throws IOException {
+        Long movieId = 100L;
+        String UserDir = System.getProperty("user.dir");
+        String imagePath = "movie_poster.jpg";
+        Movie movie = new Movie(movieId, "Test Movie", "Action", "Adventure", "Studio Z", "150min", imagePath, null);
 
-        // No need to mock anything for delete, as it doesn't return a value
-        movieService.deleteMovie(id);
+        Path uploadDirPath = Paths.get(UserDir, "uploads");
+        Files.createDirectories(uploadDirPath); 
+        Path filePath = uploadDirPath.resolve(imagePath);
+        Files.write(filePath, "test content".getBytes()); 
 
-        log.info("Calling movieService.deleteMovie(id={})", id);
+        when(movieRepository.findById(movieId)).thenReturn(Optional.of(movie));
 
-        Mockito.verify(movieRepository).deleteById(id);
+        movieService.deleteMovie(movieId);
+
+        verify(movieRepository, times(1)).deleteById(movieId);
+        assertFalse(Files.exists(filePath));
     }
+    
+
+    @Test
+    void testDeleteMovie_NoImage() {
+        Long movieId = 200L;
+        Movie movie = new Movie(movieId, "Test Movie", "Action", "Adventure", "Studio Z", "150min", null, null);
+        when(movieRepository.findById(movieId)).thenReturn(Optional.of(movie));
+
+        movieService.deleteMovie(movieId);
+
+        verify(movieRepository, times(1)).deleteById(movieId);
+    }
+
 
     @Test
     void testUpdateMovie_Found() {
@@ -174,4 +221,53 @@ class MovieServiceTest {
         assertFalse(file.exists());
         log.info("Created movie: {}", savedMovie);
     }
+
+
+    @Test
+    void testDetermineMediaType_Jpeg() {
+        Path imagePath = mock(Path.class);
+        when(imagePath.getFileName()).thenReturn(Paths.get("image.jpg"));
+
+    
+        MediaType mediaType = movieService.determineMediaType(imagePath);
+        assertEquals(MediaType.IMAGE_JPEG, mediaType);
+    }
+
+    @Test
+    void testDetermineMediaType_Png() {
+        Path imagePath = mock(Path.class);
+        when(imagePath.getFileName()).thenReturn(Paths.get("image.png"));
+        
+    
+        MediaType mediaType = movieService.determineMediaType(imagePath);
+        assertEquals(MediaType.IMAGE_PNG, mediaType);
+    }
+
+    @Test
+    void testDetermineMediaType_Gif() {
+        Path imagePath = mock(Path.class);
+        when(imagePath.getFileName()).thenReturn(Paths.get("image.gif")); 
+    
+        MediaType mediaType = movieService.determineMediaType(imagePath);
+        assertEquals(MediaType.IMAGE_GIF, mediaType);
+    }
+
+    @Test
+    void testDetermineMediaType_Other() {
+        Path imagePath = mock(Path.class);
+        when(imagePath.getFileName()).thenReturn(Paths.get("image")); 
+    
+        MediaType mediaType = movieService.determineMediaType(imagePath);
+        assertEquals(MediaType.APPLICATION_OCTET_STREAM, mediaType);
+    }
+
+    @Test
+    void testDetermineMediaType_Invalid() {
+        Path imagePath = mock(Path.class);
+        when(imagePath.getFileName()).thenReturn(Paths.get("image.invalid")); 
+    
+        MediaType mediaType = movieService.determineMediaType(imagePath);
+        assertEquals(MediaType.APPLICATION_OCTET_STREAM, mediaType);
+    }
+    
 }

@@ -23,16 +23,5 @@ public class MovieClass {
     private String genre;
 
     private MultipartFile image;
-
-    @Override
-    public String toString() {
-        return "MovieClass{" +
-                "title='" + title + '\'' +
-                ", duration='" + duration + '\'' +
-                ", studio='" + studio + '\'' +
-                ", genre='" + genre + '\'' +
-                ", image=" + image +
-                '}';
-    }
     
 }

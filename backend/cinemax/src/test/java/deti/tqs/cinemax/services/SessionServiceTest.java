@@ -82,37 +82,6 @@ class SessionServiceTest {
     }
 
     @Test
-    @Disabled
-    //problem with assertThrows
-    void testSaveSessionWithExistingSession() {
-        Room room = new Room();
-        room.setId(1L);
-        room.setCapacity(100);
-
-        Session oldSession = new Session();
-        oldSession.setId(1L);
-        oldSession.setTime("20:00");
-        oldSession.setDate("2024-05-11");
-        oldSession.setRoom(room);
-
-        Session newSession = new Session();
-        newSession.setId(2L);
-        newSession.setTime("20:00");
-        newSession.setDate("2024-05-11");
-        newSession.setRoom(room);
-
-        log.info("Mocking sessionRepository.findByDateAndTimeAndRoomId() to return a session");
-        Mockito.when(sessionRepository.findByDateAndTimeAndRoom(newSession.getDate(), newSession.getTime(), newSession.getRoom())).thenReturn(List.of(oldSession));
-
-        log.info("Calling sessionService.saveSession(session={})", newSession);
-
-        Session savedSession = sessionService.saveSession(newSession);
-
-        assertThrows(IllegalArgumentException.class, () -> sessionService.saveSession(newSession));
-        log.info("Session with date {} and time {} and room id {} already exists", newSession.getDate(), newSession.getTime(), newSession.getRoom());
-    }
-
-    @Test
     void testUpdateSession_Found() {
         Long id = 1L;
         Session existingSession = new Session(id, "2024-05-11", "20:00", null,null, null, new ArrayList<>());

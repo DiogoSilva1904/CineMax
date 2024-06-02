@@ -17,11 +17,4 @@ public class FilesClass {
 
     private MultipartFile file;
 
-    @Override
-    public String toString() {
-        return "FilesClass{" +
-                "parent=" + parentId +
-                ", file=" + file +
-                '}';
-    }
 }
