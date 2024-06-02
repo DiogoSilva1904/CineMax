@@ -6,7 +6,7 @@
     <div *ngIf="movie" class="movie-container">
       <div class="card movie-card">
         <div class="card-header">
-          <img src="https://m.media-amazon.com/images/I/91vya3UmldL._AC_UF894,1000_QL80_DpWeblab_.jpg" class="card-img-top" alt="{{ movie.title }}">
+          <img [src]="imageUrl" alt="Image">
         </div>
         <div class="card-body">
           <header>{{ movie.title }}</header>
