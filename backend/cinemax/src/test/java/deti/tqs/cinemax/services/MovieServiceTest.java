@@ -21,12 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.access.method.P;
 import org.springframework.web.multipart.MultipartFile;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -203,5 +206,53 @@ class MovieServiceTest {
         file.delete();
         assertFalse(file.exists());
         log.info("Created movie: {}", savedMovie);
+    }
+
+
+    @Test
+    public void testDetermineMediaType_Jpeg() {
+        Path imagePath = mock(Path.class);
+        when(imagePath.getFileName()).thenReturn(Paths.get("image.jpg"));
+
+    
+        MediaType mediaType = movieService.determineMediaType(imagePath);
+        assertEquals(MediaType.IMAGE_JPEG, mediaType);
+    }
+
+    @Test
+    public void testDetermineMediaType_Png() {
+        Path imagePath = mock(Path.class);
+        when(imagePath.getFileName()).thenReturn(Paths.get("image.png"));
+        
+    
+        MediaType mediaType = movieService.determineMediaType(imagePath);
+        assertEquals(MediaType.IMAGE_PNG, mediaType);
+    }
+
+    @Test
+    public void testDetermineMediaType_Gif() {
+        Path imagePath = mock(Path.class);
+        when(imagePath.getFileName()).thenReturn(Paths.get("image.gif")); 
+    
+        MediaType mediaType = movieService.determineMediaType(imagePath);
+        assertEquals(MediaType.IMAGE_GIF, mediaType);
+    }
+
+    @Test
+    public void testDetermineMediaType_Other() {
+        Path imagePath = mock(Path.class);
+        when(imagePath.getFileName()).thenReturn(Paths.get("image")); 
+    
+        MediaType mediaType = movieService.determineMediaType(imagePath);
+        assertEquals(MediaType.APPLICATION_OCTET_STREAM, mediaType);
+    }
+
+    @Test
+    public void testDetermineMediaType_Invalid() {
+        Path imagePath = mock(Path.class);
+        when(imagePath.getFileName()).thenReturn(Paths.get("image.invalid")); 
+    
+        MediaType mediaType = movieService.determineMediaType(imagePath);
+        assertEquals(MediaType.APPLICATION_OCTET_STREAM, mediaType);
     }
 }
