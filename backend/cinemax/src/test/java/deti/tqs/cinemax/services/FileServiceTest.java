@@ -30,7 +30,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import deti.tqs.cinemax.models.CustomFile;
 import deti.tqs.cinemax.models.FilesClass;
 import deti.tqs.cinemax.repositories.FileRepository;
-import deti.tqs.cinemax.services.FileService;
 
 @ExtendWith(MockitoExtension.class)
 class FileServiceTest {

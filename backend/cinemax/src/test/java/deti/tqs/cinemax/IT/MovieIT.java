@@ -1,28 +1,33 @@
 package deti.tqs.cinemax.IT;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import deti.tqs.cinemax.config.CustomUserDetailsService;
-import deti.tqs.cinemax.config.JwtAuthFilter;
 import deti.tqs.cinemax.models.Movie;
-import org.apache.coyote.Response;
+import deti.tqs.cinemax.models.MovieClass;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.multipart.MultipartFile;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.springframework.http.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,7 +78,7 @@ public class MovieIT {
                 String.class
         );
 
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
         String responseBody = response.getBody();
 
@@ -87,7 +92,7 @@ public class MovieIT {
 
     @Test
     @Order(1)
-    void testGetAllMovies() {
+    void whenGetAllMovies_ReturnAllMovies() {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(jwtToken);
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -102,7 +107,7 @@ public class MovieIT {
 
     @Test
     @Order(2)
-    void testGetMovieById() {
+    void whenGetMovieById_ReturnMovie() {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(jwtToken);
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -118,7 +123,7 @@ public class MovieIT {
 
     @Test
     @Order(3)
-    void testGetMovieByIdFailure() {
+    void whenGetMovieById_ReturnNotFound() {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(jwtToken);
         HttpEntity<?> entity = new HttpEntity<>(headers);
@@ -130,36 +135,55 @@ public class MovieIT {
 
     @Test
     @Order(4)
-    @Disabled("is not working")
-    void testSaveMovie(){
+    @Disabled("missing logic")
+    void whenCreateMovie_ReturnCorrectResponse() throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(jwtToken);
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-        Movie movie = new Movie();
+        byte[] content = "This is a test file content".getBytes(StandardCharsets.UTF_8);
+        MultipartFile file = new MockMultipartFile("image", "test.png", "image/png", content);
+
+        MovieClass movie = new MovieClass();
         movie.setTitle("The Dark Knight");
-        movie.setCategory("Action");
         movie.setGenre("Crime");
         movie.setStudio("Warner Bros.");
         movie.setDuration("152 minutes");
-        movie.setImagePath(null);
 
-        HttpEntity<Movie> entity = new HttpEntity<>(movie, headers);
+        // Convert the movie object to JSON string
+        ObjectMapper objectMapper = new ObjectMapper();
+        String movieJson = objectMapper.writeValueAsString(movie);
 
-        ResponseEntity<Movie> response = restTemplate.exchange("http://localhost:" + port + "/api/movies", HttpMethod.POST ,entity, Movie.class);
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("file", new ByteArrayResource(content) {
+            @Override
+            public String getFilename() {
+                return "test.png";
+            }
+        });
+        body.add("movie", new HttpEntity<>(movieJson, headers));
+
+        HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, headers);
+
+        ResponseEntity<Movie> response = restTemplate.exchange("http://localhost:" + port + "/api/movies", HttpMethod.POST, entity, Movie.class);
+
+        String responseJson = objectMapper.writeValueAsString(response.getBody());
+        System.out.println("Response: " + responseJson);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
         Movie savedMovie = response.getBody();
         assertEquals("The Dark Knight", savedMovie.getTitle());
-        assertEquals("Action", savedMovie.getCategory());
-
+        assertEquals("Crime", savedMovie.getGenre()); // Ensure this matches the input
+        assertEquals("Warner Bros.", savedMovie.getStudio());
+        assertEquals("152 minutes", savedMovie.getDuration());
     }
+
 
     @Test
     @Order(5)
     @Disabled("missing logic")
-    void testSavingMovieAlreadyExists(){//could need a change on final assert
+    void whenCreateMovieWithAlreadyExistingTitle_ReturnBadRequest(){//could need a change on final assert
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(jwtToken);
         headers.setContentType(MediaType.APPLICATION_JSON);

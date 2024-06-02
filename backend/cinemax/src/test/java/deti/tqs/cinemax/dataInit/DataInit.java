@@ -63,7 +63,7 @@ public class DataInit implements CommandLineRunner {
         movie1.setCategory("Science Fiction");
         movie1.setGenre("Action");
         movie1.setStudio("Warner Bros.");
-        movie1.setDuration("148 minutes");
+        movie1.setDuration("148");
 
         movieService.saveMovie(movie1);
 
@@ -74,7 +74,7 @@ public class DataInit implements CommandLineRunner {
         movie2.setCategory("Drama");
         movie2.setGenre("Crime");
         movie2.setStudio("Castle Rock Entertainment");
-        movie2.setDuration("142 minutes");
+        movie2.setDuration("142");
 
         movieService.saveMovie(movie2);
 
@@ -85,7 +85,7 @@ public class DataInit implements CommandLineRunner {
         movie3.setCategory("Crime");
         movie3.setGenre("Drama");
         movie3.setStudio("Paramount Pictures");
-        movie3.setDuration("175 minutes");
+        movie3.setDuration("175");
 
         movieService.saveMovie(movie3);
 
@@ -148,13 +148,15 @@ public class DataInit implements CommandLineRunner {
         reservation1.setSession(session1);
         reservation1.setSeatNumbers(List.of("A3"));
         reservation1.setUser(user1);//need to be changed
+        reservation1.setUsed(false);
         reservation1.setPrice(10);
 
         reservationService.saveReservation(reservation1);
 
         Reservation reservation2 = new Reservation();
         reservation2.setSession(session2);
-        reservation2.setSeatNumbers(List.of("B4","B5"));
+        reservation2.setSeatNumbers(List.of("B4","B6"));
+        reservation2.setUsed(false);
         reservation2.setUser(user1);//need to be changed
         reservation2.setPrice(30);
 
@@ -162,8 +164,9 @@ public class DataInit implements CommandLineRunner {
 
         Reservation reservation3 = new Reservation();
         reservation3.setSession(session3);
-        reservation3.setSeatNumbers(List.of("C2"));
+        reservation3.setSeatNumbers(List.of("C3"));
         reservation3.setUser(adminUser);//need to be changed
+        reservation3.setUsed(false);
         reservation3.setPrice(20);
 
         reservationService.saveReservation(reservation3);

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -45,15 +44,5 @@ public class CustomFile {
         this.size = size;
         this.parent = parent;
         this.subDirectories = null;
-    }
-
-    public String toString() {
-        return "File{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", parent=" + (parent != null ? parent : "null") +
-                ", subDirectories=" + (subDirectories == null ? "null" : Arrays.toString(subDirectories.toArray())) +
-                '}';
     }
 }
