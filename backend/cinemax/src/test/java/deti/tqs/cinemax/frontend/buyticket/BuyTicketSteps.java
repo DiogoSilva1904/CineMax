@@ -163,7 +163,6 @@ public class BuyTicketSteps {
         if (driver != null) {
             driver.quit();
         }
-        
     }
 
     private String loginAndGetToken(String username, String password) {
