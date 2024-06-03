@@ -16,7 +16,6 @@ Projeto final da cadeira Testes e Qualidade de Software
 
 ##  Project Bookmarks
 
-
 ### Project Backlog
 
 https://cinem4x.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog
@@ -41,6 +40,3 @@ http://deti-tqs-10.ua.pt:4200
 ### Swagger Documentation
 
 http://deti-tqs-10.ua.pt:8080/swagger-ui/index.html#/
-
-
-
