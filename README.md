@@ -5,7 +5,7 @@ Projeto final da cadeira Testes e Qualidade de Software
 
 Cinemax is a cinema management system designed to enhance the movie-going experience for customers and streamline operations for cinema staff.
 
-It comprises three core components: **Client**, **Staff**, and **Digital Signage**.
+It comprises three core components:
 
 - **Client**: This user-friendly portal empowers customers to effortlessly search and book movie tickets. Key features include intuitive seat selection and seamless, paperless entry using QR codes, ensuring a convenient and modern ticketing experience.
 - **Staff**: This comprehensive control panel is tailored for cinema staff, enabling efficient management of movie sessions, seat assignments, and ticket sales.
