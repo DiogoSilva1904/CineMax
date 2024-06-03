@@ -61,7 +61,7 @@ https://docs.google.com/document/d/1aqLJ6EX2aGqahu4blK77T0IhTzl8RofkRXJMERwamdk/
 
 ### Project QA Manual
 
-[Project QA Manual](reports/TQS-QA_CineMax .pdf)
+[Project QA Manual](https://github.com/DiogoSilva1904/CineMax/blob/main/reports/TQS%20-%20QA_CineMax%20.pdf)
 
 ### Project Website
 
