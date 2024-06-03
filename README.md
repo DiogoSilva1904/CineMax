@@ -17,7 +17,8 @@ Projeto final da cadeira Testes e Qualidade de Software
 Ensure you have docker installed, with Dokcer Compose available:
 
 To run the project:
-```   docker compose up ```
+
+```sh   docker compose up ```
   
 ## Demo
 
