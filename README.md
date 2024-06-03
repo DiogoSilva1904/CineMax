@@ -3,16 +3,16 @@ Projeto final da cadeira Testes e Qualidade de Software
 
 ### Project Abstract
 
-Cinemax is a cinema management system designed to enhance the movie-going experience for customers and streamline operations for cinema staff. 
+Cinemax is a cinema management system designed to enhance the movie-going experience for customers and streamline operations for cinema staff.
 
-It comprises three core components: Client, Staff, and Digital Signage.
+It comprises three core components: **Client**, **Staff**, and **Digital Signage**.
 
-- Client: This user-friendly portal empowers customers to effortlessly search and book movie tickets. Key features include intuitive seat selection and seamless, paperless entry using QR codes, ensuring a convenient and modern ticketing experience.
-- Staff: This comprehensive control panel is tailored for cinema staff, enabling efficient management of movie sessions, seat assignments, and ticket sales.
-- Digital Signage: These dynamic digital displays are strategically placed throughout the cinema to showcase upcoming movie sessions and real-time updates on their availability, enhancing the overall ambiance and keeping users informed.
+- **Client**: This user-friendly portal empowers customers to effortlessly search and book movie tickets. Key features include intuitive seat selection and seamless, paperless entry using QR codes, ensuring a convenient and modern ticketing experience.
+- **Staff**: This comprehensive control panel is tailored for cinema staff, enabling efficient management of movie sessions, seat assignments, and ticket sales.
+- **Digital Signage**: These dynamic digital displays are strategically placed throughout the cinema to showcase upcoming movie sessions and real-time updates on their availability, enhancing the overall ambiance and keeping users informed.
 
-  
 This project aims to develop an MVP that adheres to the specified usage scenarios while incorporating enterprise architecture patterns. The solution will be built using collaborative agile practices and a comprehensive Software Quality Assurance (SQA) strategy. To enhance efficiency and quality, we will implement software engineering practices such as continuous testing, continuous integration, and continuous delivery. These practices will minimize manual intervention, save valuable time, foster collaboration and trust within the development team, and streamline the development lifecycle for the rapid delivery of high-quality software releases.
+
 
 
 
