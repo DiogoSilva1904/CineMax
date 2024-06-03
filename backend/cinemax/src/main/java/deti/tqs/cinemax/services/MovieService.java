@@ -32,7 +32,8 @@ public class MovieService {
     private static final Logger log = LoggerFactory.getLogger(MovieService.class);
     private static final String USERDIR = System.getProperty("user.dir");
 
-    private static final String uploadpath = "uploads";
+    private static final String UPLOAD_PATH = "uploads";
+
 
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
@@ -118,7 +119,7 @@ public class MovieService {
         }
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(movie.getImage().getOriginalFilename()));
-        Path uploadDirPath = Paths.get(USERDIR, this.uploadpath);
+        Path uploadDirPath = Paths.get(USERDIR, UPLOAD_PATH);
 
         try {
             if (!Files.exists(uploadDirPath)) {
@@ -151,7 +152,7 @@ public class MovieService {
             Movie movie = movieOptional.get();
             log.info("Movie: {}", movie.getImagePath());
             if (movie.getImagePath() != null) {
-                Path uploadDirPath = Paths.get(USERDIR, this.uploadpath);
+                Path uploadDirPath = Paths.get(USERDIR, UPLOAD_PATH);
                 Path fileSysPath = uploadDirPath.resolve(movie.getImagePath());
                 log.info("Deleting image file: {}", fileSysPath);
                 try {
@@ -196,7 +197,7 @@ public class MovieService {
         try {
             log.info("Getting image from path: {}", imageP);
 
-            Path uploadDirPath = Paths.get(USERDIR, this.uploadpath);
+            Path uploadDirPath = Paths.get(USERDIR, UPLOAD_PATH);
             // add the file name
             String filePath = uploadDirPath + "/" + imageP;
             Path imagePath = Paths.get(filePath);
