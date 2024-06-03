@@ -229,7 +229,7 @@ class FileServiceTest {
 
     @Test
     @Order(8)
-    void whenDeleteFile_thenFileIsDeleted() throws IOException {
+    void whenDeleteFile_thenFileIsDeleted(){
         CustomFile customFile = new CustomFile("New directory", "directory", 0L, null);
         customFile.setId(1L);
 

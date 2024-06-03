@@ -53,7 +53,7 @@ public class MovieController {
     }
 
     @GetMapping("/image/{imageP}")
-    public ResponseEntity<?> getImage(@PathVariable String imageP){
+    public ResponseEntity<Object> getImage(@PathVariable String imageP){
         return movieService.getImage(imageP);
     }
 

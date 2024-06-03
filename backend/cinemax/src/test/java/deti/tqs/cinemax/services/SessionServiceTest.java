@@ -5,7 +5,6 @@ import deti.tqs.cinemax.models.Room;
 import deti.tqs.cinemax.models.Session;
 import deti.tqs.cinemax.repositories.SessionRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -149,9 +148,7 @@ class SessionServiceTest {
     @Test
     //only gets session in the future
     void testGetSessionsByDate(){
-        Session session = new Session(1L, "2024-05-11", "20:00", null,null, null, new ArrayList<>());
         Session session2 = new Session(2L, "2024-06-11", "21:00", null,null, null, new ArrayList<>());
-        Session session3 = new Session(3L, "2024-05-11", "19:00", null,null, null, new ArrayList<>());
 
         log.info("Mocking sessionRepository.findAllByDate('2024-05-11') to return a list of sessions");
 

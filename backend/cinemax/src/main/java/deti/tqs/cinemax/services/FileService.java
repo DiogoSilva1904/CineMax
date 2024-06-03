@@ -123,8 +123,7 @@ public class FileService {
         if (directory.mkdir()) {
             customFile.setPath(parentDirectoryPath + customFile.getName());
             customFile.setSubDirectories(new ArrayList<>());
-            CustomFile savedFile = fileRepository.save(customFile);
-            return savedFile;
+            return fileRepository.save(customFile);
         }
         else {
             logger.info("Failed to create directory: {}",directory.getAbsolutePath());
@@ -145,33 +144,34 @@ public class FileService {
     public String getParentDirectoryPath(CustomFile customFile) {
         StringBuilder pathBuilder = new StringBuilder();
 
-        
-        if (customFile.getParent() != null){
-            CustomFile parent = fileRepository.findById(customFile.getParent().getId()).orElse(null);
-            pathBuilder.append(parent.getPath());
-            pathBuilder.append("/");
-        }
-        else{
+        if (customFile.getParent() != null) {
+            Optional<CustomFile> parentOptional = fileRepository.findById(customFile.getParent().getId());
+            if (parentOptional.isPresent()) {
+                CustomFile parent = parentOptional.get();
+                pathBuilder.append(parent.getPath());
+                pathBuilder.append("/");
+            } else {
+                logger.warn("Parent not found for customFile with id: {}", customFile.getId());
+            }
+        } else {
             pathBuilder.append("/uploads/");
         }
 
-       
-
-        //Creating upload dir
+        // Creating upload dir
         File rootDirectory = new File(USERDIR + File.separator + "uploads");
 
         if (!rootDirectory.exists()) {
             if (rootDirectory.mkdir()) {
                 logger.info("Root directory created: {}", rootDirectory.getAbsolutePath());
-            } 
-            else {
+            } else {
                 logger.error("Failed to create directory: {}", rootDirectory.getAbsolutePath());
             }
         }
 
-        //adding upload path
+        // Adding upload path
         return pathBuilder.toString();
     }
+    
 
 
     /**
