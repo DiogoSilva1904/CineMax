@@ -17,20 +17,3 @@ Projeto final da cadeira Testes e Qualidade de Software
 ##  Project Bookmarks
 
 
-### Project Backlog
-
-https://cinem4x.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog
-
-
-### Sonar Cloud
-
-https://sonarcloud.io/project/overview?id=DiogoSilva1904_CineMax
-
-### Project Report
-
-https://docs.google.com/document/d/1143NXvSclfFiSrt0smYrzT7Bd4DF1PK0UvCKpQEbyrg/edit?usp=sharing
-
-### Project QA Manual
-
-
-
