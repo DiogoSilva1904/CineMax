@@ -1,5 +1,5 @@
 # CineMax
-Projeto final da cadeira Testes e Qualidade de Software
+TQS Project UA 2023/2024 - CineMax
 
 ### Project Abstract
 
