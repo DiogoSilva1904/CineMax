@@ -123,8 +123,7 @@ public class FileService {
         if (directory.mkdir()) {
             customFile.setPath(parentDirectoryPath + customFile.getName());
             customFile.setSubDirectories(new ArrayList<>());
-            CustomFile savedFile = fileRepository.save(customFile);
-            return savedFile;
+            return fileRepository.save(customFile);
         }
         else {
             logger.info("Failed to create directory: {}",directory.getAbsolutePath());
