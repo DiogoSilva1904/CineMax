@@ -1,0 +1,54 @@
+<div class="sidebar">
+    <app-client-navbar></app-client-navbar>
+</div>
+<div class="movie-info">
+  <div class="moviename">
+    <h2>{{ movieName }}</h2>
+    </div> <!-- Display movie name -->
+  <div class="movieschudle">{{ day }} at {{ sessionTime }}</div> <!-- Display day and session time -->
+
+</div>
+<div class="seat-map-container">
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="seat occupied"></div> Occupied
+        </div>
+        <div class="legend-item">
+            <div class="seat free"></div> Free
+        </div>
+        <div class="legend-item">
+            <div class="seat selected"></div> Selected
+        </div>
+    </div>
+    <div class="screen">Screen</div>
+    <div class="seat-map">
+        <!-- Iterate over the seats array -->
+        <div class="row">
+            <ng-container *ngFor="let row of seats; let i = index">
+                <div class="seat-column">
+                    <div class="seat"
+                        [class.selected]="selectedSeats.includes(row.seatIdentifier)"
+                        [class.occupied]="row.occupied"
+                        (click)="toggleSeat(row.seatIdentifier)">
+                        {{ row.seatIdentifier }}
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<div class="bottomstuff1">
+  <div class="price" >Total Price: ${{ totalPrice }}</div> <!-- Display total price -->
+  <div class="selectedSeats">Seats: {{ selectedSeats.join(', ') }}</div>
+  <button class="clearbtn" (click)="clearSeats()">clear</button>
+
+</div>
+
+<div class="bottomstuff2">
+  <button class="reserverbtn" (click)="reserveSeats()">Reserve</button> <!-- Reserve button -->
+  <button class="cancelbtn"  >Cancel</button> <!-- Reserve button -->
+
+</div>
+
+

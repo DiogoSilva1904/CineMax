@@ -1,0 +1,49 @@
+services:
+  mysql:
+    image: mysql/mysql-server:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: cinemax
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    networks:
+      - default
+
+  springboot:
+    build:
+      context: ./backend/cinemax
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/cinemax:/app
+      - ./backend/cinemax/.m2:/root/.m2
+    working_dir: /app
+    command: sh run.sh
+    ports:
+      - 8080:8080
+      - 35729:35729
+      - 5005:5005
+    depends_on:
+      - mysql
+    networks:
+      - default
+
+  angular:
+    build: ./frontend/cinemax
+    container_name: angular
+    stdin_open: true
+    ports:
+      - 4200:4200
+    environment:
+      NODE_OPTIONS: "--max-old-space-size=4096"
+    restart: unless-stopped
+    image: frontend
+    volumes:
+      - ./frontend/cinemax:/app
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge

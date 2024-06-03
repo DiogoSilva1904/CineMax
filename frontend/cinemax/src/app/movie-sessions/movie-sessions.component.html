@@ -1,0 +1,30 @@
+<div class="sidebar">
+  <app-client-navbar></app-client-navbar>
+</div>
+<div class="main-content">
+  <div class="container">
+    <div *ngIf="movie" class="movie-container">
+      <div class="card movie-card">
+        <div class="card-header">
+          <img [src]="imageUrl" alt="Image">
+        </div>
+        <div class="card-body">
+          <header>{{ movie.title }}</header>
+          <div class="genre">{{ movie.duration }}</div>
+        </div>
+      </div>
+      <div class="sessions-container">
+        <div *ngFor="let session of movie.session" class="session-card">
+          <div class="card-body">
+            <div class="session-details">
+              <h5 class="card-title">Session Details</h5>
+              <p class="card-text">Date: {{ session.date }}</p>
+              <p class="card-text">Time: {{ session.time }}</p>
+            </div>
+            <button class="btn btn-primary" (click)="goToChooseSeat(session.id)">Select Seat</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

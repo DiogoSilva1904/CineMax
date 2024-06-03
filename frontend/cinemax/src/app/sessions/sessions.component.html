@@ -1,0 +1,94 @@
+<div class="sidebar">
+    <app-navbar></app-navbar>
+</div>
+
+<h2 class="session-header">
+  Sessions
+  <button id="addsession" (click)="showAddStudentModal()" mat-icon-button color="primary"class="add-button">
+      <mat-icon>add</mat-icon>
+  </button>
+</h2>
+
+<section class="example-container mat-elevation-z8" tabindex="0">
+<table mat-table [dataSource]="sessions">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Movie </th>
+      <td mat-cell *matCellDef="let element"> {{element.movie.title}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="room">
+      <th mat-header-cell *matHeaderCellDef> Room </th>
+      <td mat-cell *matCellDef="let element"> {{element.room.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="available_seats">
+      <th mat-header-cell *matHeaderCellDef> Available Seats </th>
+      <td mat-cell *matCellDef="let element"> {{element.room.capacity - element.bookedSeats.length}} </td>
+    </ng-container>
+
+    <!-- delete button-->
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef> Delete </th>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="deleteSession(element.id)" mat-icon-button class="delete-button" color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</section>
+
+<div id="addModal" class="modal">
+  <div class="modal-content">
+    <h2>Add Session</h2>
+    <div class="input-group">
+      <div class="input">
+        <p>Date: <input id="date" type="text"></p>
+        <p>Time: <input id="time" type="email"></p>
+      </div>
+      <div class="select">
+        <p>Room:
+          <select id="room" [(ngModel)]="selectedRoom">
+            <option *ngFor="let room of rooms" [ngValue]="room">{{room.name}}</option>
+          </select>          
+        </p>
+      </div>
+      <div class="select">
+        <p>Movie:
+          <select id="movie" [(ngModel)]="selectedMovie">
+            <option *ngFor="let movie of movies" [ngValue]="movie">{{movie.title}}</option>
+          </select>          
+        </p>
+      </div>
+    </div>
+    <!-- Add more fields as needed -->
+    <button id="create" (click)="addSession()" class="button1">Save Changes</button>
+    <button (click)="closeAddModal()" class="button2">Close</button>
+  </div>
+</div>
