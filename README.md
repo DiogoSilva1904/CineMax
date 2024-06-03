@@ -16,11 +16,16 @@ Projeto final da cadeira Testes e Qualidade de Software
 ## Running 
 Ensure you have docker installed, with Dokcer Compose available:
 
-To run the development environment:
-
+To run the project:
+```   docker compose up ```
+  
 ## Demo
 
 The demo can be viewed [here](https://youtu.be/2gMAwDJ-4PQ).
+
+## Swagger Documentation
+
+http://deti-tqs-10.ua.pt:8080/swagger-ui/index.html#/
 
 ##  Project Bookmarks
 
@@ -44,7 +49,3 @@ https://docs.google.com/document/d/1SmETX_DwVvHfmYJCmOfb9xyrs4gBTJq0zagazAmamRY/
 ### Project Website
 
 http://deti-tqs-10.ua.pt:4200
-
-### Swagger Documentation
-
-http://deti-tqs-10.ua.pt:8080/swagger-ui/index.html#/
