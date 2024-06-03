@@ -194,7 +194,8 @@ public class MovieService {
      */
     public ResponseEntity<Object> getImage(String imageP) {
         try {
-            log.info("Getting image from path: " + imageP);
+            log.info(String.format("Getting image from path: %s", imageP));
+
 
             Path uploadDirPath = Paths.get(USERDIR, this.uploadpath);
             // add the file name
