@@ -16,12 +16,10 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.multipart.MultipartFile;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -142,7 +140,6 @@ public class MovieIT {
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
         byte[] content = "This is a test file content".getBytes(StandardCharsets.UTF_8);
-        MultipartFile file = new MockMultipartFile("image", "test.png", "image/png", content);
 
         MovieClass movie = new MovieClass();
         movie.setTitle("The Dark Knight");
