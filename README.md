@@ -13,6 +13,14 @@ Projeto final da cadeira Testes e Qualidade de Software
 | Rafael Vilaça | rafael.vilaca@ua.pt | 107476 | Team Leader |
 | Rafael Kauati | rafaelkauati@ua.pt | 105925 | DevOps Master |
 
+## Running 
+Ensure you have docker installed, with Dokcer Compose available:
+
+To run the development environment:
+
+## Demo
+
+The demo can be viewed [here](https://youtu.be/2gMAwDJ-4PQ).
 
 ##  Project Bookmarks
 
