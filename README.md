@@ -55,9 +55,9 @@ https://cinem4x.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog
 
 https://sonarcloud.io/project/overview?id=DiogoSilva1904_CineMax
 
-### Project Report
+### Project Specification Report
+[Project Specification Report](https://github.com/DiogoSilva1904/CineMax/blob/main/reports/TQS%20-%20Product%20Specification%20Report.pdf)
 
-https://docs.google.com/document/d/1aqLJ6EX2aGqahu4blK77T0IhTzl8RofkRXJMERwamdk/edit?usp=sharing
 
 ### Project QA Manual
 
