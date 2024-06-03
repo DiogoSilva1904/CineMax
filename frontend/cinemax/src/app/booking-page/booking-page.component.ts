@@ -126,6 +126,10 @@ export class BookingPageComponent {
 
 
   reserveSeats() {
+    if (this.selectedSeats.length === 0) {
+      alert('Please select a seat');
+      return;
+    }
     const reservation = {
       user: { username: localStorage.getItem('username')},
       price: this.totalPrice,

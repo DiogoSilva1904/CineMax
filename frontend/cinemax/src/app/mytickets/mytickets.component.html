@@ -7,7 +7,7 @@
     <div *ngFor="let ticket of tickets" class="ticket-card">
       <div class="ticket">
         <div class="movie-poster">
-          <img src="https://upload.wikimedia.org/wikipedia/pt/b/bf/O_auto_da_compadecida.jpg"
+          <img [src]="ticket.imageUrl"
                alt="{{ ticket.session.movie.title }}" />
         </div>
         <div class="ticket-info">

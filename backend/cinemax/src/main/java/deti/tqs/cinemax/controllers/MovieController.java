@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import deti.tqs.cinemax.models.Movie;
+import deti.tqs.cinemax.models.MovieClass;
 import deti.tqs.cinemax.services.MovieService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@CrossOrigin(origins = "localhost:4200")
 @RestController
 @RequestMapping("/api/movies")
 @Tag(name = "movies", description = "Endpoints to manage movies")
@@ -41,9 +41,9 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
-        Movie updatedmovie = movieService.saveMovie(movie);
-        return new ResponseEntity<>(updatedmovie, HttpStatus.CREATED);
+    public ResponseEntity<Movie> saveMovie(@ModelAttribute MovieClass movie) {
+        Movie newMovie = movieService.CreateMovie(movie);
+        return new ResponseEntity<>(newMovie, HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
@@ -52,6 +52,9 @@ public class MovieController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    
-    
+    @GetMapping("/image/{imageP}")
+    public ResponseEntity<?> getImage(@PathVariable String imageP){
+        return movieService.getImage(imageP);
+    }
+
 }

@@ -20,7 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
 			.allowedOrigins("http://deti-tqs-10.ua.pt:4200")
 			.allowedMethods("PUT", "DELETE", "GET", "POST")
 			.allowedHeaders("*")
-			.exposedHeaders("*")
+			.exposedHeaders("*") 
 			.allowCredentials(true).maxAge(3600);
 
 		// Add more mappings...

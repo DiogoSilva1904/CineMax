@@ -4,7 +4,9 @@ import deti.tqs.cinemax.config.CustomUserDetailsService;
 import deti.tqs.cinemax.config.IAuthenticationFacade;
 import deti.tqs.cinemax.config.JwtUtilService;
 import deti.tqs.cinemax.models.Movie;
+import deti.tqs.cinemax.repositories.MovieRepository;
 import deti.tqs.cinemax.services.MovieService;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.mockito.Mockito;
@@ -14,15 +16,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.test.web.servlet.MockMvc;
-
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import java.util.List;
 
 @WebMvcTest(MovieController.class)
@@ -44,12 +42,16 @@ class MovieControllerTest {
     @MockBean
     private MovieService movieService;
 
+    @MockBean
+    private MovieRepository movieRepository;
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
 
     @Test
     void testGetAllMovies() throws Exception{
         Movie movie1 = new Movie();
+        movie1.setId(1L);
         movie1.setTitle("Oppenheimer");
         movie1.setCategory("Action");
         movie1.setGenre("Thriller");
@@ -57,6 +59,7 @@ class MovieControllerTest {
         movie1.setDuration("120min");
 
         Movie movie2 = new Movie();
+        movie2.setId(2L);
         movie2.setTitle("Nope");
         movie2.setCategory("Comedy");
         movie2.setGenre("Romance");
@@ -65,7 +68,7 @@ class MovieControllerTest {
 
         List<Movie> expectedMovies = List.of(movie1, movie2);
 
-        Mockito.when(movieService.getAllMovies()).thenReturn(expectedMovies);
+        when(movieService.getAllMovies()).thenReturn(expectedMovies);
 
        mvc.perform(get("/api/movies"))
                .andExpect(status().isOk())
@@ -77,13 +80,14 @@ class MovieControllerTest {
     @Test
     void testGetMovieByID() throws Exception{
         Movie movie1 = new Movie();
+        movie1.setId(1L);
         movie1.setTitle("Oppenheimer");
         movie1.setCategory("Action");
         movie1.setGenre("Thriller");
         movie1.setStudio("Studio X");
         movie1.setDuration("120min");
 
-        Mockito.when(movieService.getMovieById(1L)).thenReturn(movie1);
+        when(movieService.getMovieById(1L)).thenReturn(movie1);
 
         mvc.perform(get("/api/movies/1"))
                 .andExpect(status().isOk())
@@ -98,7 +102,7 @@ class MovieControllerTest {
 
     @Test
     void testGetMovieByIDFailure() throws Exception{
-        Mockito.when(movieService.getMovieById(1L)).thenReturn(null);
+        when(movieService.getMovieById(1L)).thenReturn(null);
 
         mvc.perform(get("/api/movies/1"))
                 .andExpect(status().isNotFound());
@@ -107,13 +111,15 @@ class MovieControllerTest {
     @Test
     void testSaveMovie() throws Exception{
         Movie movie = new Movie();
+
+        movie.setId(1L);
         movie.setTitle("Oppenheimer");
         movie.setCategory("Action");
         movie.setGenre("Thriller");
         movie.setStudio("Studio X");
         movie.setDuration("120min");
 
-        Mockito.when(movieService.saveMovie(Mockito.any())).thenReturn(movie);
+        Mockito.when(movieService.CreateMovie(Mockito.any())).thenReturn(movie);
 
         mvc.perform(post("/api/movies")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -126,5 +132,20 @@ class MovieControllerTest {
                 .andExpect(jsonPath("$.duration", is("120min")));
     }
 
+    @Test
+    void testDeleteMovie() throws Exception{
+        Movie movie = new Movie();
 
+        movie.setId(1L);
+        movie.setTitle("Oppenheimer");
+        movie.setCategory("Action");
+        movie.setGenre("Thriller");
+        movie.setStudio("Studio X");
+        movie.setDuration("120min");
+
+        Mockito.when(movieService.getMovieById(1L)).thenReturn(movie);
+
+        mvc.perform(delete("/api/movies/1"))
+                .andExpect(status().isNoContent());
+    }
 }

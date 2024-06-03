@@ -41,12 +41,14 @@ public class ReservationController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(reservation, HttpStatus.OK);
-
         }
 
         @PostMapping
         public ResponseEntity<Reservation> saveReservation(@RequestBody Reservation reservation) {
             Reservation updatedReservation = reservationService.saveReservation(reservation);
+            if(updatedReservation == null) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
             return new ResponseEntity<>(updatedReservation, HttpStatus.CREATED);
 
         }

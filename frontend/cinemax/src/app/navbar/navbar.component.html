@@ -8,7 +8,7 @@
                <mat-icon>movie</mat-icon>
                <span mat-line >Movies</span>
            </mat-list-item>
-           <mat-list-item (click)="goToSessions()" class="tp-section">
+           <mat-list-item id="sessions" (click)="goToSessions()" class="tp-section">
                <mat-icon>edit</mat-icon>
                <span mat-line>Sessions</span>
            </mat-list-item>
@@ -16,7 +16,7 @@
             <mat-icon>edit</mat-icon>
             <span mat-line>Change Password</span>
             </mat-list-item>
-            <mat-list-item (click)="goToLogin()" class="tp-section">
+            <mat-list-item id="logout" (click)="goToLogin()" class="tp-section">
                 <mat-icon>logout</mat-icon>
                 <span mat-line>Logout</span>
             </mat-list-item>
