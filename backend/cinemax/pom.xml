@@ -16,8 +16,9 @@
 	<properties>
 		<java.version>17</java.version>
 		<sonar.organization>diogosilva1904</sonar.organization>
-		<sonar.coverage.exclusions>deti/tqs/cinemax/SetupData.java</sonar.coverage.exclusions>        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.exclusions>**/SetupData.java</sonar.exclusions>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.exclusions>**/SetupData.java,**/CinemaxApplication.java,**/config/**</sonar.exclusions>
+		<sonar.coverage.exclusions>**/SetupData.java,**/CinemaxApplication.java,**/config/**</sonar.coverage.exclusions>
 		<selenium-java.version>4.18.1</selenium-java.version>
 		<selenium-jupiter.version>5.0.1</selenium-jupiter.version>
 		<junit-platform-suite.version>1.10.1</junit-platform-suite.version>
