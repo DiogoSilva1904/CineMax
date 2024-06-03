@@ -73,7 +73,7 @@ public class FileController {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "application/json"))
     })
     @PostMapping("/files")
-    public ResponseEntity<?> createFile(@ModelAttribute FilesClass file) {
+    public ResponseEntity<CustomFile> createFile(@ModelAttribute FilesClass file) {
         CustomFile savedFile = fileService.createFile(file);
         if (savedFile == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
