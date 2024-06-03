@@ -18,7 +18,9 @@ Ensure you have docker installed, with Dokcer Compose available:
 
 To run the project:
 
-```sh   docker compose up ```
+```
+docker compose up
+```
   
 ## Demo
 
