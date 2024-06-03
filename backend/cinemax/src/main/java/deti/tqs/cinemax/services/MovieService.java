@@ -32,7 +32,7 @@ public class MovieService {
     private static final Logger log = LoggerFactory.getLogger(MovieService.class);
     private static final String USERDIR = System.getProperty("user.dir");
 
-    private final String uploadpath = "uploads";
+    private static final String uploadpath = "uploads";
 
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
@@ -194,8 +194,7 @@ public class MovieService {
      */
     public ResponseEntity<Object> getImage(String imageP) {
         try {
-            log.info(String.format("Getting image from path: %s", imageP));
-
+            log.info("Getting image from path: {}", imageP);
 
             Path uploadDirPath = Paths.get(USERDIR, this.uploadpath);
             // add the file name
