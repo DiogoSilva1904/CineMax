@@ -40,6 +40,8 @@ public class AuthController {
         this.userService = userService;
     }
 
+    
+
     @PostMapping
     public ResponseEntity<Object> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest){
         
