@@ -40,6 +40,10 @@ The demo can be viewed [here](https://youtu.be/2gMAwDJ-4PQ).
 
 The video showcases the perspectives of both clients and staff using the website, as well as the signage page of our website.
 
+## Presentation
+
+[Presentation](https://github.com/DiogoSilva1904/CineMax/blob/main/TQS%20Cinemax.pptx.ppt.pdf)
+
 ## Swagger Documentation
 
 http://deti-tqs-10.ua.pt:8080/swagger-ui/index.html#/
